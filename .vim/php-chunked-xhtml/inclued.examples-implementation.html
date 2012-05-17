@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>inclued をアプリケーションに組み込む例</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="inclued.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.inclued.html">inclued 関数</a></div>
+ <div class="up"><a href="inclued.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="inclued.examples-implementation" class="section">
+  <h2 class="title">inclued をアプリケーションに組み込む例</h2>
+  <p class="para">
+   この例では、inclued を既存のアプリケーションに組み込んで結果を見る方法を説明します。
+  </p>
+  <p class="para">
+   <div class="example">
+    <p><b>例1 inclued からのデータの取得</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;inclued&nbsp;の情報を保存するファイル<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'/tmp/wp.json'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'w'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$clue&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">inclued_get_data</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$clue</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">json_encode</span><span style="color: #007700">(</span><span style="color: #0000BB">$clue</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   データが取得できたら、それを何らかの形式で図にしてみたいと思われることでしょう。
+   inclued 拡張モジュールには
+   <var class="filename">gengraph.php</var> という PHP ファイルが組み込まれています。
+   このファイルは、<a href="http://www.graphviz.org/" class="link external">&raquo; graphviz</a>
+   ライブラリで使える dot ファイルを作成します。
+   しかし、これは必須ではありません。
+  </p>
+  <p class="para">
+   <div class="example">
+    <p><b>例2 gengraph.php の使用例</b></p>
+    <div class="example-contents"><p>
+     この例は、inclued のデータを示す画像
+     inclued.png を作成します。
+    </p></div>
+    <div class="example-contents">
+<div class="shellcode"><pre class="shellcode"># まず dot ファイルを作成します
+$ php graphviz.php -i /tmp/wp.json -o wp.dot
+
+# そして画像を作成します
+$ dot -Tpng -o inclued.png wp.dot</pre>
+</div>
+    </div>
+
+   </div>
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="inclued.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.inclued.html">inclued 関数</a></div>
+ <div class="up"><a href="inclued.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>WinCache Session Handler</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="wincache.stats.html">WinCache Statistics Script</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="wincache.resources.html">リソース型</a></div>
+ <div class="up"><a href="wincache.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="wincache.sessionhandler" class="section">
+  <h2 class="title">WinCache Session Handler</h2>
+  <p class="para">
+   The WinCache session handler (available since WinCache 1.1.0) can be used to configure PHP to store the session data in shared memory user cache. 
+   Using shared memory instead of the default file session storage helps improve performance of PHP applications 
+   that store large amount of data in session objects.
+  </p>
+  <p class="para">
+   To configure PHP to use WinCache session handler set the <var class="filename">php.ini</var> setting 
+   <a href="session.configuration.html#ini.session.save-handler" class="link">session.save_handler</a> to <em class="emphasis">wincache</em>.
+   <div class="example">
+    <p><b>例1 Enabling WinCache session handler</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+session.save_handler&nbsp;=&nbsp;wincache</span>
+</code></div>
+    </div>
+
+   </div>
+   <blockquote><p><b class="note">注意</b>: 
+    <span class="simpara">
+     In beta release of WinCache Extension 1.1, the user cache is kept in memory and is not backed by a 
+     file system storage. This means that the session data stored in the shared memory will be lost when 
+     IIS application pool is recycled.
+    </span>
+   </p></blockquote>
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="wincache.stats.html">WinCache Statistics Script</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="wincache.resources.html">リソース型</a></div>
+ <div class="up"><a href="wincache.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>最後に見つかったエラーを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.oci-define-by-name.html">oci_define_by_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.oci-execute.html">oci_execute</a></div>
+ <div class="up"><a href="ref.oci8.html">OCI8 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.oci-error" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">oci_error</h1>
+  <p class="verinfo">(PHP 5, PECL OCI8 &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">oci_error</span> &mdash; <span class="dc-title">最後に見つかったエラーを返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+    <span class="type">array</span>  <span class="methodname"><b>oci_error</b></span>
+    ([ <span class="methodparam"> <span class="type">resource</span>  <tt class="parameter">$source</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   最後に見つかったエラーを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">source</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ほとんどのエラーに対応するため、
+       パラメータは適当なリソースハンドルを指定可能。
+       <span class="function"><a href="function.oci-connect.html" class="function">oci_connect()</a></span>、
+       <span class="function"><a href="function.oci-new-connect.html" class="function">oci_new_connect()</a></span>
+       あるいは <span class="function"><a href="function.oci-pconnect.html" class="function">oci_pconnect()</a></span> での接続エラーの場合、
+       パラメータを渡さない。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   もしエラーが見つからない場合、<span class="function"><b>oci_error()</b></span> は
+   <b><tt>FALSE</tt></b> を返す。
+   <span class="function"><b>oci_error()</b></span> はエラーを連想配列として返す。
+   この配列には、Oracle エラーコード <i>code</i> や
+   Oracle エラー文字列 <i>message</i> が含まれる。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3</td>
+       <td align="left">
+        エラーの場所と原因となった SQL テキストを示すため、
+        <i>offset</i> と <i>sqltext</i>
+        も返される配列に含まれる。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example">
+    <p><b>例1 接続エラー後、Oracle エラーメッセージを表示する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+$conn&nbsp;=&nbsp;@oci_connect("scott",&nbsp;"tiger",&nbsp;"mydb");<br />if&nbsp;(!$conn)&nbsp;{<br />&nbsp;&nbsp;$e&nbsp;=&nbsp;oci_error();&nbsp;&nbsp;&nbsp;//&nbsp;oci_connect&nbsp;のエラーの場合、ハンドルを渡さない<br />&nbsp;&nbsp;echo&nbsp;htmlentities($e['message']);<br />}</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+   <p class="para">
+   <div class="example">
+    <p><b>例2 パースエラー後、Oracle エラーメッセージを表示する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+$stmt&nbsp;=&nbsp;@oci_parse($conn,&nbsp;"select&nbsp;'&nbsp;from&nbsp;dual");&nbsp;&nbsp;//&nbsp;クオートが間違っている事に注意<br />if&nbsp;(!$stmt)&nbsp;{<br />&nbsp;&nbsp;$e&nbsp;=&nbsp;oci_error($conn);&nbsp;&nbsp;//&nbsp;oci_parse&nbsp;のエラーの場合、接続ハンドルを渡す<br />&nbsp;&nbsp;echo&nbsp;htmlentities($e['message']);<br />}</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example">
+    <p><b>例3 実行エラー後、
+      Oracle エラーメッセージと問題となった文を表示する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+$r&nbsp;=&nbsp;oci_execute($stmt);<br />if&nbsp;(!$r)&nbsp;{<br />&nbsp;&nbsp;$e&nbsp;=&nbsp;oci_error($stmt);&nbsp;//&nbsp;oci_execute&nbsp;のエラーの場合、ステートメントハンドルを渡す<br />&nbsp;&nbsp;echo&nbsp;htmlentities($e['message']);<br />&nbsp;&nbsp;echo&nbsp;"&lt;pre&gt;";<br />&nbsp;&nbsp;echo&nbsp;htmlentities($e['sqltext']);<br />&nbsp;&nbsp;printf("\n%".($e['offset']+1)."s",&nbsp;"^");<br />&nbsp;&nbsp;echo&nbsp;"&lt;/pre&gt;";<br />}</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes">
+  <h3 class="title">注意</h3>
+  <blockquote><p><b class="note">注意</b>: 
+   
+    PHP バージョン 5.0.0 以前では、代わりに
+    <span class="function"><a href="function.ocierror.html" class="function">ocierror()</a></span>
+    を使用しなければなりません。
+    まだこの名前を使用することができ、下位互換性のため
+    <span class="function"><b>oci_error()</b></span> への別名として残されていますが、
+    推奨されません。
+   <br />
+  </p></blockquote>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.oci-define-by-name.html">oci_define_by_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.oci-execute.html">oci_execute</a></div>
+ <div class="up"><a href="ref.oci8.html">OCI8 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

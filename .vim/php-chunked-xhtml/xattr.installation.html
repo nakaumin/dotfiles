@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>インストール手順</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xattr.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xattr.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="xattr.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="xattr.installation" class="section">
+ <h2 class="title">インストール手順</h2>
+ <p class="para">
+  xattr は、現在 PECL
+  <a href="http://pecl.php.net/package/xattr" class="link external">&raquo; http://pecl.php.net/package/xattr</a>
+  から取得可能です。
+ </p>
+ <p class="para">
+  *nix 系のシステムを使用しており <a href="http://pear.php.net/" class="link external">&raquo; PEAR</a>
+  が使用可能な場合は、pear インストーラを使用して xattr 拡張モジュールを
+  インストールすることができます。そのためには以下のコマンド
+  <strong class="command">pear -v install xattr</strong>
+  を使用します。
+ </p>
+ <p class="para">
+  tar.gz パッケージをダウンロードし、手動でインストールすることも可能です。
+  <div class="example">
+   <p><b>例1 手動での xattr のインストール</b></p>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">gunzip xattr-xxx.tgz
+tar -xvf xattr-xxx.tar
+cd xattr-xxx
+phpize
+./configure &amp;&amp; make &amp;&amp; make install</pre>
+</div>
+   </div>
+
+  </div>
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xattr.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xattr.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="xattr.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

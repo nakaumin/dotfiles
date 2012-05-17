@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したフィールドにインデックスを作成する (すでに存在する場合は何もしない)</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocollection.drop.html">MongoCollection::drop</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocollection.find.html">MongoCollection::find</a></div>
+ <div class="up"><a href="class.mongocollection.html">MongoCollection</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongocollection.ensureindex" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MongoCollection::ensureIndex</h1>
+  <p class="verinfo">(PECL mongo &gt;=0.9.0)</p><p class="refpurpose"><span class="refname">MongoCollection::ensureIndex</span> &mdash; <span class="dc-title">
+   指定したフィールドにインデックスを作成する (すでに存在する場合は何もしない)
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span>  <span class="type">boolean</span>  <span class="methodname"><b>MongoCollection::ensureIndex</b></span>
+    ( <span class="methodparam"> <span class="type"><span class="type string|array">string|array</span></span>  <tt class="parameter">$keys</tt></span>
+   , <span class="methodparam"> <span class="type">boolean</span>  <tt class="parameter">$unique</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   そのフィールドを持たないドキュメントが複数ある場合は、
+   そこに一意なインデックスを作成することはできません。
+   フィールドが存在しないときは事実上そのフィールドは
+   <b><tt>NULL</tt></b> ということになり、それが複数存在すると既に一意ではなくなっているからです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters"> 
+  <h3 class="title">パラメータ</h3> 
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">keys</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       インデックスとして使用するフィールド。
+      </p>
+     </dd>
+
+    </dt>
+   
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">unique</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       一意なインデックスであるかどうか。
+      </p>
+     </dd>
+
+    </dt>
+   
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <b><tt>TRUE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples">
+  <h3 class="title">例</h3>
+  <div class="example">
+   <p><b>例1 <span class="function"><b>MongoCollection::ensureIndex()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$c&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoCollection</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;'x'&nbsp;の昇順にインデックスを作成します<br /></span><span style="color: #0000BB">$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ensureIndex</span><span style="color: #007700">(</span><span style="color: #DD0000">'x'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;'y'&nbsp;の昇順にインデックスを作成します<br /></span><span style="color: #0000BB">$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ensureIndex</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'y'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;'w'&nbsp;の降順にインデックスを作成します<br /></span><span style="color: #0000BB">$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ensureIndex</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'w'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;'z'&nbsp;の昇順、'zz'&nbsp;の降順にインデックスを作成します<br /></span><span style="color: #0000BB">$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ensureIndex</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'z'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'zz'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;'x'&nbsp;に一意なインデックスを作成します<br /></span><span style="color: #0000BB">$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ensureIndex</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'x'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocollection.drop.html">MongoCollection::drop</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocollection.find.html">MongoCollection::find</a></div>
+ <div class="up"><a href="class.mongocollection.html">MongoCollection</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

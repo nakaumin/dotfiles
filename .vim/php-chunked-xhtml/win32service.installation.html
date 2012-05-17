@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>インストール手順</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="win32service.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="win32service.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="win32service.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="win32service.installation" class="section">
+  <h2 class="title">インストール手順</h2>
+  <div class="procedure">
+   <b class="title">PECL からのインストール</b>
+   <ol type="1"><li>
+    <p class="para">
+     http://snaps.php.net/win32/ から <var class="filename">php_win32service.dll</var> がダウンロード可能です。
+     PHP のバージョンに一致する <i>PECL_X_X</i> フォルダを選択します。
+    </p>
+   </li>
+   <li>
+    <p class="para">
+     <var class="filename">php_win32service.dll</var> を <a href="ini.core.html#ini.extension-dir" class="link">extension_dir</a> にコピーします。
+    </p>
+   </li>
+   <li>
+    <p class="para">
+     <var class="filename">php.ini</var> で拡張モジュールを読み込みます。
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+extension=php_win32service.dll
+</pre></div>
+     </div>
+    </p>
+   </li>
+  </ol></div>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="win32service.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="win32service.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="win32service.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

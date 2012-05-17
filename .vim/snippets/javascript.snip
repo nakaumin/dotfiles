@@ -1,0 +1,59 @@
+snippet log
+abbr console.log()
+  console.log(${1});
+
+snippet class
+abbr class template
+  //################################################################################
+  // this     : インスタンス 
+  // _class   : スタティック
+  // アンダースコアではじまるものはプライベートとして扱う
+  //################################################################################
+
+  /**
+   * Klass 
+   * @class Klass
+   * @param 
+   */
+  var Klass = (function() {
+  'use strict';
+
+    //----------------------------------------
+    // INSTANCE 
+    //----------------------------------------
+    var _class = function(prop, _prop) {
+      // PUBLIC 
+      this.prop = prop;
+      // PRIVATE
+      this._prop = _prop;
+    }
+
+    // METHODS
+    _class.prototype = {
+
+      // PUBLIC
+      method: function() {
+        return this.prop + _class.method();
+      },
+
+      // PRIVATE
+      _method: function() {
+        return this._prop + _class._method();
+      }
+    };
+
+    //----------------------------------------
+    // STATIC 
+    //----------------------------------------
+
+    // PUBLIC  _class.prop = 'static public';
+    _class.method = function() {};
+
+    // PRIVATE
+    _class._prop = 'static private';
+    _class._method = function() {};
+    return _class;
+
+  })();
+
+

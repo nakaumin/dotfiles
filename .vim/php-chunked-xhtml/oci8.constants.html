@@ -1,0 +1,863 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>定義済み定数</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oci8.resources.html">リソース型</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oci8.examples.html">例</a></div>
+ <div class="up"><a href="book.oci8.html">OCI8</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="oci8.constants" class="appendix">
+ <h1>定義済み定数</h1>
+
+ <p class="simpara">
+以下の定数が定義されています。
+この関数の拡張モジュールが PHP 組み込みでコンパイルされているか、
+実行時に動的にロードされている場合のみ使用可能です。
+</p>
+ <dl>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_DEFAULT</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     文の実行モードを指定します。
+     このモードを使用する場合、
+     文は自動的にコミットされません。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_DESCRIBE_ONLY</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     文の実行モードを指定します。
+     実際に文を実行したくないが取得一覧の記述は取得したい場合に
+     このモードを使用してください。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_COMMIT_ON_SUCCESS</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     文の実行モードを指定します。
+     文は、<span class="function"><a href="function.oci-execute.html" class="function">oci_execute()</a></span>
+     コールの後に自動的にコミットされます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_EXACT_FETCH</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     文の取得モードを指定します。
+     アプリケーションがあらかじめ何行取得すればよいか分かっている場合に
+     使用されます。
+     このモードは Oracle リリース 8 以降ではプリフェッチ機能をオフにします。
+     カーソルは希望する行を取得した後キャンセルされ、
+     サーバ側のリソースの使用は軽減されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_SYSDATE</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_B_BFILE</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     BFILE をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_B_CFILEE</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     CFILE をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_B_CLOB</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     CLOB をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_B_BLOB</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     BLOB をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_B_ROWID</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     ROWID をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_B_CURSOR</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     <span class="function"><a href="function.oci-new-descriptor.html" class="function">oci_new_descriptor()</a></span>
+     によってあらかじめ割り当てられたカーソルをバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_B_NTY</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     名前付けされたデータ型をバインドする場合に使用されます。
+     注意: PHP &lt; 5.0 では <b><tt>OCI_B_SQLT_NTY</tt></b> と呼ばれます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_B_BIN</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_BFILEE</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <b><tt>OCI_B_BFILE</tt></b> と等価です。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_CFILEE</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <b><tt>OCI_B_CFILEE</tt></b> と等価です。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_CLOB</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <b><tt>OCI_B_CLOB</tt></b> と等価です。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_BLOB</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <b><tt>OCI_B_BLOB</tt></b> と等価です。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_RDD</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <b><tt>OCI_B_ROWID</tt></b> と等価です。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_NTY</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <b><tt>OCI_B_NTY</tt></b> と等価です。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_LNG</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     LONG 値をバインドする際に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_LBI</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     LONG RAW 値をバインドする際に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_BIN</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> で
+     RAW 値をバインドする際に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_NUM</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     NUMBER の配列をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_INT</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     INTEGER の配列をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_AFC</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     CHAR の配列をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_CHR</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     VARCHAR2 の配列をバインドする場合に使用されます。
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span> でも使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_VCS</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     VARCHAR の配列をバインドする際に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_AVC</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     CHARZ の配列をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_STR</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     STRING の配列をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_LVC</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     LONG VARCHAR の配列をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_FLT</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     FLOAT の配列をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_ODT</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-array-by-name.html" class="function">oci_bind_array_by_name()</a></span> で
+     LONG の配列をバインドする場合に使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_BDOUBLE</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>SQLT_BFLOAT</tt></b> 
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_FETCHSTATEMENT_BY_COLUMN</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-fetch-all.html" class="function">oci_fetch_all()</a></span> のデフォルトのモードです。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_FETCHSTATEMENT_BY_ROW</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-fetch-all.html" class="function">oci_fetch_all()</a></span> でのもうひとつのモードです。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_ASSOC</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-fetch-all.html" class="function">oci_fetch_all()</a></span> と
+     <span class="function"><a href="function.oci-fetch-array.html" class="function">oci_fetch_array()</a></span>
+     で結果を連想配列で取得するために使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_NUM</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-fetch-all.html" class="function">oci_fetch_all()</a></span> と
+     <span class="function"><a href="function.oci-fetch-array.html" class="function">oci_fetch_array()</a></span>
+     で結果を配列で取得するために使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_BOTH</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-fetch-all.html" class="function">oci_fetch_all()</a></span> と
+     <span class="function"><a href="function.oci-fetch-array.html" class="function">oci_fetch_array()</a></span>
+     で結果を配列と連想配列の両方で取得するために使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_RETURN_NULLS</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-fetch-array.html" class="function">oci_fetch_array()</a></span>
+     でフィールド値が <b><tt>NULL</tt></b> の場合に空の配列要素を取得するために使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_RETURN_LOBS</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <span class="function"><a href="function.oci-fetch-array.html" class="function">oci_fetch_array()</a></span>
+     でディスクリプタの代わりに LOB の値を取得するために使用されます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_DTYPE_FILE</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     このフラグは <span class="function"><a href="function.oci-new-descriptor.html" class="function">oci_new_descriptor()</a></span> に新しい
+     FILE ディスクリプタを初期化するように伝えます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_DTYPE_LOB</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     このフラグは <span class="function"><a href="function.oci-new-descriptor.html" class="function">oci_new_descriptor()</a></span> に新しい
+     LOB ディスクリプタを初期化するように伝えます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_DTYPE_ROWID</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     このフラグは <span class="function"><a href="function.oci-new-descriptor.html" class="function">oci_new_descriptor()</a></span> に新しい
+     ROWID ディスクリプタを初期化するように伝えます。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_D_FILE</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <b><tt>OCI_DTYPE_FILE</tt></b> と等価です。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_D_LOB</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <b><tt>OCI_DTYPE_LOB</tt></b> と等価です。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_D_ROWID</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <b><tt>OCI_DTYPE_ROWID</tt></b> と等価です。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_SYSOPER</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     外部の信任を使用する SYSOPER として接続するために
+     <span class="function"><a href="function.oci-connect.html" class="function">oci_connect()</a></span>
+     と併用します (これには <a href="oci8.configuration.html#ini.oci8.privileged-connect" class="link">oci8.privileged_connect</a>
+     を有効にすべきです) 。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_SYSDBA</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     外部の信任を使用する SYSDBA として接続するために
+     <span class="function"><a href="function.oci-connect.html" class="function">oci_connect()</a></span>
+     と併用します (これには <a href="oci8.configuration.html#ini.oci8.privileged-connect" class="link">oci8.privileged_connect</a>
+     を有効にすべきです) 。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_LOB_BUFFER_FREE</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     使用されたバッファを解放するために
+     <a href="function.oci-lob-flush.html" class="xref">OCI-Lob-&gt;flush</a> と併用します。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_TEMP_CLOB</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     一時的な CLOB が生成されるよう明示的に指定するため
+     <a href="function.oci-lob-writetemporary.html" class="xref">OCI-Lob-&gt;writeTemporary</a> と併用します。
+    </span>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>OCI_TEMP_BLOB</tt></b>
+    ( <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> )
+   </span>
+   <dd>
+
+    <span class="simpara">
+     一時的な BLOB が生成されるよう明示的に指定するため
+     <a href="function.oci-lob-writetemporary.html" class="xref">OCI-Lob-&gt;writeTemporary</a> と併用します。
+    </span>
+   </dd>
+
+  </dt>
+
+ </dl>
+
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oci8.resources.html">リソース型</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oci8.examples.html">例</a></div>
+ <div class="up"><a href="book.oci8.html">OCI8</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

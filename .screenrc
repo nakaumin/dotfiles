@@ -1,0 +1,41 @@
+defencoding utf-8
+encoding utf-8 utf-8
+multiuser on
+
+defscrollback 10000
+
+#term xterm-color
+#defbce on
+
+shell -$SHELL
+
+defbce             on
+term               xterm-256color
+termcapinfo xterm-256color 'is=^[r^[mJ^[H^[?7h^[?1;4;6l'
+termcapinfo xterm* 'Co#256:pa#32767:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
+termcapinfo kterm* 'Co#256:pa#32767:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
+
+escape ^a^a
+startup_message off
+vbell off
+autodetach on
+
+#caption always "%?%F%{= kw}%:%{= kW}%?%-w%{=u kW}%n %t%{-}%+w%{-u} %= %c"
+# caption always "%?%F%{= kW}%:%{= kW}%?%-w%{=u Wk} %n %t %{-}%+w%{-u} %= %c"
+
+# Caption for each window
+setenv a ""
+setenv a "$a%{= Kw}" #   set attribute = {dim, black(k) on bright Write(W)}
+setenv a "$a%-w%{= ky}%n %t%{-}%+w%{-u}"
+setenv a "$a %= %c"
+caption always "$a"
+unsetenv a
+
+#hardstatus always "%n %t"
+hardstatus off
+
+#文字幅問題
+cjkwidth on
+
+source '.screenrc.local'
+

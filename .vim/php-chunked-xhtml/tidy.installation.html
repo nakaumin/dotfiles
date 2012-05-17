@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>インストール手順</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tidy.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tidy.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="tidy.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="tidy.installation" class="section">
+ <h2 class="title">インストール手順</h2>
+ <p class="para">
+  Tidy は、現在、PHP 4.3.xおよびPHP 5用として、PECL拡張モジュールとして
+  <a href="http://pecl.php.net/package/tidy" class="link external">&raquo; http://pecl.php.net/package/tidy</a>.
+  から入手可能です。
+ </p>
+ <blockquote><p><b class="note">注意</b>: 
+  
+   Tidy 1.0 はPHP 4.3.x専用で、Tidy 2.0はPHP 5は専用です。
+  <br />
+ </p></blockquote>
+ <p class="para">
+  <a href="http://pear.php.net/" class="link external">&raquo; PEAR</a> は、
+  *nix互換のシステムで利用可能で、tidy拡張モジュールをインストールする際に
+  以下のようにpearインストーラを使用することができます。
+  : <strong class="command">pecl install tidy</strong>
+ </p>
+ <p class="para">
+  次のようにマニュアルで <var class="filename">tar.gz</var> パッケージをダウンロードし、tidyをインストール
+  することも可能です。
+  <div class="example">
+   <p><b>例1 PHP 4.3.x において tidy をマニュアルでインストールする</b></p>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">gunzip tidy-xxx.tgz
+tar -xvf tidy-xxx.tar
+cd tidy-xxx
+phpize
+./configure &amp;&amp; make &amp;&amp; make install</pre>
+</div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  PHP5 においては、<span class="option">--with-tidy</span>
+  オプションを使ってコンパイルするだけです。
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tidy.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tidy.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="tidy.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,15 @@
+# My php snippets
+snippet commit
+abbr commit & rollback (Propel)
+  $con = Propel::getConnection();
+	try
+	{
+	  $con->beginTransaction();
+		${1}
+		$con->commit();
+	}
+	catch (Exception $e)
+	{
+		$con->rollBack();
+		throw $e;
+	}
