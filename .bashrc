@@ -163,3 +163,5 @@ if [ $SHLVL = '1' ]; then
   screen -U -xR -S $USER
 fi
 
+# プロンプト表示毎にscreenのタイトルを現在のディレクトリ名に変更する
+PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename $PWD)\033\\"'
