@@ -309,6 +309,7 @@ source $HOME/.vim/bundle.vim
 "
 if &term =~ ".*256color" || &term =~ 'linux'
   set t_Co=256
+  autocmd ColorScheme * highlight LineNr ctermfg=239
   colorscheme hybrid
   set background=dark
 else
