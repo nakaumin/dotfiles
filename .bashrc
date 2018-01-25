@@ -164,4 +164,4 @@ if [ $SHLVL = '1' ]; then
 fi
 
 # プロンプト表示毎にscreenのタイトルを現在のディレクトリ名に変更する
-PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename $PWD)\033\\"'
+PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
