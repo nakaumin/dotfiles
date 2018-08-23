@@ -16,7 +16,8 @@
   st = status
   cm = commit
   br = branch
-  co = checkout
+  co = checkout --recurse-submodules
+  pull = pull --recurse-submodules
   df = diff --color
   dw = diff --color-words
   dc = diff --cached
