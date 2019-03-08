@@ -16,3 +16,13 @@ jquery.js
 node_modules
 *.egg
 *.egg-info
+
+*.css
+*.map
+*.css.map
+*.js.map
+vendor
+lib/model/om/*
+lib/model/map/*
+lib/form/base/*
+lib/filter/base/*
