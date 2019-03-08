@@ -309,7 +309,20 @@ let g:pdv_cfg_License = "PHP Version 5.0 {@link http://www.php.net/license/5_0.t
 " NERDTree
 "-------------------------------
 "let NERDTreeIgnore=['^\.git$', '^tags$', '^sf$', '^base$', '^map$', '^om$', '\.\(xls\|png\|jpg\|gif\|map\|pdf\|bak\)$', '^cache$', '\~$', '^uploads$', '^images$', '^vendor$']
-let NERDTreeIgnore=['^\.git$', '^tags$', '^sf$', '\.\(xls\|png\|jpg\|gif\|map\|pdf\|bak\)$', '\~$', '^uploads$', '^images$', '^vendor$', '^node_modules$', '^bundle$']
+let NERDTreeIgnore=['^\.git$',
+\ '^tags$',
+\ '^sf$',
+\ '\.\(xls\|png\|jpg\|gif\|map\|pdf\|bak\)$',
+\ '\~$',
+\ '^base$',
+\ '^om$',
+\ '^map$',
+\ '^dist$',
+\ '^uploads$',
+\ '^images$',
+\ '^vendor$',
+\ '^node_modules$',
+\ '^bundle$']
 "let NERDTreeIgnore=['^\.git$', '^tags$', '\.\(xls\|png\|jpg\|gif\|map\|pdf\|bak\)$', '^cache$', '\~$', '^images$', '^lib/vendor$']
 let NERDTreeQuitOnOpen = 1
 let NERDTreeWinSize = 40
