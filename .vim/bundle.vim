@@ -721,7 +721,7 @@ vnoremap <Space>dd :<C-u>%S/^\n//g<CR>
 vnoremap <Space>dh :<C-u>normal dh<CR>
 vnoremap <Space>di :<C-u>%S/<(img [^>]+)>/[[\1]]/g<CR>
 vnoremap <Space>ls :<C-u>'<, '>S/<a href="<\?php echo url_for\((.*)\) \?>">(.*)<\/a>/<?php echo link_to('\2', \1) ?>/g
-vnoremap <silent> \y :Align : <CR>gv:S/(\s+):/:\1/<CR>gv:S/\s+:/:/g<CR>gv:S/\/\s*:\s*/\/:/g<CR>
+vnoremap <silent> \y :Align : <CR>gv:S/(\s+):/:\1/<CR>gv:S/\s+:/:/ge<CR>gv:S@/\s*:\s*@/:@ge<CR>gv:S/\s+$//ge<CR>gv:S@(https?:)\s+//@\1//@ge<CR>
 vnoremap <silent> co :ContinuousNumber <C-a><CR>
 vnoremap J gJ
 vnoremap gJ J
