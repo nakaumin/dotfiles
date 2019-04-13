@@ -217,7 +217,7 @@ nnoremap <silent> g, :<C-u>edit ~/.bashrc<CR>
 nnoremap <silent> g<Space> :<C-u>edit $MYVIMRC<CR>
 
 " Reload vimrc
-nnoremap <silent> <Leader>, :<C-u>source $MYVIMRC<CR>
+nnoremap <Leader>, :<C-u>source $MYVIMRC<CR>
 
 "---------------------------------------
 " ヘルプ
@@ -530,11 +530,16 @@ nnoremap <C-e> :NERDTreeToggle<CR>
 "---------------------------------------
 " Unite
 "---------------------------------------
-nnoremap <Leader>m :Unite file_mru -buffer-name=files -start-insert  -vertical -winwidth=100<CR>
-nnoremap <Leader>f :Unite buffer file_mru -buffer-name=files -vertical -winwidth=100<CR>
-nnoremap <Leader>o :Unite outline -vertical -winwidth=40 -no-immediately -quit<CR>
-nnoremap <Leader>O :Unite outline -vertical -winwidth=40 -no-quit<CR>
-nnoremap <Leader>r :Unite register -vertical -winwidth=40 -buffer-name=register<CR>
+nnoremap ,m :Unite file_mru -buffer-name=files -start-insert -vertical -winwidth=60<CR>
+nnoremap ,M :Unite file_mru -buffer-name=files -start-insert -vertical -winwidth=60 -no-quit<CR>
+nnoremap ,b :Unite buffer -buffer-name=files -vertical -winwidth=60<CR>
+nnoremap ,B :Unite buffer -buffer-name=files -vertical -winwidth=60 -no-quit<CR>
+nnoremap ,f :Unite buffer file_mru -buffer-name=files -vertical -winwidth=60<CR>
+nnoremap ,F :Unite buffer file_mru -buffer-name=files -vertical -winwidth=60 -no-quit<CR>
+nnoremap ,o :Unite outline -vertical -winwidth=40<CR>
+nnoremap ,O :Unite outline -vertical -winwidth=40 -no-quit<CR>
+nnoremap ,r :Unite register -vertical -winwidth=80 -buffer-name=register<CR>
+nnoremap ,R :Unite register -vertical -winwidth=80 -buffer-name=register -no-quit<CR>
 
 " <C-l>でUniteからも抜ける
 "nmap <buffer> <C-l> <Plug>(unite_exit)
