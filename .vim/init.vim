@@ -63,7 +63,8 @@ NeoBundle 'Shougo/neosnippet-snippets'
 
 " NERDTree
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tyok/nerdtree-ack'
+NeoBundle 'taiansu/nerdtree-ag'
+
 
 " QuickFix
 NeoBundle 'sk1418/QFGrep'
@@ -118,6 +119,7 @@ NeoBundle 'othree/eregex.vim'
 
 " 全文検索
 NeoBundle 'mileszs/ack.vim'
+NeoBundle 'rking/ag.vim'
 
 "NeoBundle 'thinca/vim-ref'
 "NeoBundle 'osyo-manga/vim-over'
@@ -472,14 +474,6 @@ let g:Align_xstrlen = 3
 call Align#AlignCtrl ('v', '^#')
 "for YAML indent
 call Align#AlignCtrl ('|W')
-
-"---------------------------------------
-" Ag as Ack
-"---------------------------------------
-let g:ackprg = "ag --nogroup --nocolor --column"
-" let g:ackprg = "ag -S --nogroup --nocolor --column"
-let g:ack_apply_qmappings = 0
-let g:ack_apply_lmappings = 0
 
 "---------------------------------------
 " vim-powerline
