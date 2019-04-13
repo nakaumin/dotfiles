@@ -199,10 +199,10 @@ cnoremap <C-l> <Esc>
 inoremap <C-l> <Esc>
 
 " Quick save
-nnoremap <C-s> :w<CR>
+nnoremap ss :w<CR>
 
 " Quick quit
-nnoremap q :q<CR>
+nnoremap qq :q<CR>
 
 " Macro
 nnoremap Q q<CR>
@@ -530,24 +530,36 @@ nnoremap <C-e> :NERDTreeToggle<CR>
 "---------------------------------------
 " Unite
 "---------------------------------------
-nnoremap ,m :Unite file_mru -buffer-name=files -start-insert -vertical -winwidth=60<CR>
-nnoremap ,M :Unite file_mru -buffer-name=files -start-insert -vertical -winwidth=60 -no-quit<CR>
-nnoremap ,b :Unite buffer -buffer-name=files -vertical -winwidth=60<CR>
-nnoremap ,B :Unite buffer -buffer-name=files -vertical -winwidth=60 -no-quit<CR>
-nnoremap ,f :Unite buffer file_mru -buffer-name=files -vertical -winwidth=60<CR>
-nnoremap ,F :Unite buffer file_mru -buffer-name=files -vertical -winwidth=60 -no-quit<CR>
-nnoremap ,o :Unite outline -vertical -winwidth=40<CR>
-nnoremap ,O :Unite outline -vertical -winwidth=40 -no-quit<CR>
-nnoremap ,r :Unite register -vertical -winwidth=80 -buffer-name=register<CR>
-nnoremap ,R :Unite register -vertical -winwidth=80 -buffer-name=register -no-quit<CR>
 
-" <C-l>でUniteからも抜ける
-"nmap <buffer> <C-l> <Plug>(unite_exit)
+call unite#custom#profile('default', 'context', {
+\  'vertical': 1,
+\  'toggle': 1,
+\  'winwidth': 60
+\})
+" no-focus
+" quick-match
+" auto-resize
+" max-multi-lines={max-lines}
+nnoremap ,m :Unite file_mru -buffer-name=files<CR>
+nnoremap ,M :Unite file_mru -buffer-name=files -no-quit<CR>
+nnoremap ,b :Unite buffer -buffer-name=files<CR>
+nnoremap ,B :Unite buffer -buffer-name=files -no-quit<CR>
+nnoremap ,f :Unite buffer file_mru -buffer-name=files<CR>
+nnoremap ,F :Unite buffer file_mru -buffer-name=files -no-quit<CR>
+nnoremap ,o :Unite outline -winwidth=40<CR>
+nnoremap ,O :Unite outline -winwidth=40 -no-quit<CR>
+nnoremap ,r :Unite register -winwidth=80 -buffer-name=register<CR>
+nnoremap ,R :Unite register -winwidth=80 -buffer-name=register -no-quit<CR>
 
-"imap <buffer> <C-j> <Plug>(unite_insert_leave)j
-"imap <buffer> <C-l> <Plug>(unite_insert_leave)
-"imap <buffer> <C-o> <Plug>(unite_insert_leave):<C-u>call unite#noremappings#do_action('above')<CR>
-"imap <buffer> <C-q> <Plug>(unite_exit)
+" Unite上でもウィンドウ間移動が効くように
+autocmd FileType unite nnoremap <buffer> th <C-W>h
+autocmd FileType unite nnoremap <buffer> tj <C-W>j
+autocmd FileType unite nnoremap <buffer> tk <C-W>k
+autocmd FileType unite nnoremap <buffer> tl <C-W>l
+
+" <Esc>/<C-l>でUniteを閉じる
+autocmd FileType unite nnoremap <buffer> <Esc> :UniteClose<CR>
+autocmd FileType unite nnoremap <buffer> <C-l> :UniteClose<CR>
 
 "---------------------------------------
 " Unite-outline
@@ -558,7 +570,7 @@ let g:unite_source_outline_indent_width=2
 " neomru
 "---------------------------------------
 let g:neomru#file_mru_limit=1000
-let g:neomru#do_validate=0
+let g:neomru#do_validate=1
 
 "---------------------------------------
 " neocomplete・neosnippet
