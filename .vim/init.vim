@@ -1,15 +1,12 @@
-"===============================================================================
-" Initialize
-"===============================================================================
 scriptencoding utf-8
+
+"===============================================================================
+" ▶ 初期化
+"===============================================================================
 set nocompatible
 
-"===============================================================================
-" Install plugins
-"===============================================================================
-
 "---------------------------------------
-" Init NeoBundle
+" NeoBundle
 "---------------------------------------
 
 if has('vim_starting')
@@ -31,7 +28,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 "---------------------------------------
-" Plugins
+" Install Plugins
 "---------------------------------------
 
 " Library
@@ -136,7 +133,7 @@ NeoBundle 'matchit.zip'
 NeoBundle 'tanabe/ToggleCase-vim'
 NeoBundle 'tpope/vim-surround'
 
-" ==== Finish install ====
+"Finish install ====
 
 " Required:
 call neobundle#end()
@@ -148,11 +145,11 @@ NeoBundleCheck
 
 
 "===============================================================================
-" Settings
+" ▶ 基本設定
 "===============================================================================
 
 "---------------------------------------
-" Core
+" コア設定
 "---------------------------------------
 
 set noswapfile "スワップなし
@@ -164,9 +161,6 @@ set hidden
 " 他で編集されたら読み込み直す
 set autoread
 
-" tagsファイルの二分探索
-set tagbsearch
-set helplang=ja,en
 
 "---------------------------------------
 " フォーマット・文字コード
@@ -188,48 +182,57 @@ set fileencodings=ucs-boms,utf-8,iso-2022-jp,euc-jp,cp932,latin1
 set ambiwidth=double
 
 "---------------------------------------
-" カーソル移動
+" 基本キーマップ
 "---------------------------------------
+let mapleader = "\<Space>"
 
-" バックスペースの挙動
-set backspace=indent,eol,start
+" Quick command
+nnoremap ; :
+vnoremap ; :
+nnoremap : ;
+vnoremap : ;
 
-"---------------------------------------
-" マウス対応
-"---------------------------------------
-if has('mouse')
-  set mouse=a
-  if has('mouse_sgr')
-    set ttymouse=sgr
-  elseif v:version > 703 || v:version is 703 && has('patch632')
-    set ttymouse=sgr
-  else
-    set ttymouse=xterm2
-  endif
-endif
+" Quick escape
+nnoremap <C-l> <Esc>
+vnoremap <C-l> <Esc>
+cnoremap <C-l> <Esc>
+inoremap <C-l> <Esc>
 
-"---------------------------------------
-" コピー・ペースト
-"---------------------------------------
+" Quick save
+nnoremap <C-s> :w<CR>
 
-if &term =~ "xterm"
-  let &t_SI .= "\e[?2004h"
-  let &t_EI .= "\e[?2004l"
-  let &pastetoggle = "\e[201~"
+" Quick quit
+nnoremap q :q<CR>
 
-  function! XTermPasteBegin(ret)
-    set paste
-    return a:ret
-  endfunction
-
-  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
-endif
+" Macro
+nnoremap Q q<CR>
 
 "---------------------------------------
-" 検索
+" VIM設定の編集
 "---------------------------------------
-set ignorecase
-set smartcase
+
+" Configure vim
+nnoremap <silent> g. :<C-u>edit ~/.config/nvim/init.vim<CR>
+nnoremap <silent> g, :<C-u>edit ~/.bashrc<CR>
+nnoremap <silent> g<Space> :<C-u>edit $MYVIMRC<CR>
+
+" Reload vimrc
+nnoremap <silent> <Leader>, :<C-u>source $MYVIMRC<CR>
+
+"---------------------------------------
+" ヘルプ
+"---------------------------------------
+
+" 日本語ヘルプ優先
+set helplang=ja,en
+
+" <C-h> + 単語でヘルプ
+" XXX: Vimscript上での末尾の空白を維持するために冗長なキーバインドにしている
+nnoremap <C-h> :<C-u>vertical help  <Bs>
+" <C-h>二回でカーソル下の単語のヘルプを引く
+nnoremap <silent> <C-h><C-h> :<C-u>vertical help <C-r><C-w><CR>
+" ヘルプでも<Return>でジャンプ
+autocmd FileType help nnoremap <buffer> <Return> <C-]>
 
 "---------------------------------------
 " 表示
@@ -262,9 +265,6 @@ set showmatch
 " XXX: Vimの「%」を拡張する
 source $VIMRUNTIME/macros/matchit.vim
 
-" ステータスラインを常に表示
-set laststatus=2
-
 " コマンドラインの補完
 set wildmode=list:longest
 
@@ -283,6 +283,59 @@ set t_Co=256
 " 暗色系背景(GUI)
 set background=dark
 
+"---------------------------------------
+" 表示切り替え
+"---------------------------------------
+nnoremap <silent> ,h :set hlsearch!<CR>
+nnoremap <silent> ,n :set number!<CR>
+nnoremap <silent> ,p :set paste!<CR>
+nnoremap <silent> <expr> ,s (exists("syntax_on")) ? "<Esc>:syntax off<CR>" : "<Esc>:syntax on<CR>"
+nnoremap <silent> ,u :<C-u>setlocal invcursorline<CR>
+
+"---------------------------------------
+" ステータス行
+"---------------------------------------
+
+" ステータスラインを常に表示
+set laststatus=2
+
+let g:Powerline_symbols='fancy'
+
+"---------------------------------------
+" カーソル移動
+"---------------------------------------
+
+" バックスペースの挙動を便利に
+set backspace=indent,eol,start
+
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+vnoremap <silent> j gj
+vnoremap <silent> k gk
+nnoremap <silent> gj j
+nnoremap <silent> gk k
+vnoremap <silent> gj j
+vnoremap <silent> gk k
+
+" 単語移動をデフォルトに
+nnoremap w l
+nnoremap b h
+nnoremap l w
+nnoremap h b
+
+"---------------------------------------
+" マウス対応
+"---------------------------------------
+if has('mouse')
+  set mouse=a
+  if has('mouse_sgr')
+    set ttymouse=sgr
+  elseif v:version > 703 || v:version is 703 && has('patch632')
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
+endif
 
 "---------------------------------------
 " タブ・インデント
@@ -310,89 +363,7 @@ set shiftwidth=2
 set list listchars=tab:\▸\▸
 
 "---------------------------------------
-" 基本キーバインド
-"---------------------------------------
-let mapleader = "\<Space>"
-
-" Quick command
-nnoremap ; :
-vnoremap ; :
-nnoremap : ;
-vnoremap : ;
-
-" Quick escape
-nnoremap <C-l> <Esc>
-vnoremap <C-l> <Esc>
-cnoremap <C-l> <Esc>
-inoremap <C-l> <Esc>
-
-" Quick save
-nnoremap <C-s> :w<CR>
-
-" Quick quit
-nnoremap q :q<CR>
-
-" Macro
-nnoremap Q q<CR>
-
-"---------------------------------------
-" Quick help
-"---------------------------------------
-
-" <C-h> + 単語でヘルプ
-nnoremap <C-h> :<C-u>vertical help
-" <C-h>二回でカーソル下の単語のヘルプを引く
-nnoremap <silent> <C-h><C-h> :<C-u>vertical help <C-r><C-w><CR>
-" ヘルプでも<Return>でジャンプ
-autocmd FileType help nnoremap <buffer> <Return> <C-]>
-
-"---------------------------------------
-" Quick configuration
-"---------------------------------------
-
-" Configure vim
-nnoremap <silent> g. :<C-u>edit ~/.config/nvim/init.vim<CR>
-nnoremap <silent> g, :<C-u>edit ~/.bashrc<CR>
-nnoremap <silent> g<Space> :<C-u>edit $MYVIMRC<CR>
-
-" Reload vimrc
-nnoremap <silent> <Leader>, :<C-u>source $MYVIMRC<CR>
-
-"---------------------------------------
-" カーソル移動
-"---------------------------------------
-nnoremap <silent> j gj
-nnoremap <silent> k gk
-vnoremap <silent> j gj
-vnoremap <silent> k gk
-nnoremap <silent> gj j
-nnoremap <silent> gk k
-vnoremap <silent> gj j
-vnoremap <silent> gk k
-nnoremap w l
-nnoremap b h
-nnoremap l w
-nnoremap h b
-
-"---------------------------------------
-" Join lines
-"---------------------------------------
-nnoremap J gJ
-nnoremap gJ J
-vnoremap J gJ
-vnoremap gJ J
-
-"---------------------------------------
-" Jump behavior
-"---------------------------------------
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap [[ [[<Esc>zz
-nnoremap ]] ]]<Esc>zz
-nnoremap <silent> <C-o> <C-o>zz
-
-"---------------------------------------
-" Window/Tab operations
+" ウィンドウ（タブ）移動
 "---------------------------------------
 
 "nnoremap <silent> <C-h> <C-w>h "ヘルプと干渉
@@ -417,68 +388,115 @@ nnoremap <silent> tj <C-w>j
 nnoremap <silent> tk <C-w>k
 
 "---------------------------------------
-" Tag jump
+" QuickFix 
 "---------------------------------------
+nnoremap <silent> <C-j> :<C-u>cn<CR>zz
+nnoremap <silent> <C-k> :<C-u>cp<CR>zz
+
+"---------------------------------------
+" 検索・タグジャンプ
+"---------------------------------------
+
+" 検索時の大文字小文字の違いを無視
+set ignorecase
+" 検索単語に大文字小文字が混じっていれば無視しない
+set smartcase
+
+" 標準の正規表現検索をeregexに置き換え
+nnoremap / :<C-u>M/
+vnoremap / :M/
+
+" tagsファイルの二分探索（高速）
+set tagbsearch
+
+" エンターでカーソル下の単語のタグジャンプ
 nnoremap <silent> <Return> :execute 'tjump' expand('<cword>')<Return>zz
 
-"---------------------------------------
-" Toggle settings
-"---------------------------------------
-nnoremap <silent> ,h :set hlsearch!<CR>
-nnoremap <silent> ,n :set number!<CR>
-nnoremap <silent> ,p :set paste!<CR>
-nnoremap <silent> <expr> ,s (exists("syntax_on")) ? "<Esc>:syntax off<CR>" : "<Esc>:syntax on<CR>"
-nnoremap <silent> ,u :<C-u>setlocal invcursorline<CR>
+" 移動後の表示位置を画面中央に揃える
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap [[ [[<Esc>zz
+nnoremap ]] ]]<Esc>zz
+nnoremap <silent> <C-o> <C-o>zz
 
 "---------------------------------------
-" Visual Selection
+" 置換
+"---------------------------------------
+
+" eregexの置換コマンド割当
+nnoremap s/ :<C-u>%S/
+vnoremap s/ :S/
+
+"---------------------------------------
+" 行結合
+"---------------------------------------
+nnoremap J gJ
+nnoremap gJ J
+vnoremap J gJ
+vnoremap gJ J
+
+"---------------------------------------
+" ビジュアルモード・選択
 "---------------------------------------
 nnoremap ga :call VisualCurrentIndentBlock('a')<CR>
 nnoremap gc `[v`]
 nnoremap gi :call VisualCurrentIndentBlock('i')<CR>
 
 "---------------------------------------
-" QuickFix Jump
+" コピー・ペースト
 "---------------------------------------
-nnoremap <silent> <C-j> :<C-u>cn<CR>zz
-nnoremap <silent> <C-k> :<C-u>cp<CR>zz
+
+" 無名レジスタへのヤンク時に"*"レジスタへも追加
+set clipboard+=unnamed
+
+" ビジュアル選択の範囲を自動的にクリップボードへコピー
+" CUI
+:set clipboard+=autoselect
+" GUI
+:set guioptions+=a
+
+" クリップボードからの貼り付け時自動的にペーストモードに
+if &term =~ "xterm"
+  let &t_SI .= "\e[?2004h"
+  let &t_EI .= "\e[?2004l"
+  let &pastetoggle = "\e[201~"
+
+  function! XTermPasteBegin(ret)
+    set paste
+    return a:ret
+  endfunction
+
+  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+endif
 
 "---------------------------------------
-" 検索・置換
+" テキスト整形
 "---------------------------------------
-nnoremap / :<C-u>M/
-nnoremap s/ :<C-u>%S/
-vnoremap / :M/
-vnoremap s/ :S/
 
-"---------------------------------------
-" Formatting
-"---------------------------------------
+" Align.vim
+let g:Align_xstrlen = 3
+call Align#AlignCtrl ('v', '^#')
+
+"for YAML indent
+call Align#AlignCtrl ('|W')
 
 " Yaml
 nnoremap <silent> \y <S-v>:S/(\{\s*\|,\s*)/\r      /g<CR><S-v>:S/\s*\}//<CR>j
 vnoremap <silent> \y :Align : <CR>gv:S/(\s+):/:\1/<CR>gv:S/\s+:/:/ge<CR>gv:S@/\s*:\s*@/:@ge<CR>gv:S/\s+$//ge<CR>gv:S@(https?:)\s+//@\1//@ge<CR>
 
+" ToogleCase キャメルキャプス・スネークケースなどを切り替え
+" TODO: 形式を直接指定したい
+nnoremap <C-c> :<C-u>call ToggleCase()<CR>
+
+"---------------------------------------
 " 連番入力
+"---------------------------------------
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
 vnoremap <silent> co :ContinuousNumber <C-a><CR>
 
 "===============================================================================
-" Plugins
+" ▶ プラグイン設定
 "===============================================================================
-
-"---------------------------------------
-" Align.vim
-"---------------------------------------
-let g:Align_xstrlen = 3
-call Align#AlignCtrl ('v', '^#')
-"for YAML indent
-call Align#AlignCtrl ('|W')
-
-"---------------------------------------
-" vim-powerline
-"---------------------------------------
-let g:Powerline_symbols='fancy'
 
 "---------------------------------------
 " NERDTree
@@ -514,9 +532,9 @@ nnoremap <C-e> :NERDTreeToggle<CR>
 "---------------------------------------
 nnoremap <Leader>m :Unite file_mru -buffer-name=files -start-insert  -vertical -winwidth=100<CR>
 nnoremap <Leader>f :Unite buffer file_mru -buffer-name=files -vertical -winwidth=100<CR>
-nnoremap <Leader>o :Unite outline -vertical -winwidth=60 -no-immediately -quit<CR>
-nnoremap <Leader>O :Unite outline -vertical -winwidth=60 -no-quit<CR>
-nnoremap <Leader>r :Unite register -vertical -winwidth=60 -buffer-name=register<CR>
+nnoremap <Leader>o :Unite outline -vertical -winwidth=40 -no-immediately -quit<CR>
+nnoremap <Leader>O :Unite outline -vertical -winwidth=40 -no-quit<CR>
+nnoremap <Leader>r :Unite register -vertical -winwidth=40 -buffer-name=register<CR>
 
 " <C-l>でUniteからも抜ける
 "nmap <buffer> <C-l> <Plug>(unite_exit)
@@ -527,13 +545,18 @@ nnoremap <Leader>r :Unite register -vertical -winwidth=60 -buffer-name=register<
 "imap <buffer> <C-q> <Plug>(unite_exit)
 
 "---------------------------------------
+" Unite-outline
+"---------------------------------------
+let g:unite_source_outline_indent_width=2
+
+"---------------------------------------
 " neomru
 "---------------------------------------
 let g:neomru#file_mru_limit=1000
 let g:neomru#do_validate=0
 
 "---------------------------------------
-" neocomplete・neosnippetの設定
+" neocomplete・neosnippet
 "---------------------------------------
 if neobundle#is_installed('neocomplete.vim')
     " Vim起動時にneocompleteを有効にする
@@ -567,6 +590,18 @@ endif
 let g:neosnippet#snippets_directory = $HOME.'/.vim/snippets'
 
 "---------------------------------------
+" Symfony
+"---------------------------------------
+nnoremap ga :<C-u>Saction<CR>
+nnoremap gv :<C-u>Sview<CR>
+nnoremap gp :<C-u>Spartial<CR>
+nnoremap gv :<C-u>Sview<CR>
+
+"===============================================================================
+" ▶ Git関連設定
+"===============================================================================
+
+"---------------------------------------
 " Fugitive
 "---------------------------------------
 nnoremap <C-g>a :Gwrite<CR>
@@ -583,17 +618,4 @@ nnoremap <C-g>s :Gstatus<CR>
 nnoremap <C-g>v :Gitv<CR>
 nnoremap <C-g>V :Gitv --all<CR>
 nnoremap <C-g>m :Merginal<CR>
-
-"---------------------------------------
-" ToogleCase
-"---------------------------------------
-nnoremap <C-c> :<C-u>call ToggleCase()<CR>
-
-"---------------------------------------
-" Symfony
-"---------------------------------------
-nnoremap ga :<C-u>Saction<CR>
-nnoremap gv :<C-u>Sview<CR>
-nnoremap gp :<C-u>Spartial<CR>
-nnoremap gv :<C-u>Sview<CR>
 
