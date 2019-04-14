@@ -30,10 +30,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 "---------------------------------------
 " Install Plugins
 "---------------------------------------
-
 " Library
-NeoBundle 'Shougo/vimproc'
-NeoBundle 'clones/vim-l9'
 
 NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
@@ -44,6 +41,8 @@ NeoBundle 'Shougo/vimproc.vim', {
 \     'unix' : 'gmake',
 \    },
 \ }
+
+NeoBundle 'clones/vim-l9'
 
 " Unite
 NeoBundle 'Shougo/unite.vim'
