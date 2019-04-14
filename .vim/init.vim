@@ -545,16 +545,16 @@ call unite#custom#profile('default', 'context', {
 " quick-match
 " auto-resize
 " max-multi-lines={max-lines}
-nnoremap ,m :Unite file_mru -buffer-name=files<CR>
-nnoremap ,M :Unite file_mru -buffer-name=files -no-quit<CR>
-nnoremap ,b :Unite buffer -buffer-name=files<CR>
-nnoremap ,B :Unite buffer -buffer-name=files -no-quit<CR>
-nnoremap ,f :Unite buffer file_mru -buffer-name=files<CR>
-nnoremap ,F :Unite buffer file_mru -buffer-name=files -no-quit<CR>
-nnoremap ,o :Unite outline -winwidth=40<CR>
-nnoremap ,O :Unite outline -winwidth=40 -no-quit<CR>
-nnoremap ,r :Unite register -winwidth=80 -buffer-name=register<CR>
-nnoremap ,R :Unite register -winwidth=80 -buffer-name=register -no-quit<CR>
+nnoremap <Leader>m :Unite file_mru -buffer-name=files<CR>
+nnoremap <Leader>M :Unite file_mru -buffer-name=files -no-quit<CR>
+nnoremap <Leader>b :Unite buffer -buffer-name=files<CR>
+nnoremap <Leader>B :Unite buffer -buffer-name=files -no-quit<CR>
+nnoremap <Leader>f :Unite buffer file_mru -buffer-name=files<CR>
+nnoremap <Leader>F :Unite buffer file_mru -buffer-name=files -no-quit<CR>
+nnoremap <Leader>o :Unite outline -winwidth=40<CR>
+nnoremap <Leader>O :Unite outline -winwidth=40 -no-quit<CR>
+nnoremap <Leader>r :Unite register -winwidth=80 -buffer-name=register<CR>
+nnoremap <Leader>R :Unite register -winwidth=80 -buffer-name=register -no-quit<CR>
 
 " Unite上でもウィンドウ間移動が効くように
 autocmd FileType unite nnoremap <buffer> th <C-W>h
