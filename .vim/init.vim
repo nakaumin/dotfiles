@@ -103,7 +103,7 @@ helptags ~/.vim/bundle/vimdoc-ja/doc
 NeoBundle 'bronson/vim-trailing-whitespace'
 
 " インデントの可視化
-NeoBundle 'Yggdroot/indentLine'
+"NeoBundle 'Yggdroot/indentLine'
 
 " ファイル操作
 NeoBundle 'renamer.vim'
@@ -115,7 +115,6 @@ NeoBundle 'Lokaltog/vim-powerline', {'rev' : 'develop'}
 NeoBundle 'othree/eregex.vim'
 
 " 全文検索
-NeoBundle 'mileszs/ack.vim'
 NeoBundle 'rking/ag.vim'
 
 "NeoBundle 'thinca/vim-ref'
@@ -125,10 +124,12 @@ NeoBundle 'FuzzyFinder'
 "NeoBundle 'ujihisa/repl.vim'
 NeoBundle 'sudo.vim'
 NeoBundle 'Align'
+
 NeoBundle 'kana/vim-gf-user'
 NeoBundle 'kana/vim-gf-diff'
-NeoBundle 'kana/vim-altr'
+"NeoBundle 'kana/vim-altr'
 NeoBundle 'kana/vim-tabpagecd'
+
 NeoBundle 'matchit.zip'
 NeoBundle 'tanabe/ToggleCase-vim'
 NeoBundle 'tpope/vim-surround'
