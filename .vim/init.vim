@@ -546,16 +546,16 @@ call unite#custom#profile('default', 'context', {
 " quick-match
 " auto-resize
 " max-multi-lines={max-lines}
-nnoremap <Leader>m :Unite file_mru -buffer-name=files<CR>
+nnoremap <Leader>m :Unite file_mru -buffer-name=files -start-insert<CR>
 nnoremap <Leader>M :Unite file_mru -buffer-name=files -no-quit<CR>
 nnoremap <Leader>b :Unite buffer -buffer-name=files<CR>
 nnoremap <Leader>B :Unite buffer -buffer-name=files -no-quit<CR>
-nnoremap <Leader>f :Unite buffer file_mru -buffer-name=files<CR>
+nnoremap <Leader>f :Unite buffer file_mru -buffer-name=files -start-insert<CR>
 nnoremap <Leader>F :Unite buffer file_mru -buffer-name=files -no-quit<CR>
-nnoremap <Leader>o :Unite outline -winwidth=40<CR>
-nnoremap <Leader>O :Unite outline -winwidth=40 -no-quit<CR>
-nnoremap <Leader>r :Unite register -winwidth=80 -buffer-name=register<CR>
-nnoremap <Leader>R :Unite register -winwidth=80 -buffer-name=register -no-quit<CR>
+nnoremap <Leader>o :Unite outline -start-insert<CR>
+nnoremap <Leader>O :Unite outline -no-quit<CR>
+nnoremap <Leader>r :Unite register -buffer-name=register<CR>
+nnoremap <Leader>R :Unite register -buffer-name=register -no-quit<CR>
 
 " Unite上でもウィンドウ間移動が効くように
 autocmd FileType unite nnoremap <buffer> th <C-W>h
