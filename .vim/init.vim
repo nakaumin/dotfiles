@@ -89,6 +89,7 @@ NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 
 " PHP
+NeoBundle 'github-masaharu/vim-php-japanese-manual'
 NeoBundle 'soh335/vim-symfony'
 NeoBundle 'PDV--phpDocumentor-for-Vim'
 
