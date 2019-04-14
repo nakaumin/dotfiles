@@ -615,10 +615,10 @@ let g:neosnippet#snippets_directory = $HOME.'/.vim/snippets'
 "---------------------------------------
 " Symfony
 "---------------------------------------
-nnoremap ga :<C-u>Saction<CR>
-nnoremap gv :<C-u>Sview<CR>
-nnoremap gp :<C-u>Spartial<CR>
-nnoremap gv :<C-u>Sview<CR>
+nnoremap ,a :<C-u>Saction<CR>
+nnoremap ,v :<C-u>Sview<CR>
+nnoremap ,p :<C-u>Spartial<CR>
+nnoremap ,v :<C-u>Sview<CR>
 
 "===============================================================================
 " ▶ Git関連設定
