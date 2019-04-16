@@ -559,8 +559,8 @@ call unite#custom#profile('default', 'context', {
 " max-multi-lines={max-lines}
 nnoremap <Leader>m :Unite file_mru -buffer-name=files -start-insert<CR>
 nnoremap <Leader>M :Unite file_mru -buffer-name=files -no-quit<CR>
-nnoremap <Leader>b :Unite buffer -buffer-name=files<CR>
-nnoremap <Leader>B :Unite buffer -buffer-name=files -no-quit<CR>
+nnoremap <Leader>b :Unite buffer:- -buffer-name=files<CR>
+nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
 nnoremap <Leader>f :Unite buffer file_mru -buffer-name=files -start-insert<CR>
 nnoremap <Leader>F :Unite buffer file_mru -buffer-name=files -no-quit<CR>
 nnoremap <Leader>o :Unite outline -start-insert<CR>
