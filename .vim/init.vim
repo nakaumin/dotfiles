@@ -572,12 +572,12 @@ call unite#custom#profile('default', 'context', {
 " quick-match
 " auto-resize
 " max-multi-lines={max-lines}
-nnoremap <Leader>m :Unite file_mru -buffer-name=files -start-insert<CR>
-nnoremap <Leader>M :Unite file_mru -buffer-name=files -no-quit<CR>
+nnoremap <Leader>m :Unite neomru/file -buffer-name=files -start-insert<CR>
+nnoremap <Leader>M :Unite neomru/file -buffer-name=files -no-quit<CR>
 nnoremap <Leader>b :Unite buffer:- -buffer-name=files<CR>
 nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
-nnoremap <Leader>f :Unite buffer file_mru -buffer-name=files -start-insert<CR>
-nnoremap <Leader>F :Unite buffer file_mru -buffer-name=files -no-quit<CR>
+nnoremap <Leader>f :Unite buffer neomru/file -buffer-name=files -start-insert<CR>
+nnoremap <Leader>F :Unite buffer neomru/file -buffer-name=files -no-quit<CR>
 nnoremap <Leader>o :Unite outline -start-insert<CR>
 nnoremap <Leader>O :Unite outline -no-quit<CR>
 nnoremap <Leader>r :Unite register -buffer-name=register<CR>
@@ -602,8 +602,8 @@ let g:unite_source_outline_indent_width=2
 "---------------------------------------
 " neomru
 "---------------------------------------
-let g:neomru#file_mru_limit=1000
-let g:neomru#do_validate=1
+let g:neomru#file_mru_limit=500
+let g:neomru#do_validate=0
 
 "---------------------------------------
 " neocomplete・neosnippet
