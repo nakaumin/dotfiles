@@ -398,6 +398,10 @@ nnoremap <silent> tk <C-w>k
 "---------------------------------------
 nnoremap <silent> <C-j> :<C-u>cn<CR>zz
 nnoremap <silent> <C-k> :<C-u>cp<CR>zz
+" Quickfixを開く
+nnoremap <silent> qf :<C-u>copen 20<CR>:set number<CR>
+" Quickfix終了
+autocmd FileType qf nnoremap <buffer> q :close<CR>
 " Quickfix置換 (QFReplace)
 autocmd FileType qf nnoremap <buffer> rr :Qfreplace<CR>
 " Quickfix置換 (QFGrep)
