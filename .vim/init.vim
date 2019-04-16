@@ -421,8 +421,9 @@ autocmd FileType qf nnoremap <buffer> <Return> <Return>
 autocmd FileType qf nnoremap <buffer> rr :Qfreplace<CR>
 
 " Quickfixリストの絞り込み (QFGrep)
-autocmd FileType qf nnoremap <buffer> ss :<C-u>QFGrepPat
-autocmd FileType qf nnoremap <buffer> vv :<C-u>QFGrepPatV
+" XXX: Vimscript上での末尾の空白を維持するために冗長なキーバインドにしている
+autocmd FileType qf nnoremap <buffer> ss :<C-u>QFGrepPat  <BS>
+autocmd FileType qf nnoremap <buffer> vv :<C-u>QFGrepPatV  <BS>
 
 "---------------------------------------
 " 検索・タグジャンプ
