@@ -110,12 +110,6 @@ PWD_COLOR=$COLOR_BRIGHT_GREEN
 #USER_COLOR=$COLOR_BRIGHT_RED
 PROMPT_COLOR=$COLOR_BRIGHT_RED
 
-# load local color settings
-# to override (HOST|USER|PROMPT)_COLOR
-if [ -f ~/.bash_colors.local ]; then
-. ~/.bash_colors.local
-fi
-
 # for git
 function __git_psx() {
   __git_ps1 | perl -pe "s/\((.*)\)/\1/" 
@@ -141,8 +135,22 @@ else
   PS1=$PS1_BASE
 fi
 
+# to override PROMPT
+if [ -f ~/.bash_colors.local ]; then
+. ~/.bash_colors.local
+fi
+
 #------------------------------------------------------------
-#  load environmental settings
+#  run screen
+#------------------------------------------------------------
+if [ `uname` = "Linux" ]; then
+  if [ $SHLVL = '1' ]; then
+    screen -U -xR -S $USER
+  fi
+fi
+
+#------------------------------------------------------------
+#  load extra environmental settings
 #------------------------------------------------------------
 
 # for macos
@@ -156,13 +164,6 @@ fi
 if [ -f ~/.bashrc.local ]; then
 . ~/.bashrc.local
 fi
-
-#------------------------------------------------------------
-#  run screen
-#------------------------------------------------------------
-#if [ $SHLVL = '1' ]; then
-#  screen -U -xR -S $USER
-#fi
 
 # プロンプト表示毎にscreenのタイトルを現在のディレクトリ名に変更する
 PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
