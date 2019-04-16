@@ -629,8 +629,6 @@ let g:neosnippet#snippets_directory = $HOME.'/.vim/snippets'
 "---------------------------------------
 nnoremap ,a :<C-u>Saction<CR>
 nnoremap ,v :<C-u>Sview<CR>
-nnoremap ,p :<C-u>Spartial<CR>
-nnoremap ,v :<C-u>Sview<CR>
 
 "===============================================================================
 " ▶ Git関連設定
