@@ -279,8 +279,8 @@ set showcmd
 
 " カラースキーマ
 "colorscheme wombat256mod
-if neobundle#is_installed('vim-hybrid') 
-  colorscheme hybrid 
+if neobundle#is_installed('vim-hybrid')
+  colorscheme hybrid
 endif
 
 " iTerm2など256色環境なら無くても良い
@@ -376,6 +376,7 @@ set list listchars=tab:\▸\▸
 "nnoremap <silent> <C-l> <C-w>l "エスケープ代替と干渉
 "nnoremap <silent> <C-j> <C-w>j "QuickFix閲覧と干渉
 "nnoremap <silent> <C-k> <C-w>k "QuickFix閲覧と干渉
+"
 nnoremap <silent> <C-n> :tabnew<CR>
 nnoremap <silent> ts :<C-u>vsp<CR>
 nnoremap <silent> tS :<C-u>sp<CR>
@@ -394,21 +395,34 @@ nnoremap <silent> tj <C-w>j
 nnoremap <silent> tk <C-w>k
 
 "---------------------------------------
-" QuickFix 
+" QuickFix
 "---------------------------------------
+
+" QucickFix内のエントリを連続的に閲覧
 nnoremap <silent> <C-j> :<C-u>cn<CR>zz
 nnoremap <silent> <C-k> :<C-u>cp<CR>zz
+
 " Quickfixを開く
 nnoremap <silent> qf :<C-u>copen 20<CR>:set number<CR>
+
 " Quickfix終了
 autocmd FileType qf nnoremap <buffer> q :close<CR>
-" Quickfix置換 (QFReplace)
-autocmd FileType qf nnoremap <buffer> rr :Qfreplace<CR>
-" Quickfix置換 (QFGrep)
-autocmd FileType qf nnoremap <buffer> ss :<C-u>QFGrepPat 
-autocmd FileType qf nnoremap <buffer> vv :<C-u>QFGrepPatV 
+
+"不快なQuickFixのデフォルトの挙動を抑止
+autocmd FileType qf nnoremap <buffer> H :<C-u>tabprevious<CR>
+autocmd FileType qf nnoremap <buffer> L :<C-u>tabnext<CR>
+autocmd FileType qf nnoremap <buffer> h h
+autocmd FileType qf nnoremap <buffer> l l
+
 " QF内ではタグジャンプの動作を抑止し通常通り
 autocmd FileType qf nnoremap <buffer> <Return> <Return>
+
+" Quickfixリストを用いた一括置換 (QFReplace)
+autocmd FileType qf nnoremap <buffer> rr :Qfreplace<CR>
+
+" Quickfixリストの絞り込み (QFGrep)
+autocmd FileType qf nnoremap <buffer> ss :<C-u>QFGrepPat
+autocmd FileType qf nnoremap <buffer> vv :<C-u>QFGrepPatV
 
 "---------------------------------------
 " 検索・タグジャンプ
