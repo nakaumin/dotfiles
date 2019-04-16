@@ -398,6 +398,13 @@ nnoremap <silent> tk <C-w>k
 "---------------------------------------
 nnoremap <silent> <C-j> :<C-u>cn<CR>zz
 nnoremap <silent> <C-k> :<C-u>cp<CR>zz
+" Quickfix置換 (QFReplace)
+autocmd FileType qf nnoremap <buffer> rr :Qfreplace<CR>
+" Quickfix置換 (QFGrep)
+autocmd FileType qf nnoremap <buffer> ss :<C-u>QFGrepPat 
+autocmd FileType qf nnoremap <buffer> vv :<C-u>QFGrepPatV 
+" QF内ではタグジャンプの動作を抑止し通常通り
+autocmd FileType qf nnoremap <buffer> <Return> <Return>
 
 "---------------------------------------
 " 検索・タグジャンプ
