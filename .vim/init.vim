@@ -594,6 +594,27 @@ autocmd FileType unite nnoremap <buffer> tl <C-W>l
 autocmd FileType unite nnoremap <buffer> <Esc> :UniteClose<CR>
 autocmd FileType unite nnoremap <buffer> <C-l> :UniteClose<CR>
 
+let s:filters = {
+\   "name" : "my_converter",
+\}
+
+function! s:filters.filter(candidates, context)
+    for candidate in a:candidates
+        let bufname = bufname(candidate.action__buffer_nr)
+        let filename = fnamemodify(bufname, ':p:t')
+        let path = fnamemodify(bufname, ':p:h')
+
+        " Customize output format.
+        let candidate.abbr = printf("%s: %s", filename, path)
+    endfor
+    return a:candidates
+endfunction
+
+call unite#define_filter(s:filters)
+unlet s:filters
+
+call unite#custom#source('buffer', 'converters', 'my_converter')
+
 "---------------------------------------
 " Unite-outline
 "---------------------------------------
