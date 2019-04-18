@@ -619,7 +619,19 @@ endfunction
 call unite#define_filter(s:filters)
 unlet s:filters
 
+" Unite-buffer: better format
 call unite#custom#source('buffer', 'converters', 'my_converter')
+
+" Neomru: Restrict files to the current project
+call unite#custom#source('neomru/file', 'matchers',
+      \ ['matcher_project_files', 'matcher_fuzzy'])
+call unite#custom#source('neomru/file', 'converters',
+      \ ['converter_relative_abbr', 'converter_file_directory'])
+"      \ ['converter_relative_word', 'converter_word_abbr'])
+"      \ ['converter_relative_word'])
+"      \ ['converter_relative_abbr'])
+call unite#custom#source('neomru/file', 'sorters',
+      \ ['sorter_word'])
 
 "---------------------------------------
 " Unite-outline
