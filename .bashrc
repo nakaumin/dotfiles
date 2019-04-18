@@ -110,6 +110,13 @@ PWD_COLOR=$COLOR_BRIGHT_GREEN
 #USER_COLOR=$COLOR_BRIGHT_RED
 PROMPT_COLOR=$COLOR_BRIGHT_RED
 
+if [ `uname` = "Darwin" ]; then
+  PWD_COLOR=$COLOR_WHITE
+  #HOST_COLOR=$COLOR_WHITE
+  #USER_COLOR=$COLOR_WHITE
+  PROMPT_COLOR=$COLOR_WHITE
+fi
+
 # for git
 function __git_psx() {
   __git_ps1 | perl -pe "s/\((.*)\)/\1/" 
