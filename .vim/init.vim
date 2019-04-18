@@ -509,6 +509,12 @@ endif
 " テキスト整形
 "---------------------------------------
 
+" Alignに伴って不要なキーマップを追加するプラグインがインストールされるので
+" 導入されている場合は削除する
+if exists(':AlignMapsClear') == 2
+  :AlignMapsClear
+endif
+
 " Align.vim
 let g:Align_xstrlen = 3
 call Align#AlignCtrl ('v', '^#')
