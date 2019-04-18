@@ -429,6 +429,10 @@ autocmd FileType qf nnoremap <buffer> vv :<C-u>QFGrepPatV  <BS>
 " 検索・タグジャンプ
 "---------------------------------------
 
+" tags
+set tags&
+set tags+=plugins/tags,lib/vendor/tags,tags;
+
 " 検索時の大文字小文字の違いを無視
 set ignorecase
 " 検索単語に大文字小文字が混じっていれば無視しない
