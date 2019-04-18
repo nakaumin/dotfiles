@@ -560,6 +560,8 @@ let NERDTreeMapToggleHidden='.'
 let NERDTreeCascadeSingleChildDir=0
 let NERDTreeCascadeOpenSingleChildDir=0
 
+autocmd TabLeave * NERDTreeClose
+
 nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <C-e> :NERDTreeToggle<CR>
 
