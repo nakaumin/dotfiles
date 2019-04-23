@@ -630,14 +630,7 @@ call unite#custom#source('buffer', 'converters', 'my_converter')
 
 " Neomru: Restrict files to the current project
 call unite#custom#source('neomru/file', 'matchers',
-      \ ['matcher_project_files', 'matcher_fuzzy'])
-call unite#custom#source('neomru/file', 'converters',
-      \ ['converter_relative_abbr', 'converter_file_directory'])
-"      \ ['converter_relative_word', 'converter_word_abbr'])
-"      \ ['converter_relative_word'])
-"      \ ['converter_relative_abbr'])
-call unite#custom#source('neomru/file', 'sorters',
-      \ ['sorter_word'])
+      \ ['matcher_project_files', 'matcher_default'])
 
 "---------------------------------------
 " Unite-outline
@@ -647,8 +640,11 @@ let g:unite_source_outline_indent_width=2
 "---------------------------------------
 " neomru
 "---------------------------------------
-let g:neomru#file_mru_limit=500
-let g:neomru#do_validate=0
+let g:neomru#file_mru_limit=1000
+let g:neomru#do_validate=1
+call unite#custom#source('neomru/file', 'converters',
+      \ ['converter_relative_abbr', 'converter_file_directory'])
+"call unite#custom#source('neomru/file', 'sorters', ['sorter_word'])
 
 "---------------------------------------
 " neocomplete・neosnippet
