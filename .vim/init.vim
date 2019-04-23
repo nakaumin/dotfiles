@@ -402,7 +402,8 @@ nnoremap <silent> <C-j> :<C-u>cn<CR>zz
 nnoremap <silent> <C-k> :<C-u>cp<CR>zz
 
 " Quickfixを開く
-nnoremap <silent> qf :<C-u>copen 20<CR>:set number<CR>
+" TODO: トグルできるように
+nnoremap <silent> ,q :<C-u>copen 20<CR>:set number<CR>
 
 " Quickfix終了
 autocmd FileType qf nnoremap <buffer> q :close<CR>
