@@ -203,7 +203,7 @@ inoremap <C-l> <Esc>
 nnoremap ss :w<CR>
 
 " Quick quit
-nnoremap qq :q<CR>
+nnoremap q :q<CR>
 
 "---------------------------------------
 " マクロ
@@ -211,7 +211,6 @@ nnoremap qq :q<CR>
 
 " qを他のコマンドに明け渡すために変更
 nnoremap Q q<CR>
-nnoremap q <nop>
 
 "---------------------------------------
 " VIM設定の編集
