@@ -5,6 +5,9 @@ scriptencoding utf-8
 "===============================================================================
 set nocompatible
 
+" 自動コマンドの初期化
+autocmd!
+
 "---------------------------------------
 " NeoBundle
 "---------------------------------------
@@ -568,6 +571,8 @@ let NERDTreeCascadeSingleChildDir=0
 let NERDTreeCascadeOpenSingleChildDir=0
 
 autocmd TabLeave * NERDTreeClose
+"autocmd TabLeave * UniteClose
+autocmd TabLeave * cclose
 
 nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <C-e> :NERDTreeToggle<CR>
