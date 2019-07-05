@@ -220,13 +220,19 @@ nnoremap q :q<CR>
 nnoremap Q q<CR>
 
 "---------------------------------------
-" VIM設定の編集
+" 特定ファイルへのショートカット
 "---------------------------------------
 
 " Configure vim
 nnoremap <silent> g. :<C-u>edit ~/.config/nvim/init.vim<CR>
 nnoremap <silent> g, :<C-u>edit ~/.bashrc<CR>
 nnoremap <silent> g<Space> :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> gp :<C-u>bprevious<CR>
+nnoremap <silent> gn :<C-u>bnext<CR>
+
+"---------------------------------------
+" 設定の即時適用
+"---------------------------------------
 
 " Reload vimrc
 nnoremap <Leader>, :<C-u>source $MYVIMRC<CR>
