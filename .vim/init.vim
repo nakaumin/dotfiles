@@ -74,6 +74,9 @@ NeoBundle 'thinca/vim-qfreplace'
 " コミットツリー表示
 NeoBundle 'gregsexton/gitv'
 
+" 差分の自動表示
+NeoBundle 'airblade/vim-gitgutter'
+
 " 編集・コミット作成
 NeoBundle 'tpope/vim-fugitive'
 
