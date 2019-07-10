@@ -189,6 +189,9 @@ set fileencodings=ucs-boms,utf-8,iso-2022-jp,euc-jp,cp932,latin1
 " 曖昧文字幅問題: □や○文字が崩れる問題を解決
 set ambiwidth=double
 
+" ファイル末尾改行の設定
+set binary noeol
+
 "---------------------------------------
 " 基本キーマップ
 "---------------------------------------
