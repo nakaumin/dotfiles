@@ -1,16 +1,17 @@
 [color]
-	ui = false
-	diff = true
-	interactive = true
-	status = true
-	branch = true
+  ui = false
+  diff = true
+  interactive = true
+  status = true
+  branch = true
 [user]
-	name = nakaumin
+  name = nakaumin
+  email = nakaumin@gmail.com
 [core]
   whitespace = cr-at-eol
-	quotepath = false
-	editor = vim
-	pager = less -i
+  quotepath = false
+  editor = vim
+  pager = less -i
 [alias]
   ls = ls-files -v
   st = status
@@ -27,18 +28,21 @@
   lga = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
   lgs = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
   fix = commit --amend -C HEAD
+  pr = pull-request
+  see = browse
 [gui]
-	encoding = utf-8
+  encoding = utf-8
 [push]
-	default = simple
+  default = simple
 [pull]
-	rebase = true
+  rebase = true
 [merge]
   ff = false
 
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
 [fetch]
-	prune = true
+  prune = true
