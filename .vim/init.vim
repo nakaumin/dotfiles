@@ -548,6 +548,7 @@ vnoremap <silent> co :ContinuousNumber <C-a><CR>
 
 let NERDTreeIgnore=['^\.git$',
 \ '^tags$',
+\ '\btags$',
 \ '^sf$',
 \ '\.\(xls\|png\|jpg\|gif\|map\|pdf\|bak\)$',
 \ '\~$',
