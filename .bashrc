@@ -69,6 +69,16 @@ alias g='cd $(ghq root)/$(ghq list | peco)'
 alias ap='ansible-playbook deploy.yml'
 
 #------------------------------------------------------------
+#  utility
+#------------------------------------------------------------
+
+fvim() {
+  files=$(git ls-files) &&
+  selected_files=$(echo "$files" | fzf --preview 'head -100 {}') &&
+  vim $selected_files
+}
+
+#------------------------------------------------------------
 #  completion
 #------------------------------------------------------------
 
