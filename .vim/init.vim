@@ -124,6 +124,9 @@ NeoBundle 'othree/eregex.vim'
 " 全文検索
 NeoBundle 'rking/ag.vim'
 
+" fzf
+NeoBundle 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+NeoBundle 'junegunn/fzf.vim'
 "NeoBundle 'thinca/vim-ref'
 "NeoBundle 'osyo-manga/vim-over'
 
@@ -169,6 +172,7 @@ set hidden
 " 他で編集されたら読み込み直す
 set autoread
 
+set rtp+=/usr/local/opt/fzf
 
 "---------------------------------------
 " フォーマット・文字コード
@@ -575,6 +579,26 @@ autocmd TabLeave * cclose
 
 nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <C-e> :NERDTreeToggle<CR>
+
+"---------------------------------------
+" fzf
+"---------------------------------------
+" deniteと合わせて上部に表示
+let g:fzf_layout = { 'up': '~40%' }
+
+" <C-t>でタグ検索
+nnoremap <silent> <C-t> :call fzf#vim#tags(expand('<cword>'))<CR>
+
+" fzfからファイルにジャンプできるようにする
+let g:fzf_buffers_jump = 1
+
+" サンプルキーバインド
+nnoremap <silent> ,f :GFiles<CR>
+nnoremap <silent> ,F :GFiles?<CR>
+nnoremap <silent> ,b :Buffers<CR>
+nnoremap <silent> ,l :BLines<CR>
+nnoremap <silent> ,h :History<CR>
+nnoremap <silent> ,m :Mark<CR>
 
 "---------------------------------------
 " Unite
