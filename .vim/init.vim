@@ -598,7 +598,7 @@ nnoremap <silent> <Leader>F :GFiles?<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>l :BLines<CR>
 nnoremap <silent> <Leader>h :History<CR>
-nnoremap <silent> <Leader>m :Mark<CR>
+"nnoremap <silent> <Leader>m :Mark<CR>
 
 "---------------------------------------
 " Unite
@@ -613,7 +613,7 @@ call unite#custom#profile('default', 'context', {
 " quick-match
 " auto-resize
 " max-multi-lines={max-lines}
-"nnoremap <Leader>m :Unite neomru/file -buffer-name=files -start-insert<CR>
+nnoremap <Leader>m :Unite neomru/file -buffer-name=files -start-insert<CR>
 "nnoremap <Leader>M :Unite neomru/file -buffer-name=files -no-quit<CR>
 "noremap <Leader>b :Unite buffer:- -buffer-name=files<CR>
 nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
