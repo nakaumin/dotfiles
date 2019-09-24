@@ -593,12 +593,12 @@ nnoremap <silent> <C-t> :call fzf#vim#tags(expand('<cword>'))<CR>
 let g:fzf_buffers_jump = 1
 
 " サンプルキーバインド
-nnoremap <silent> ,f :GFiles<CR>
-nnoremap <silent> ,F :GFiles?<CR>
-nnoremap <silent> ,b :Buffers<CR>
-nnoremap <silent> ,l :BLines<CR>
-nnoremap <silent> ,h :History<CR>
-nnoremap <silent> ,m :Mark<CR>
+nnoremap <silent> <Leader>f :GFiles<CR>
+nnoremap <silent> <Leader>F :GFiles?<CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <Leader>l :BLines<CR>
+nnoremap <silent> <Leader>h :History<CR>
+nnoremap <silent> <Leader>m :Mark<CR>
 
 "---------------------------------------
 " Unite
@@ -613,12 +613,12 @@ call unite#custom#profile('default', 'context', {
 " quick-match
 " auto-resize
 " max-multi-lines={max-lines}
-nnoremap <Leader>m :Unite neomru/file -buffer-name=files -start-insert<CR>
-nnoremap <Leader>M :Unite neomru/file -buffer-name=files -no-quit<CR>
-nnoremap <Leader>b :Unite buffer:- -buffer-name=files<CR>
+"nnoremap <Leader>m :Unite neomru/file -buffer-name=files -start-insert<CR>
+"nnoremap <Leader>M :Unite neomru/file -buffer-name=files -no-quit<CR>
+"noremap <Leader>b :Unite buffer:- -buffer-name=files<CR>
 nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
-nnoremap <Leader>f :Unite buffer neomru/file -buffer-name=files -start-insert<CR>
-nnoremap <Leader>F :Unite buffer neomru/file -buffer-name=files -no-quit<CR>
+"nnoremap <Leader>f :Unite buffer neomru/file -buffer-name=files -start-insert<CR>
+"nnoremap <Leader>F :Unite buffer neomru/file -buffer-name=files -no-quit<CR>
 nnoremap <Leader>o :Unite outline -start-insert<CR>
 nnoremap <Leader>O :Unite outline -no-quit<CR>
 nnoremap <Leader>r :Unite register -buffer-name=register<CR>
