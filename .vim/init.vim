@@ -585,14 +585,11 @@ nnoremap <C-e> :NERDTreeToggle<CR>
 "---------------------------------------
 " deniteと合わせて上部に表示
 let g:fzf_layout = { 'up': '~40%' }
-
-" <C-t>でタグ検索
-nnoremap <silent> <C-t> :call fzf#vim#tags(expand('<cword>'))<CR>
-
 " fzfからファイルにジャンプできるようにする
 let g:fzf_buffers_jump = 1
 
 " サンプルキーバインド
+nnoremap <silent> <Leader>t :Tags<CR>
 nnoremap <silent> <Leader>f :GFiles<CR>
 nnoremap <silent> <Leader>F :GFiles?<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
