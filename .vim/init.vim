@@ -403,6 +403,10 @@ nnoremap <silent> tk <C-w>k
 " QuickFix
 "---------------------------------------
 
+"不快なAck.vimのquickfixなどの挙動を抑止
+let g:ack_apply_qmappings=0
+let g:ack_apply_lmappings=0
+
 " QucickFix内のエントリを連続的に閲覧
 nnoremap <silent> <C-j> :<C-u>cn<CR>zz
 nnoremap <silent> <C-k> :<C-u>cp<CR>zz
@@ -413,12 +417,6 @@ nnoremap <silent> ,q :<C-u>copen 20<CR>:set number<CR>
 
 " Quickfix終了
 autocmd FileType qf nnoremap <buffer> q :close<CR>
-
-"不快なQuickFixのデフォルトの挙動を抑止
-autocmd FileType qf nnoremap <buffer> H :<C-u>tabprevious<CR>
-autocmd FileType qf nnoremap <buffer> L :<C-u>tabnext<CR>
-autocmd FileType qf nnoremap <buffer> h h
-autocmd FileType qf nnoremap <buffer> l l
 
 " QF内ではタグジャンプの動作を抑止し通常通り
 autocmd FileType qf nnoremap <buffer> <Return> <Return>
