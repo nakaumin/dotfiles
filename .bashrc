@@ -1,6 +1,36 @@
 #!/bin/bash
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+# [ -z "$PS1" ] && return
+
+#------------------------------------------------------------
+#  execution path 
+#------------------------------------------------------------
+
+PATH=~/bin:"$PATH"
+PATH=~/bin/vendor:"$PATH"
+PATH=~/go/bin:"$PATH"
+PATH=~/.composer/vendor/bin:"$PATH"
+PATH=/usr/local/bin:"$PATH"
+PATH=/usr/local/sbin:"$PATH"
+export PATH
+
+#------------------------------------------------------------
+#  language and charcode 
+#------------------------------------------------------------
+
+export LANG=ja_JP.UTF-8
+export VTE_CJK_WIDTH=wide
+
+#------------------------------------------------------------
+#  SSH AUTH SOCK
+#------------------------------------------------------------
+
+if [ -n $SSH_AUTH_SOCK ] ;then
+  find /tmp/ssh-* -name "agent.*" -exec ln -sf {} ~/.ssh-sock \; 2>/dev/null
+  if [ -e $HOME/.ssh-sock ]; then
+    export SSH_AUTH_SOCK=$HOME/.ssh-sock
+  fi
+fi
 
 #------------------------------------------------------------
 #  general
@@ -184,3 +214,10 @@ fi
 
 # プロンプト表示毎にscreenのタイトルを現在のディレクトリ名に変更する
 PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
+
+# pyenvさんに~/.pyenvではなく、/usr/loca/var/pyenvを使うようにお願いする
+export PYENV_ROOT=/usr/local/var/pyenv
+
+# pyenvさんに自動補完機能を提供してもらう
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+

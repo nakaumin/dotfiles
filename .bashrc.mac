@@ -1,6 +1,28 @@
 #!/bin/bash
 
 #------------------------------------------------------------
+# PATH
+#------------------------------------------------------------
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+if [ -n "~/bin.alias" ]; then
+  export PATH="~/bin.alias:$PATH"
+fi
+
+#------------------------------------------------------------
+# HOMEBREW
+#------------------------------------------------------------
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+#------------------------------------------------------------
+# Keychain for SSH
+# SSH鍵管理をOSXのキーチェーンにさせない
+#------------------------------------------------------------
+if [ ! -f $HOME/.keychain/$HOSTNAME-sh ] ; then
+  unset SSH_AUTH_SOCK
+fi
+eval `keychain --quiet --eval --agents ssh id_rsa`
+
+#------------------------------------------------------------
 #  alias
 #------------------------------------------------------------
 alias ls="gls --color=auto"
@@ -19,13 +41,4 @@ fi
 if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
-
-#------------------------------------------------------------
-#  SSH鍵管理をOSXのキーチェーンにさせない
-#------------------------------------------------------------
-
-#if [ ! -f $HOME/.keychain/$HOSTNAME-sh ] ; then
-#  unset SSH_AUTH_SOCK
-#fi
-#eval `keychain --eval --agents ssh id_rsa`
 
