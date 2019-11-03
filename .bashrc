@@ -152,8 +152,8 @@ PROMPT_COLOR=$COLOR_BRIGHT_RED
 
 if [ `uname` = "Darwin" ]; then
   PWD_COLOR=$COLOR_WHITE
-  #HOST_COLOR=$COLOR_WHITE
-  #USER_COLOR=$COLOR_WHITE
+  HOST_COLOR=$COLOR_WHITE
+  USER_COLOR=$COLOR_WHITE
   PROMPT_COLOR=$COLOR_WHITE
 fi
 
@@ -196,24 +196,21 @@ if [ `uname` = "Linux" ]; then
   fi
 fi
 
+# プロンプト表示毎にscreenのタイトルを現在のディレクトリ名に変更する
+PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
+
 #------------------------------------------------------------
 #  load extra environmental settings
 #------------------------------------------------------------
-
-# for macos
-if [ `uname` = "Darwin" ]; then
-  if [ -f ~/.bashrc.mac ]; then
-  . ~/.bashrc.mac
-  fi
-fi
 
 # for local
 if [ -f ~/.bashrc.local ]; then
 . ~/.bashrc.local
 fi
 
-# プロンプト表示毎にscreenのタイトルを現在のディレクトリ名に変更する
-PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
+#------------------------------------------------------------
+#  Xenv
+#------------------------------------------------------------
 
 # pyenvさんに~/.pyenvではなく、/usr/loca/var/pyenvを使うようにお願いする
 export PYENV_ROOT=/usr/local/var/pyenv
