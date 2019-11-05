@@ -94,6 +94,8 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'posva/vim-vue'
+NeoBundle 'tomlion/vim-solidity'
+NeoBundle 'sheerun/vim-polyglot'
 
 " PHP
 NeoBundle 'github-masaharu/vim-php-japanese-manual'
