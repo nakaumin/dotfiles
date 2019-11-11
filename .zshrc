@@ -153,7 +153,7 @@ bindkey '^R' fzf-history-selection
 # enable color support
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
-    alias ls='ls --color=auto'
+    #alias ls='ls --color=auto'
     alias grep='egrep -i --color=auto'
 fi
 
@@ -173,7 +173,7 @@ alias ap='ansible-playbook deploy.yml'
 
 
 #------------------------------------------------------------
-#  run screen
+#  Screen
 #------------------------------------------------------------
 if [ `uname` = "Linux" ]; then
   if [ $SHLVL = '1' ]; then
@@ -185,4 +185,35 @@ fi
 PROMPT_COMMAND='echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
 
 precmd() { eval "$PROMPT_COMMAND" }
+
+#------------------------------------------------------------
+#  MacOS
+#------------------------------------------------------------
+
+if [ `uname` = "Darwin" ]; then
+  #------------------------------------------------------------
+  # Keychain for SSH
+  # SSH鍵管理をOSXのキーチェーンにさせない
+  #------------------------------------------------------------
+  if [ ! -f $HOME/.keychain/$HOSTNAME-sh ] ; then
+    unset SSH_AUTH_SOCK
+  fi
+  eval `keychain --quiet --eval --agents ssh id_rsa`
+
+  #------------------------------------------------------------
+  # HOMEBREW
+  #------------------------------------------------------------
+  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+  #------------------------------------------------------------
+  # PATH for gnu's g* comands
+  #------------------------------------------------------------
+  export PATH=/usr/local/opt/coreutils/bin:$PATH
+
+  #------------------------------------------------------------
+  #  alias
+  #------------------------------------------------------------
+  alias find=gfind
+  alias xargs=gxargs
+fi
 
