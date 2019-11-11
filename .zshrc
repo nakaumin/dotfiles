@@ -217,3 +217,4 @@ if [ `uname` = "Darwin" ]; then
   alias xargs=gxargs
 fi
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
