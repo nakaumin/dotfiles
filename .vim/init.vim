@@ -406,8 +406,8 @@ nnoremap <silent> tk <C-w>k
 "---------------------------------------
 
 "不快なAck.vimのquickfixなどの挙動を抑止
-let g:ack_apply_qmappings=0
-let g:ack_apply_lmappings=0
+let g:ag_apply_qmappings=0
+let g:ag_apply_lmappings=0
 
 " QucickFix内のエントリを連続的に閲覧
 nnoremap <silent> <C-j> :<C-u>cn<CR>zz
