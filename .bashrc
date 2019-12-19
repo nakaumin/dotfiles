@@ -221,3 +221,13 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+#------------------------------------------------------------
+# for Mac SSH鍵管理をOSXのキーチェーンにさせない
+#------------------------------------------------------------
+if [ `uname` = "Darwin" ]; then
+  if [ ! -f $HOME/.keychain/$HOSTNAME-sh ] ; then
+    unset SSH_AUTH_SOCK
+  fi
+  eval `keychain --quiet --eval --agents ssh id_rsa`
+fi
