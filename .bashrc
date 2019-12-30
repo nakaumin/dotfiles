@@ -195,7 +195,10 @@ fi
 #  run screen
 #------------------------------------------------------------
 if [ `uname` = "Linux" ]; then
-  if [ $SHLVL = '1' ]; then
+#  if [ $SHLVL = '1' ]; then
+#    screen -U -xR -S $USER
+#  fi
+  if [ $SHLVL = '1' -a "$TERM" != 'screen' -a "$TERM" != 'dumb' ]; then # dumb = scp
     screen -U -xR -S $USER
   fi
 fi
