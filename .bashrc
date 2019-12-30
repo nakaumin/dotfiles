@@ -46,7 +46,10 @@ umask 022
 #------------------------------------------------------------
 
 #disable C-s on bash
-stty stop undef
+if [ “$SSH_TTY” != “” ]; then
+  stty start undef
+  stty stop undef
+fi
 
 #set vi mode
 set -o vi
