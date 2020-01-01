@@ -64,6 +64,9 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'taiansu/nerdtree-ag'
 
+" キーリピートをプラグインにも対応させる
+NeoBundle 'tpope/vim-repeat'
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
 " QuickFix
 NeoBundle 'sk1418/QFGrep'
