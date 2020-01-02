@@ -101,6 +101,9 @@ alias g='cd $(ghq root)/$(ghq list | peco)'
 # easy ansible-playbook
 alias ap='ansible-playbook deploy.yml'
 
+alias find=gfind
+alias xargs=gxargs
+
 #------------------------------------------------------------
 #  utility
 #------------------------------------------------------------
