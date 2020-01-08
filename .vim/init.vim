@@ -75,7 +75,8 @@ NeoBundle 'thinca/vim-qfreplace'
 " Git
 
 " コミットツリー表示
-NeoBundle 'gregsexton/gitv'
+"NeoBundle 'gregsexton/gitv'
+NeoBundle 'cohama/agit.vim'
 
 " 差分の自動表示
 NeoBundle 'airblade/vim-gitgutter'
@@ -731,9 +732,7 @@ nnoremap <C-g>r :Gread<CR>
 nnoremap <C-g>s :Gstatus<CR>
 
 "---------------------------------------
-" Gitv
+" Agit
 "---------------------------------------
-nnoremap <C-g>v :Gitv<CR>
-nnoremap <C-g>V :Gitv --all<CR>
-nnoremap <C-g>m :Merginal<CR>
+nnoremap <C-g>v :Agit<CR>
 
