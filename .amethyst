@@ -1,0 +1,77 @@
+{
+  "layouts": [
+    "tall",
+    "columns",
+    "fullscreen"
+  ],
+
+  "mod1": [
+    "option"
+  ],
+
+  "mod2": [
+    "option",
+    "shift"
+  ],
+
+  "mouse-follows-focus": true,
+  "focus-follows-mouse": false,
+  "enables-layout-hud": true,
+  "enables-layout-hud-on-space-change": false,
+
+  "floating": [
+    "com.xnview.XnView",
+    "com.apple.systempreferences",
+    "com.apple.finder",
+    "com.kapeli.dashdoc",
+    "com.googlecode.iterm2"
+  ],
+
+  "focus-cw": {
+      "mod": "mod1",
+      "key": ""
+  },
+
+  "cycle-layout": {
+      "mod": "mod1",
+      "key": "l"
+  },
+
+  "throw-focused-window-to-space-1": {
+      "mod": "mod1",
+      "key": "1"
+	},
+
+  "throw-space-2": {
+      "mod": "mod1",
+      "key": "2"
+	},
+
+  "throw-space-3": {
+      "mod": "mod1",
+      "key": "3"
+	},
+
+  "throw-space-4": {
+      "mod": "mod1",
+      "key": "4"
+	},
+
+  "throw-space-5": {
+      "mod": "mod1",
+      "key": "5"
+	},
+
+  "swap-main": {
+      "mod": "mod1",
+      "key": "enter"
+  },
+  "shrink-main": {
+      "mod": "mod2",
+      "key": "h"
+  },
+  "expand-main": {
+      "mod": "mod2",
+      "key": "l"
+  }
+}
