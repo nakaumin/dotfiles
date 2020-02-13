@@ -150,6 +150,13 @@ NeoBundle 'matchit.zip'
 NeoBundle 'tanabe/ToggleCase-vim'
 NeoBundle 'tpope/vim-surround'
 
+"Language server
+NeoBundle 'prabirshrestha/async.vim'
+NeoBundle 'prabirshrestha/vim-lsp'
+NeoBundle 'prabirshrestha/vim-lsp-settings'
+NeoBundle 'prabirshrestha/asyncomplete.vim'
+NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
+
 "Finish install ====
 
 " Required:
