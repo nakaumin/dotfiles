@@ -101,9 +101,6 @@ alias g='cd $(ghq root)/$(ghq list | peco)'
 # easy ansible-playbook
 alias ap='ansible-playbook deploy.yml'
 
-alias find=gfind
-alias xargs=gxargs
-
 #------------------------------------------------------------
 #  utility
 #------------------------------------------------------------
@@ -228,13 +225,21 @@ export PYENV_ROOT=/usr/local/var/pyenv
 # pyenvさんに自動補完機能を提供してもらう
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
+#------------------------------------------------------------
+#  Fzf
+#------------------------------------------------------------
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 #------------------------------------------------------------
-# for Mac SSH鍵管理をOSXのキーチェーンにさせない
+#  For mac
 #------------------------------------------------------------
 if [ `uname` = "Darwin" ]; then
+  # GNU utils
+  alias find=gfind
+  alias xargs=gxargs
+
+  # SSH鍵管理をOSXのキーチェーンにさせない
   if [ ! -f $HOME/.keychain/$HOSTNAME-sh ] ; then
     unset SSH_AUTH_SOCK
   fi
