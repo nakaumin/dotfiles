@@ -6,6 +6,11 @@
 #  execution path 
 #------------------------------------------------------------
 
+# to override PROMPT
+if [ -f ~/.env ]; then
+. ~/.env
+fi
+
 PATH=~/bin:"$PATH"
 PATH=~/bin/vendor:"$PATH"
 PATH=~/go/bin:"$PATH"
