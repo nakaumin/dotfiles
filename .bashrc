@@ -90,6 +90,10 @@ alias ll='ls -l'
 alias la='ls -A'
 
 # git
+alias gf='git fetch'
+alias pl='git pull'
+alias cm='git commit'
+alias co='git checkout'
 alias lg='git lg'
 alias lga='git lga'
 alias lgs='git lgs'
