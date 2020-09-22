@@ -65,11 +65,11 @@
                         ]
                     },
                     {
-                        "description": "<C-l> または <Esc> => <ESC> + 英数",
+                        "description": "<C-'> または <Esc> => <ESC> + 英数",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "l",
+                                    "key_code": "quote",
                                     "modifiers": {
                                         "mandatory": [
                                             "control"
