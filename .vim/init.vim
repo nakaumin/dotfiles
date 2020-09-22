@@ -213,7 +213,7 @@ inoremap <C-l> <Esc>
 nnoremap ss :w<CR>
 
 " Quick quit
-nnoremap q :q<CR>
+nnoremap qq :q<CR>
 
 "---------------------------------------
 " マクロ
@@ -247,11 +247,12 @@ nnoremap <Leader>, :<C-u>source $MYVIMRC<CR>
 " 日本語ヘルプ優先
 set helplang=ja,en
 
-" <C-h> + 単語でヘルプ
+" /は直接表現できない。_を使って表現する。
+" <C-_> + 単語でヘルプ
 " XXX: Vimscript上での末尾の空白を維持するために冗長なキーバインドにしている
-nnoremap <C-h> :<C-u>vertical help  <Bs>
-" <C-h>二回でカーソル下の単語のヘルプを引く
-nnoremap <silent> <C-h><C-h> :<C-u>vertical help <C-r><C-w><CR>
+nnoremap <C-_> :<C-u>vertical help  <Bs>
+" <C-_>二回でカーソル下の単語のヘルプを引く
+nnoremap <silent> <C-_><C-_> :<C-u>vertical help <C-r><C-w><CR>
 " ヘルプでも<Return>でジャンプ
 autocmd FileType help nnoremap <buffer> <Return> <C-]>
 
@@ -393,6 +394,11 @@ nnoremap <silent> th <C-w>h
 nnoremap <silent> tj <C-w>j
 nnoremap <silent> tk <C-w>k
 
+nnoremap <silent> <C-h> <C-w>h "ヘルプと干渉
+nnoremap <silent> <C-l> <C-w>l "エスケープ代替と干渉
+nnoremap <silent> <C-j> <C-w>j "QuickFix閲覧と干渉
+nnoremap <silent> <C-k> <C-w>k "QuickFix閲覧と干渉
+
 "---------------------------------------
 " QuickFix
 "---------------------------------------
@@ -402,8 +408,8 @@ let g:ag_apply_qmappings=0
 let g:ag_apply_lmappings=0
 
 " QucickFix内のエントリを連続的に閲覧
-nnoremap <silent> <C-j> :<C-u>cn<CR>zz
-nnoremap <silent> <C-k> :<C-u>cp<CR>zz
+nnoremap <silent> <Down> :<C-u>cn<CR>zz
+nnoremap <silent> <Up> :<C-u>cp<CR>zz
 
 " Quickfixを開く
 " TODO: トグルできるように
