@@ -733,6 +733,11 @@ nnoremap <C-g>v :Agit<CR>
 "---------------------------------------
 " coc.nvim
 "---------------------------------------
+
+" PHP: coc-phplsよりintelephenseの方がエラー検出が正確なので
+" コマンドラインより以下にてインストールしておく
+" npm -i intelephense -g
+
 " if hidden is not set, TextEdit might fail.
 set hidden
 
