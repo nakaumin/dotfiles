@@ -22,7 +22,6 @@
   "floating": [
     "com.xnview.XnView",
     "com.apple.systempreferences",
-    "com.apple.finder",
     "com.kapeli.dashdoc",
     "com.googlecode.iterm2"
   ],
