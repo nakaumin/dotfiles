@@ -9,33 +9,25 @@ set nocompatible
 autocmd!
 
 "---------------------------------------
-" NeoBundle
+" VIM-Plug
 "---------------------------------------
 
 if has('vim_starting')
-  " 初回起動時のみruntimepathにNeoBundleのパスを指定する
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-
-  " NeoBundleが未インストールであればgit cloneする・・・・・・①
-  if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
-    echo "install NeoBundle..."
-    :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+  if !filereadable(expand('~/.vim/autoload/plug.vim'))
+    echo "install vim-plug..."
+    :call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
   endif
 endif
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+call plug#begin('~/.vim/plugged')
 
 "---------------------------------------
 " Install Plugins
 "---------------------------------------
-" Library
 
-NeoBundle 'Shougo/vimproc.vim', {
+" Library
+Plug 'Shougo/vimproc.vim', {
 \ 'build' : {
 \     'windows' : 'tools\\update-dll-mingw',
 \     'cygwin' : 'make -f make_cygwin.mak',
@@ -44,129 +36,123 @@ NeoBundle 'Shougo/vimproc.vim', {
 \     'unix' : 'gmake',
 \    },
 \ }
-
-NeoBundle 'clones/vim-l9'
+Plug 'clones/vim-l9'
 
 " Unite
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/unite-outline'
-"NeoBundle 'Sixeight/unite-grep'
-"NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'ujihisa/unite-colorscheme'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'Sixeight/unite-grep'
+Plug 'tsukkee/unite-tag'
+Plug 'ujihisa/unite-colorscheme'
 
 " Neo***
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
 " NERDTree
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'taiansu/nerdtree-ag'
+Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+Plug 'taiansu/nerdtree-ag'
 
 " キーリピートをプラグインにも対応させる
-NeoBundle 'tpope/vim-repeat'
-silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+"Plug 'tpope/vim-repeat'
+"silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
 " QuickFix
-NeoBundle 'sk1418/QFGrep'
-NeoBundle 'thinca/vim-qfreplace'
+Plug 'sk1418/QFGrep'
+Plug 'thinca/vim-qfreplace'
 
-" Git
+"-------
+" Git 
+"-------
 
 " コミットツリー表示
-"NeoBundle 'gregsexton/gitv'
-NeoBundle 'cohama/agit.vim'
+Plug 'gregsexton/gitv'
+Plug 'cohama/agit.vim'
 
 " 差分の自動表示
-NeoBundle 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
 " 編集・コミット作成
-NeoBundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " ブランチ管理
-"NeoBundle 'idanarye/vim-merginal'
+Plug 'idanarye/vim-merginal'
 
 " Colorscheme
-NeoBundle 'wombat256.vim'
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'vim-scripts/twilight'
+Plug 'vim-scripts/wombat256.vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'w0ng/vim-hybrid'
+Plug 'vim-scripts/twilight'
 
 " Syntax
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'cakebaker/scss-syntax.vim'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'posva/vim-vue'
-NeoBundle 'tomlion/vim-solidity'
-NeoBundle 'sheerun/vim-polyglot'
+Plug 'scrooloose/syntastic'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'posva/vim-vue'
+Plug 'tomlion/vim-solidity'
+Plug 'sheerun/vim-polyglot'
 
 " PHP
-NeoBundle 'github-masaharu/vim-php-japanese-manual'
-NeoBundle 'soh335/vim-symfony'
-NeoBundle 'PDV--phpDocumentor-for-Vim'
+Plug 'alvan/vim-php-manual', { 'for' : 'php' }
+Plug 'soh335/vim-symfony', { 'for' : 'php' }
+Plug 'vim-scripts/PDV--phpDocumentor-for-Vim', { 'for' : 'php' }
 
 " Help
-NeoBundle 'vim-jp/vimdoc-ja'
+Plug 'vim-jp/vimdoc-ja'
 helptags ~/.vim/bundle/vimdoc-ja/doc
 
 " その他
 
 " 末尾空白の可視化・一括削除
-NeoBundle 'bronson/vim-trailing-whitespace'
+Plug 'bronson/vim-trailing-whitespace'
 
 " インデントの可視化
-"NeoBundle 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 
 " ファイル操作
-NeoBundle 'renamer.vim'
+Plug 'vim-scripts/renamer.vim'
 
 " Powerline
-NeoBundle 'Lokaltog/vim-powerline', {'rev' : 'develop'}
+Plug 'Lokaltog/vim-powerline', {'rev' : 'develop'}
 
 " 正規表現
-NeoBundle 'othree/eregex.vim'
+Plug 'othree/eregex.vim'
 
 " 全文検索
-NeoBundle 'rking/ag.vim'
+Plug 'rking/ag.vim'
 
 " fzf
-NeoBundle 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-NeoBundle 'junegunn/fzf.vim'
-"NeoBundle 'thinca/vim-ref'
-"NeoBundle 'osyo-manga/vim-over'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'vim-scripts/FuzzyFinder'
 
-NeoBundle 'FuzzyFinder'
-"NeoBundle 'ujihisa/repl.vim'
-NeoBundle 'sudo.vim'
-NeoBundle 'Align'
+" Other
+Plug 'thinca/vim-ref'
+Plug 'osyo-manga/vim-over'
+Plug 'ujihisa/repl.vim'
+Plug 'vim-scripts/sudo.vim'
+Plug 'vim-scripts/Align'
 
-NeoBundle 'kana/vim-gf-user'
-NeoBundle 'kana/vim-gf-diff'
-"NeoBundle 'kana/vim-altr'
-NeoBundle 'kana/vim-tabpagecd'
+Plug 'kana/vim-gf-user'
+Plug 'kana/vim-gf-diff'
+Plug 'kana/vim-altr'
+Plug 'kana/vim-tabpagecd'
 
-NeoBundle 'matchit.zip'
-NeoBundle 'tanabe/ToggleCase-vim'
-NeoBundle 'tpope/vim-surround'
+Plug 'vim-scripts/matchit.zip'
+Plug 'tanabe/ToggleCase-vim'
+Plug 'tpope/vim-surround'
 
-"Language server
-NeoBundle 'prabirshrestha/async.vim'
-NeoBundle 'prabirshrestha/vim-lsp'
-NeoBundle 'prabirshrestha/vim-lsp-settings'
-NeoBundle 'prabirshrestha/asyncomplete.vim'
-NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
+" Language server
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-"Finish install ====
-
-" Required:
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-NeoBundleCheck
-
+" Required
+call plug#end()
 
 "===============================================================================
 " ▶ 基本設定
@@ -311,9 +297,7 @@ set showcmd
 
 " カラースキーマ
 "colorscheme wombat256mod
-if neobundle#is_installed('vim-hybrid')
-  colorscheme hybrid
-endif
+colorscheme hybrid
 
 " iTerm2など256色環境なら無くても良い
 set t_Co=256
@@ -686,26 +670,26 @@ call unite#custom#source('neomru/file', 'converters',
 "---------------------------------------
 " neocomplete・neosnippet
 "---------------------------------------
-if neobundle#is_installed('neocomplete.vim')
-    " Vim起動時にneocompleteを有効にする
-    let g:neocomplete#enable_at_startup = 1
-    " smartcase有効化. 大文字が入力されるまで大文字小文字の区別を無視する
-    let g:neocomplete#enable_smart_case = 1
-    " 3文字以上の単語に対して補完を有効にする
-    let g:neocomplete#min_keyword_length = 3
-    " 区切り文字まで補完する
-    let g:neocomplete#enable_auto_delimiter = 1
-    " 1文字目の入力から補完のポップアップを表示
-    let g:neocomplete#auto_completion_start_length = 1
-    " バックスペースで補完のポップアップを閉じる
-    inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
-
-    " エンターキーで補完候補の確定. スニペットの展開もエンターキーで確定
-    imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
-    " タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ
-    imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
-endif
-
+"if neobundle#is_installed('neocomplete.vim')
+"    " Vim起動時にneocompleteを有効にする
+"    let g:neocomplete#enable_at_startup = 1
+"    " smartcase有効化. 大文字が入力されるまで大文字小文字の区別を無視する
+"    let g:neocomplete#enable_smart_case = 1
+"    " 3文字以上の単語に対して補完を有効にする
+"    let g:neocomplete#min_keyword_length = 3
+"    " 区切り文字まで補完する
+"    let g:neocomplete#enable_auto_delimiter = 1
+"    " 1文字目の入力から補完のポップアップを表示
+"    let g:neocomplete#auto_completion_start_length = 1
+"    " バックスペースで補完のポップアップを閉じる
+"    inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
+"
+"    " エンターキーで補完候補の確定. スニペットの展開もエンターキーで確定
+"    imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
+"    " タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ
+"    imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+"endif
+"
 "" AutoComplPop like behavior.
 "" Enable omni completion.
 "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
