@@ -3,7 +3,7 @@
 # [ -z "$PS1" ] && return
 
 #------------------------------------------------------------
-#  execution path 
+#  PATH
 #------------------------------------------------------------
 
 # to override PROMPT
@@ -20,7 +20,7 @@ PATH=/usr/local/sbin:"$PATH"
 export PATH
 
 #------------------------------------------------------------
-#  language and charcode 
+#  Language and encoding
 #------------------------------------------------------------
 
 export LANG=ja_JP.UTF-8
@@ -38,7 +38,7 @@ if [ -n $SSH_AUTH_SOCK ] ;then
 fi
 
 #------------------------------------------------------------
-#  general
+#  General
 #------------------------------------------------------------
 
 # check the window size after each command and, if necessary,
@@ -47,7 +47,7 @@ shopt -s checkwinsize
 umask 022
 
 #------------------------------------------------------------
-#  key setting
+#  Key bindings 
 #------------------------------------------------------------
 
 #disable C-s on bash
@@ -60,7 +60,7 @@ fi
 set -o vi
 
 #------------------------------------------------------------
-#  history
+#  History
 #------------------------------------------------------------
 
 HISTCONTROL=erasedups
@@ -79,7 +79,7 @@ PROMPT_COMMAND='share_history'
 shopt -u histappend   # disable default history-append setting
 
 #------------------------------------------------------------
-#  alias
+#  Alias
 #------------------------------------------------------------
 
 # enable color support 
@@ -111,7 +111,7 @@ alias g='cd $(ghq root)/$(ghq list | peco)'
 alias ap='ansible-playbook deploy.yml'
 
 #------------------------------------------------------------
-#  utility
+#  Utility
 #------------------------------------------------------------
 
 fvim() {
@@ -121,7 +121,7 @@ fvim() {
 }
 
 #------------------------------------------------------------
-#  completion
+#  Completion
 #------------------------------------------------------------
 
 # enable programmable completion features (you don't need to enable
@@ -135,7 +135,7 @@ fi
 set mark-directories on
 
 #------------------------------------------------------------
-#  colors and prompt 
+#  Colors and prompt 
 #------------------------------------------------------------
 
 COLOR_RESET="\[\033[00m\]"
@@ -201,8 +201,9 @@ if [ -f ~/.bash_colors.local ]; then
 fi
 
 #------------------------------------------------------------
-#  run screen
+#  Screen
 #------------------------------------------------------------
+# Linuxの場合のみscreenを起動
 if [ `uname` = "Linux" ]; then
 #  if [ $SHLVL = '1' ]; then
 #    screen -U -xR -S $USER
@@ -216,7 +217,7 @@ fi
 PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
 
 #------------------------------------------------------------
-#  load extra environmental settings
+#  Load extra environmental settings
 #------------------------------------------------------------
 
 # for local
