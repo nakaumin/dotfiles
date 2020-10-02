@@ -372,11 +372,6 @@ set list listchars=tab:\▸\▸
 " ウィンドウ（タブ）移動
 "---------------------------------------
 
-"nnoremap <silent> <C-h> <C-w>h "ヘルプと干渉
-"nnoremap <silent> <C-l> <C-w>l "エスケープ代替と干渉
-"nnoremap <silent> <C-j> <C-w>j "QuickFix閲覧と干渉
-"nnoremap <silent> <C-k> <C-w>k "QuickFix閲覧と干渉
-"
 nnoremap <silent> <C-n> :tabnew<CR>
 nnoremap <silent> ts :<C-u>vsp<CR>
 nnoremap <silent> tS :<C-u>sp<CR>
@@ -393,11 +388,6 @@ nnoremap <silent> tl <C-w>l
 nnoremap <silent> th <C-w>h
 nnoremap <silent> tj <C-w>j
 nnoremap <silent> tk <C-w>k
-
-nnoremap <silent> <C-h> <C-w>h "ヘルプと干渉
-nnoremap <silent> <C-l> <C-w>l "エスケープ代替と干渉
-nnoremap <silent> <C-j> <C-w>j "QuickFix閲覧と干渉
-nnoremap <silent> <C-k> <C-w>k "QuickFix閲覧と干渉
 
 "---------------------------------------
 " QuickFix
@@ -443,6 +433,7 @@ set ignorecase
 set smartcase
 
 " 標準の正規表現検索をeregexに置き換え
+let g:eregex_default_enable=0
 nnoremap / :<C-u>M/
 vnoremap / :M/
 
