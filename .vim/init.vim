@@ -52,7 +52,7 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
 " NERDTree
-Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on' : ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'taiansu/nerdtree-ag'
 
 " キーリピートをプラグインにも対応させる
@@ -203,24 +203,20 @@ vnoremap ; :
 nnoremap : ;
 vnoremap : ;
 
-" Quick escape
-nnoremap <C-l> <Esc>
-vnoremap <C-l> <Esc>
-cnoremap <C-l> <Esc>
-inoremap <C-l> <Esc>
-
 " Quick save
 nnoremap ss :w<CR>
+nnoremap sc :wq<CR>
 
 " Quick quit
-nnoremap qq :q<CR>
+nnoremap q :q<CR>
+nnoremap <C-q> :qa!<CR>
 
 "---------------------------------------
 " マクロ
 "---------------------------------------
 
 " qを他のコマンドに明け渡すために変更
-nnoremap Q q
+nnoremap M q
 
 "---------------------------------------
 " 特定ファイルへのショートカット
@@ -328,6 +324,7 @@ let g:Powerline_symbols='fancy'
 " バックスペースの挙動を便利に
 set backspace=indent,eol,start
 
+" 移動の基準を表示ベースに
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 vnoremap <silent> j gj
@@ -397,6 +394,9 @@ nnoremap <silent> tk <C-w>k
 let g:ag_apply_qmappings=0
 let g:ag_apply_lmappings=0
 
+"タブ切り替え時にQuickfixを閉じる
+autocmd TabLeave * cclose
+
 " QucickFix内のエントリを連続的に閲覧
 nnoremap <silent> <Down> :<C-u>cn<CR>zz
 nnoremap <silent> <Up> :<C-u>cp<CR>zz
@@ -418,6 +418,13 @@ autocmd FileType qf nnoremap <buffer> rr :Qfreplace<CR>
 " XXX: Vimscript上での末尾の空白を維持するために冗長なキーバインドにしている
 autocmd FileType qf nnoremap <buffer> ss :<C-u>QFGrepPat  <BS>
 autocmd FileType qf nnoremap <buffer> vv :<C-u>QFGrepPatV  <BS>
+
+"---------------------------------------
+" マーク
+"---------------------------------------
+
+" マーク一覧
+nnoremap <silent> mm :<C-u>marks<CR>
 
 "---------------------------------------
 " 検索・タグジャンプ
@@ -461,10 +468,11 @@ vnoremap s/ :S/
 "---------------------------------------
 " 行結合
 "---------------------------------------
-nnoremap J gJ
-nnoremap gJ J
-vnoremap J gJ
-vnoremap gJ J
+" インデントを含めて結合をデフォルトに
+"nnoremap J gJ
+"nnoremap gJ J
+"vnoremap J gJ
+"vnoremap gJ J
 
 "---------------------------------------
 " ビジュアルモード・選択
@@ -487,6 +495,7 @@ set clipboard+=unnamed
 :set guioptions+=a
 
 " クリップボードからの貼り付け時自動的にペーストモードに
+" XXX: これ多分効いていない？
 if &term =~ "xterm"
   let &t_SI .= "\e[?2004h"
   let &t_EI .= "\e[?2004l"
@@ -503,7 +512,6 @@ endif
 "---------------------------------------
 " テキスト整形
 "---------------------------------------
-
 " Alignに伴って不要なキーマップを追加するプラグインがインストールされるので
 " 導入されている場合は削除する
 if exists(':AlignMapsClear') == 2
@@ -518,12 +526,14 @@ call Align#AlignCtrl ('v', '^#')
 call Align#AlignCtrl ('|W')
 
 " Yaml
+" ノーマルモードの場合yamlのインライン記述を展開する
 nnoremap <silent> \y <S-v>:S/(\{\s*\|,\s*)/\r      /g<CR><S-v>:S/\s*\}//<CR>j
+" 選択されていた場合はインデントを揃える
 vnoremap <silent> \y :Align : <CR>gv:S/(\s+):/:\1/<CR>gv:S/\s+:/:/ge<CR>gv:S@/\s*:\s*@/:@ge<CR>gv:S/\s+$//ge<CR>gv:S@(https?:)\s+//@\1//@ge<CR>
 
 " ToogleCase キャメルキャプス・スネークケースなどを切り替え
 " TODO: 形式を直接指定したい
-nnoremap <C-c> :<C-u>call ToggleCase()<CR>
+nnoremap C :<C-u>call ToggleCase()<CR>
 
 "---------------------------------------
 " 連番入力
@@ -564,9 +574,8 @@ let NERDTreeCascadeOpenSingleChildDir=0
 
 autocmd TabLeave * NERDTreeClose
 "autocmd TabLeave * UniteClose
-autocmd TabLeave * cclose
 
-nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <C-s> :NERDTreeFind<CR>
 nnoremap <C-e> :NERDTreeToggle<CR>
 
 "---------------------------------------
@@ -619,7 +628,6 @@ autocmd FileType unite nnoremap <buffer> tl <C-W>l
 
 " <Esc>/<C-l>でUniteを閉じる
 autocmd FileType unite nnoremap <buffer> <Esc> :UniteClose<CR>
-autocmd FileType unite nnoremap <buffer> <C-l> :UniteClose<CR>
 
 let s:filters = {
 \   "name" : "my_converter",
@@ -858,4 +866,3 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
