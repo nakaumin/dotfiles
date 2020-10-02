@@ -30,7 +30,7 @@ function! PHPLint()
 endfunction
 
 "--- php 
-nnoremap <C-h>p :<C-u>Ref phpmanual <C-r><C-w><CR>
+nnoremap <C-?>p :<C-u>Ref phpmanual <C-r><C-w><CR>
 
 " ********************
 " php settings

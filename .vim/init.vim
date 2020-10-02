@@ -248,11 +248,11 @@ nnoremap <Leader>, :<C-u>source $MYVIMRC<CR>
 set helplang=ja,en
 
 " /は直接表現できない。_を使って表現する。
-" <C-_> + 単語でヘルプ
+" ? + 単語でヘルプ
 " XXX: Vimscript上での末尾の空白を維持するために冗長なキーバインドにしている
-nnoremap <C-_> :<C-u>vertical help  <Bs>
-" <C-_>二回でカーソル下の単語のヘルプを引く
-nnoremap <silent> <C-_><C-_> :<C-u>vertical help <C-r><C-w><CR>
+nnoremap ? :<C-u>vertical help  <Bs>
+" ?二回でカーソル下の単語のヘルプを引く
+nnoremap <silent> ?? :<C-u>vertical help <C-r><C-w><CR>
 " ヘルプでも<Return>でジャンプ
 autocmd FileType help nnoremap <buffer> <Return> <C-]>
 
