@@ -65,11 +65,11 @@
                         ]
                     },
                     {
-                        "description": "<C-'> または <Esc> => <ESC> + 英数",
+                        "description": "<C-l> => <ESC> + 英数",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "quote",
+                                    "key_code": "l",
                                     "modifiers": {
                                         "mandatory": [
                                             "control"
@@ -82,6 +82,27 @@
                                     },
                                     {
                                         "key_code": "japanese_eisuu"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "<C-h>でDel",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace"
                                     }
                                 ],
                                 "type": "basic"
