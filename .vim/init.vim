@@ -8,6 +8,8 @@ set nocompatible
 " 自動コマンドの初期化
 autocmd!
 
+filetype plugin indent on
+
 "---------------------------------------
 " VIM-Plug
 "---------------------------------------
@@ -146,6 +148,7 @@ Plug 'tpope/vim-surround'
 
 " Language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'liuchengxu/vista.vim'
 
 
 " Required
@@ -395,7 +398,7 @@ let g:ag_apply_qmappings=0
 let g:ag_apply_lmappings=0
 
 "タブ切り替え時にQuickfixを閉じる
-autocmd TabLeave * cclose
+"autocmd TabLeave * cclose
 
 " QucickFix内のエントリを連続的に閲覧
 nnoremap <silent> <Down> :<C-u>cn<CR>zz
@@ -424,7 +427,7 @@ autocmd FileType qf nnoremap <buffer> vv :<C-u>QFGrepPatV  <BS>
 "---------------------------------------
 
 " マーク一覧
-nnoremap <silent> mm :<C-u>marks<CR>
+" nnoremap <silent> mm :<C-u>marks<CR>
 
 "---------------------------------------
 " 検索・タグジャンプ
@@ -614,8 +617,8 @@ nnoremap <Leader>m :Unite neomru/file -buffer-name=files -start-insert<CR>
 nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
 "nnoremap <Leader>f :Unite buffer neomru/file -buffer-name=files -start-insert<CR>
 "nnoremap <Leader>F :Unite buffer neomru/file -buffer-name=files -no-quit<CR>
-nnoremap <Leader>o :Unite outline -start-insert<CR>
-nnoremap <Leader>O :Unite outline -no-quit<CR>
+"nnoremap <Leader>o :Unite outline -start-insert<CR>
+"nnoremap <Leader>O :Unite outline -no-quit<CR>
 nnoremap <Leader>r :Unite register -buffer-name=register<CR>
 nnoremap <Leader>R :Unite register -buffer-name=register -no-quit<CR>
 nnoremap <Leader>c :Unite colorscheme -keep-focus -no-quit<CR>
@@ -783,7 +786,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
+nmap gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -857,7 +860,7 @@ nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
@@ -866,3 +869,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
+" Vista
+nnoremap <silent> <space>o  :<C-u>Vista<cr>
