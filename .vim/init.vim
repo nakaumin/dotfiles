@@ -45,8 +45,6 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
 Plug 'Sixeight/unite-grep'
-Plug 'tsukkee/unite-tag'
-Plug 'ujihisa/unite-colorscheme'
 
 " NERDTree
 Plug 'scrooloose/nerdtree', { 'on' : ['NERDTreeToggle', 'NERDTreeFind'] }
@@ -623,7 +621,6 @@ nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
 nnoremap <Leader>O :Unite outline -no-quit<CR>
 nnoremap <Leader>r :Unite register -buffer-name=register<CR>
 nnoremap <Leader>R :Unite register -buffer-name=register -no-quit<CR>
-nnoremap <Leader>c :Unite colorscheme -keep-focus -no-quit<CR>
 
 " Unite上でもウィンドウ間移動が効くように
 autocmd FileType unite nnoremap <buffer> th <C-W>h
