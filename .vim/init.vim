@@ -58,6 +58,10 @@ Plug 'taiansu/nerdtree-ag'
 Plug 'sk1418/QFGrep'
 Plug 'thinca/vim-qfreplace'
 
+" スニペット
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 "-------
 " Git 
 "-------
