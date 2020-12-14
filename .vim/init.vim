@@ -703,6 +703,14 @@ nnoremap <C-g>s :Gstatus<CR>
 nnoremap <C-g>v :Agit<CR>
 
 "---------------------------------------
+" 補完時のキーマップ
+"---------------------------------------
+inoremap <expr><silent> <Tab> pumvisible() ? "\<C-e>\<C-n>" : "\<Tab>"
+inoremap <expr><silent> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr><silent> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+
+
+"---------------------------------------
 " coc.nvim
 "---------------------------------------
 
