@@ -48,3 +48,29 @@ nnoremap <C-?>p :<C-u>Ref phpmanual <C-r><C-w><CR>
 "augroup END
 "pdv-php-documentor
 "inoremap <Leader>p <ESC>:call PhpDocSingle()<CR>i 
+
+
+"*******************************************************************************
+" php-getter-setter
+"*******************************************************************************
+nmap <C-i> <Plug>PhpgetsetInsertGetterSetter
+
+"      <LocalLeader>p   (or <Plug>PhpgetsetInsertGetterSetter)
+"          Inserts a getter/setter for the property on the current line, or
+"          the range of properties specified via a visual block.  User is
+"          prompted for choice.
+"
+"      <LocalLeader>g   (or <Plug>PhpgetsetInsertGetterOnly)
+"          Inserts a getter for the property on the current line, or the
+"          range of properties specified via a visual block.  User is not
+"          prompted.
+"
+"      <LocalLeader>s   (or <Plug>PhpgetsetInsertSetterOnly)
+"          Inserts a getter for the property on the current line, or the
+"          range of properties specified via a visual block.  User is not
+"          prompted.
+"
+"      <LocalLeader>b   (or <Plug>PhpgetsetInsertBothGetterSetter)
+"          Inserts both a getter and setter for the property on the current
+"          line, or the range of properties specified via a visual block.
+"          User is not prompted.
