@@ -625,7 +625,7 @@ nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
 "nnoremap <Leader>f :Unite buffer neomru/file -buffer-name=files -start-insert<CR>
 "nnoremap <Leader>F :Unite buffer neomru/file -buffer-name=files -no-quit<CR>
 "nnoremap <Leader>o :Unite outline -start-insert<CR>
-"nnoremap <Leader>O :Unite outline -no-quit<CR>
+nnoremap <Leader>O :Unite outline -no-quit<CR>
 nnoremap <Leader>r :Unite register -buffer-name=register<CR>
 nnoremap <Leader>R :Unite register -buffer-name=register -no-quit<CR>
 nnoremap <Leader>c :Unite colorscheme -keep-focus -no-quit<CR>
