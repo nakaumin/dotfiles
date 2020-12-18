@@ -17,6 +17,7 @@ PATH=~/go/bin:"$PATH"
 PATH=~/.composer/vendor/bin:"$PATH"
 PATH=/usr/local/bin:"$PATH"
 PATH=/usr/local/sbin:"$PATH"
+PATH=/opt/homebrew/bin:"$PATH"
 export PATH
 
 #------------------------------------------------------------
