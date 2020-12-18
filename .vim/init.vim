@@ -103,7 +103,7 @@ Plug 'vim-scripts/PDV--phpDocumentor-for-Vim', { 'for' : 'php' }
 
 " Help
 Plug 'vim-jp/vimdoc-ja'
-helptags ~/.vim/bundle/vimdoc-ja/doc
+helptags ~/.vim/plugged/vimdoc-ja/doc
 
 " その他
 
