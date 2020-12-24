@@ -68,6 +68,7 @@ HISTCONTROL=erasedups
 HISTSIZE=50000
 HISTFILESIZE=50000  
 HISTIGNORE=cd:history:ls:ll
+HISTTIMEFORMAT='%F %T '
 
 # share history
 function share_history {
