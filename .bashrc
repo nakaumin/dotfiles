@@ -219,6 +219,25 @@ fi
 PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
 
 #------------------------------------------------------------
+#  iTerm2
+#------------------------------------------------------------
+#関数定義(引数3つ)
+#ウィンドウの色を変更
+tab-color() {
+    echo -ne "\033]6;1;bg;red;brightness;$1\a"
+    echo -ne "\033]6;1;bg;green;brightness;$2\a"
+    echo -ne "\033]6;1;bg;blue;brightness;$3\a"
+}
+#変更をリセット
+tab-reset() {
+    echo -ne "\033]6;1;bg;*;default\a"
+}
+
+alias tab-prod='tab-color 204 0 0' #赤
+alias tab-staging='tab-color 255 255 0' #黄色
+alias tab-dev='tab-color 134 200 0' #緑
+
+#------------------------------------------------------------
 #  Load extra environmental settings
 #------------------------------------------------------------
 
