@@ -105,6 +105,10 @@ alias lg='git lg'
 alias lga='git lga'
 alias lgs='git lgs'
 alias st='git st'
+alias ad='git add'
+alias rb='git rebase'
+alias re='git reset'
+alias mg='git merge'
 
 # ghq
 alias g='cd $(ghq root)/$(ghq list | peco)'
