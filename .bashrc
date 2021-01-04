@@ -117,16 +117,6 @@ alias g='cd $(ghq root)/$(ghq list | peco)'
 alias ap='ansible-playbook deploy.yml'
 
 #------------------------------------------------------------
-#  Utility
-#------------------------------------------------------------
-
-fvim() {
-  files=$(git ls-files) &&
-  selected_files=$(echo "$files" | fzf --preview 'head -100 {}') &&
-  vim $selected_files
-}
-
-#------------------------------------------------------------
 #  Completion
 #------------------------------------------------------------
 
@@ -136,6 +126,35 @@ fvim() {
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
+
+# for MacOS?
+if [ -d /usr/local/etc/bash_completion.d/ ]; then
+  source /usr/local/etc/bash_completion.d/git-prompt.sh
+  source /usr/local/etc/bash_completion.d/git-completion.bash 
+fi
+
+__git_complete gf _git_fetch
+__git_complete pl _git_pull
+__git_complete cm _git_commit
+__git_complete co _git_checkout
+__git_complete lg _git_lg
+__git_complete lga _git_lga
+__git_complete lgs _git_lgs
+__git_complete st _git_st
+__git_complete ad _git_add
+__git_complete rb _git_rebase
+__git_complete re _git_reset
+__git_complete mg _git_merge
+
+#------------------------------------------------------------
+#  Utility
+#------------------------------------------------------------
+
+fvim() {
+  files=$(git ls-files) &&
+  selected_files=$(echo "$files" | fzf --preview 'head -100 {}') &&
+  vim $selected_files
+}
 
 #directory-completion with tail-slash
 set mark-directories on
@@ -187,19 +206,7 @@ PS1_GIT="$PWD_COLOR\w$COLOR_YELLOW"' $(__git_psx)'"$PROMPT_COLOR>$COLOR_RESET "
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 
-if [ -f $BASH_COMPLETION_DIR/git ]; then
-  PS1=$PS1_GIT
-elif [ -n "${BASH_COMPLETION_COMPAT_DIR-}" ]; then
-  # for ubnutu 14.04
-  PS1=$PS1_GIT
-elif [ -d "/usr/local/etc/bash_completion.d" ]; then
-  # for macos
-  source /usr/local/etc/bash_completion.d/git-prompt.sh
-  source /usr/local/etc/bash_completion.d/git-completion.bash 
-  PS1=$PS1_GIT
-else
-  PS1=$PS1_BASE
-fi
+PS1=$PS1_GIT
 
 # to override PROMPT
 if [ -f ~/.bash_colors.local ]; then
