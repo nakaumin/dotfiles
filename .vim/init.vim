@@ -42,7 +42,6 @@ Plug 'clones/vim-l9'
 
 " Unite
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
 Plug 'Sixeight/unite-grep'
 
@@ -600,7 +599,7 @@ nnoremap <silent> <Leader>f :GFiles<CR>
 nnoremap <silent> <Leader>F :GFiles?<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>l :BLines<CR>
-nnoremap <silent> <Leader>h :History<CR>
+nnoremap <silent> <Leader>m :History<CR>
 "nnoremap <silent> <Leader>m :Mark<CR>
 
 "---------------------------------------
@@ -616,12 +615,8 @@ call unite#custom#profile('default', 'context', {
 " quick-match
 " auto-resize
 " max-multi-lines={max-lines}
-nnoremap <Leader>m :Unite neomru/file -buffer-name=files -start-insert<CR>
-"nnoremap <Leader>M :Unite neomru/file -buffer-name=files -no-quit<CR>
 "noremap <Leader>b :Unite buffer:- -buffer-name=files<CR>
 nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
-"nnoremap <Leader>f :Unite buffer neomru/file -buffer-name=files -start-insert<CR>
-"nnoremap <Leader>F :Unite buffer neomru/file -buffer-name=files -no-quit<CR>
 "nnoremap <Leader>o :Unite outline -start-insert<CR>
 nnoremap <Leader>O :Unite outline -no-quit<CR>
 nnoremap <Leader>r :Unite register -buffer-name=register<CR>
@@ -658,23 +653,10 @@ unlet s:filters
 " Unite-buffer: better format
 call unite#custom#source('buffer', 'converters', 'my_converter')
 
-" Neomru: Restrict files to the current project
-call unite#custom#source('neomru/file', 'matchers',
-      \ ['matcher_project_files', 'matcher_default'])
-
 "---------------------------------------
 " Unite-outline
 "---------------------------------------
 let g:unite_source_outline_indent_width=2
-
-"---------------------------------------
-" neomru
-"---------------------------------------
-let g:neomru#file_mru_limit=1000
-let g:neomru#do_validate=1
-call unite#custom#source('neomru/file', 'converters',
-      \ ['converter_relative_abbr', 'converter_file_directory'])
-"call unite#custom#source('neomru/file', 'sorters', ['sorter_word'])
 
 "---------------------------------------
 " Symfony
