@@ -47,7 +47,7 @@ Plug 'Shougo/unite-outline'
 Plug 'Sixeight/unite-grep'
 
 " NERDTree
-Plug 'scrooloose/nerdtree', { 'on' : ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'scrooloose/nerdtree'
 Plug 'taiansu/nerdtree-ag'
 
 " キーリピートをプラグインにも対応させる
