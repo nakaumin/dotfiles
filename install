@@ -1,0 +1,97 @@
+#!/bin/sh
+
+set -e
+
+# Prepare Xcode
+xcode-select --install 2>/dev/null
+
+# Clone dotfiles
+if [! -d ~/dotfiles]; then
+  cd ~
+  git clone https://github.com/nakaumin/dotfiles
+fi
+
+# Install homebrew
+if !(type "brew" > /dev/null 2>&1); then
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# Install brew packages
+brew bundle -v -f ~/dotfiles/Brewfile
+
+################################################################################
+# Prepare qhq
+################################################################################
+GHQ_DIR=~/.ghq/github.com
+MY_GHQ_DIR=$GHQ_DIR/nakaumin
+mkdir -p $MY_GHQ_DIR
+
+################################################################################
+# bin and dotfiles
+################################################################################
+GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+  git clone "git@github.com:nakaumin/dotfiles" $MY_GHQ_DIR/dotfiles
+GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \ 
+  git clone "git@github.com:nakaumin/bin" $MY_GHQ_DIR/bin
+
+# Create symlinks
+ln -s $MY_GHQ_DIR/bin $HOME/bin
+ln -s $MY_GHQ_DIR/dotfiles $HOME/dotfiles
+$HOME/bin/mksymlink $HOME/dotfiles
+
+################################################################################
+# other apps
+################################################################################
+# universal ctags
+cd ~/.ghq/github.com/
+git clone https://github.com/universal-ctags/ctags
+cd .ctags
+./autogen.sh
+./configure --program-prefix=ex --prefix=$HOME/local  #インストール先を$HOME/localに設定
+make
+make install
+
+################################################################################
+# node.js
+################################################################################
+# nodenv
+ git clone https://github.com/nodenv/nodenv ~/.nodenv
+ cd ~/.nodenv && src/configure && make -C src
+mkdir -p "$(nodenv root)"/plugins
+# node-build
+git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
+# nodenv-update
+git clone https://github.com/nodenv/nodenv-update.git "$(nodenv root)"/plugins/nodenv-update
+# node.js
+nodenv install 14.15.1
+nodenv global 14.15.1
+nodenv rehash
+# yarn
+npm install yarn
+
+################################################################################
+# macos configurations
+################################################################################
+# make animations faster
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+defaults write -g QLPanelAnimationDuration -float 0
+defaults write com.apple.dock expose-animation-duration -float 0.1
+killall Dock
+killall Finder
+
+# Dockの表示位置
+defaults write com.apple.dock orientation -string "right"
+# Dockを自動的に隠す
+defaults write com.apple.dock autohide -bool true
+
+# set key-repeat faster 
+defaults write -g KeyRepeat -int 2
+# set initial-key-repeat faster 
+defaults write -g InitialKeyRepeat -int 15
+
+# AppStore アプリ
+# Xcode
+# Hazeover
+# wundwerlist
+# TotalSpaces2
+
