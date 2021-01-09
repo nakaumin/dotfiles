@@ -109,6 +109,7 @@ alias ad='git add'
 alias rb='git rebase'
 alias re='git reset'
 alias mg='git merge'
+alias push='git push'
 
 # ghq
 alias g='cd $(ghq root)/$(ghq list | peco)'
@@ -145,6 +146,7 @@ __git_complete ad _git_add
 __git_complete rb _git_rebase
 __git_complete re _git_reset
 __git_complete mg _git_merge
+__git_complete push _git_push
 
 #------------------------------------------------------------
 #  Utility
