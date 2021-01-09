@@ -32,7 +32,7 @@
 
   "cycle-layout": {
       "mod": "mod1",
-      "key": "l"
+      "key": "space"
   },
 
   "throw-focused-window-to-space-1": {
