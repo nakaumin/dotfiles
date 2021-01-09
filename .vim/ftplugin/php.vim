@@ -53,7 +53,7 @@ nnoremap <C-?>p :<C-u>Ref phpmanual <C-r><C-w><CR>
 "*******************************************************************************
 " php-getter-setter
 "*******************************************************************************
-nmap <C-i> <Plug>PhpgetsetInsertGetterSetter
+nmap <C-s-i> <Plug>PhpgetsetInsertGetterSetter
 
 "      <LocalLeader>p   (or <Plug>PhpgetsetInsertGetterSetter)
 "          Inserts a getter/setter for the property on the current line, or
