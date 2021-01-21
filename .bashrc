@@ -97,19 +97,22 @@ alias ll='ls -l'
 alias la='ls -A'
 
 # git
-alias gf='git fetch'
-alias pl='git pull'
 alias cm='git commit'
 alias co='git checkout'
 alias lg='git lg'
 alias lga='git lga'
 alias lgs='git lgs'
 alias st='git st'
+alias br='git branch'
 alias ad='git add'
+alias adp='git add -p'
 alias rb='git rebase'
 alias re='git reset'
+alias rh='git reset --hard'
 alias mg='git merge'
 alias push='git push'
+alias pull='git pull'
+alias fetch='git fetch'
 
 # ghq
 alias g='cd $(ghq root)/$(ghq list | peco)'
@@ -134,19 +137,22 @@ if [ -d /usr/local/etc/bash_completion.d/ ]; then
   source /usr/local/etc/bash_completion.d/git-completion.bash 
 fi
 
-__git_complete gf _git_fetch
-__git_complete pl _git_pull
 __git_complete cm _git_commit
 __git_complete co _git_checkout
 __git_complete lg _git_lg
-__git_complete lga _git_lga
-__git_complete lgs _git_lgs
-__git_complete st _git_st
+__git_complete lga _git_log
+__git_complete lgs _git_log
+__git_complete st _git_status
+__git_complete br _git_branch
 __git_complete ad _git_add
+__git_complete adp _git_add
 __git_complete rb _git_rebase
 __git_complete re _git_reset
+__git_complete rh _git_reset
 __git_complete mg _git_merge
 __git_complete push _git_push
+__git_complete pull _git_pull
+__git_complete fetch _git_fetch
 
 #------------------------------------------------------------
 #  Utility
