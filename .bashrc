@@ -113,6 +113,7 @@ alias mg='git merge'
 alias push='git push'
 alias pull='git pull'
 alias fetch='git fetch'
+alias stash='git stash'
 
 # ghq
 alias g='cd $(ghq root)/$(ghq list | peco)'
@@ -153,6 +154,7 @@ __git_complete mg _git_merge
 __git_complete push _git_push
 __git_complete pull _git_pull
 __git_complete fetch _git_fetch
+__git_complete stash _git_stash
 
 #------------------------------------------------------------
 #  Utility
