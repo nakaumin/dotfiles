@@ -497,9 +497,9 @@ set clipboard+=unnamed
 
 " ビジュアル選択の範囲を自動的にクリップボードへコピー
 " CUI
-:set clipboard+=autoselect
+":set clipboard+=autoselect
 " GUI
-:set guioptions+=a
+":set guioptions+=a
 
 " クリップボードからの貼り付け時自動的にペーストモードに
 " XXX: これ多分効いていない？
