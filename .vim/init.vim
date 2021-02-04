@@ -469,8 +469,8 @@ nnoremap <silent> <C-o> <C-o>zz
 "---------------------------------------
 
 " eregexの置換コマンド割当
-nnoremap s/ :<C-u>%S/
-vnoremap s/ :S/
+nnoremap s/ :<C-u>OverCommandLine<CR>%S/
+vnoremap s/ :OverCommandLine<CR>S/
 
 "---------------------------------------
 " 行結合
