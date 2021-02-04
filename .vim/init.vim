@@ -133,6 +133,7 @@ Plug 'osyo-manga/vim-over'
 Plug 'ujihisa/repl.vim'
 Plug 'vim-scripts/sudo.vim'
 Plug 'vim-scripts/Align'
+Plug 'LeafCage/yankround.vim'
 
 Plug 'kana/vim-gf-user'
 Plug 'kana/vim-gf-diff'
@@ -489,7 +490,7 @@ nnoremap gc `[v`]
 nnoremap gi :call VisualCurrentIndentBlock('i')<CR>
 
 "---------------------------------------
-" コピー・ペースト
+" ヤンク（コピー）・ペースト
 "---------------------------------------
 
 " 無名レジスタへのヤンク時に"*"レジスタへも追加
@@ -501,20 +502,17 @@ set clipboard+=unnamed
 " GUI
 ":set guioptions+=a
 
-" クリップボードからの貼り付け時自動的にペーストモードに
-" XXX: これ多分効いていない？
-if &term =~ "xterm"
-  let &t_SI .= "\e[?2004h"
-  let &t_EI .= "\e[?2004l"
-  let &pastetoggle = "\e[201~"
-
-  function! XTermPasteBegin(ret)
-    set paste
-    return a:ret
-  endfunction
-
-  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
-endif
+" yankround
+nmap p <Plug>(yankround-p)
+xmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap gp <Plug>(yankround-gp)
+xmap gp <Plug>(yankround-gp)
+nmap gP <Plug>(yankround-gP)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+nmap <Up> <Plug>(yankround-prev)
+nmap <Down> <Plug>(yankround-next)
 
 "---------------------------------------
 " テキスト整形
