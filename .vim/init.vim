@@ -298,7 +298,9 @@ set wildmode=list:longest
 set showcmd
 
 " カラースキーマ
-"colorscheme wombat256mod
+autocmd ColorScheme * highlight CursorLine ctermbg=237
+autocmd ColorScheme * highlight LineNr ctermfg=240
+autocmd ColorScheme * highlight SpecialKey ctermfg=245
 colorscheme hybrid
 
 " iTerm2など256色環境なら無くても良い
