@@ -315,6 +315,8 @@ nnoremap <silent> ,n :set number!<CR>
 nnoremap <silent> ,p :set paste!<CR>
 nnoremap <silent> <expr> ,s (exists("syntax_on")) ? "<Esc>:syntax off<CR>" : "<Esc>:syntax on<CR>"
 nnoremap <silent> ,u :<C-u>setlocal invcursorline<CR>
+nnoremap <silent> ,i :<C-u>IndentLinesToggle<CR>
+nnoremap <silent> ,t :<C-u>set expandtab!<CR>
 
 "---------------------------------------
 " ステータス行
