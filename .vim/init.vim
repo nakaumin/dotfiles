@@ -407,7 +407,7 @@ let g:ag_apply_qmappings=0
 let g:ag_apply_lmappings=0
 
 "タブ切り替え時にQuickfixを閉じる
-"autocmd TabLeave * cclose
+autocmd TabLeave * cclose
 
 " QucickFix内のエントリを連続的に閲覧
 nnoremap <silent> <Down> :<C-u>cn<CR>zz
