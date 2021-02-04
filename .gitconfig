@@ -30,6 +30,7 @@
   fix = commit --amend -C HEAD
   pr = pull-request
   see = browse
+  ref = reflog --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
 [gui]
   encoding = utf-8
 [push]
