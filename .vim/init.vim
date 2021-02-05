@@ -410,8 +410,8 @@ let g:ag_apply_lmappings=0
 autocmd TabLeave * cclose
 
 " QucickFix内のエントリを連続的に閲覧
-nnoremap <silent> <Down> :<C-u>cn<CR>zz
-nnoremap <silent> <Up> :<C-u>cp<CR>zz
+nnoremap <silent> <c-j> :<C-u>cn<CR>zz
+nnoremap <silent> <c-k> :<C-u>cp<CR>zz
 
 " Quickfixを開く
 " TODO: トグルできるように
