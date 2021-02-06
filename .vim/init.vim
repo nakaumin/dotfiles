@@ -47,7 +47,7 @@ Plug 'Sixeight/unite-grep'
 
 " NERDTree
 Plug 'scrooloose/nerdtree'
-Plug 'taiansu/nerdtree-ag'
+Plug 'xuyangy/nerdtree-ag-ack'
 
 " キーリピートをプラグインにも対応させる
 "Plug 'tpope/vim-repeat'
@@ -120,7 +120,9 @@ Plug 'Lokaltog/vim-powerline', {'rev' : 'develop'}
 Plug 'othree/eregex.vim'
 
 " 全文検索
-Plug 'rking/ag.vim'
+" Plug 'rking/ag.vim'  // Deprecated
+Plug 'mileszs/ack.vim'
+
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -399,12 +401,18 @@ nnoremap <silent> tj <C-w>j
 nnoremap <silent> tk <C-w>k
 
 "---------------------------------------
+" Ack/Ag
+"---------------------------------------
+
+let g:ackprg = 'ag --vimgrep'
+
+"---------------------------------------
 " QuickFix
 "---------------------------------------
 
 "不快なAck.vimのquickfixなどの挙動を抑止
-let g:ag_apply_qmappings=0
-let g:ag_apply_lmappings=0
+let g:ack_apply_qmappings=0
+let g:ack_apply_lmappings=0
 
 "タブ切り替え時にQuickfixを閉じる
 autocmd TabLeave * cclose
