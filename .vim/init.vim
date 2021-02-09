@@ -96,7 +96,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'alvan/vim-php-manual', { 'for' : 'php' }
 Plug 'soh335/vim-symfony', { 'for' : 'php' }
 Plug 'vim-scripts/PDV--phpDocumentor-for-Vim', { 'for' : 'php' }
-Plug 'docteurklein/php-getter-setter.vim'
 
 " Help
 Plug 'vim-jp/vimdoc-ja'
