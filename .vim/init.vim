@@ -417,8 +417,8 @@ let g:ack_apply_lmappings=0
 autocmd TabLeave * cclose
 
 " QucickFix内のエントリを連続的に閲覧
-nnoremap <silent> <c-j> :<C-u>cn<CR>zz
-nnoremap <silent> <c-k> :<C-u>cp<CR>zz
+nnoremap <silent> <Down> :<C-u>cn<CR>zz
+nnoremap <silent> <Up> :<C-u>cp<CR>zz
 
 " Quickfixを開く
 " TODO: トグルできるように
@@ -520,10 +520,8 @@ nmap P <Plug>(yankround-P)
 nmap gp <Plug>(yankround-gp)
 xmap gp <Plug>(yankround-gp)
 nmap gP <Plug>(yankround-gP)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
-nmap <Up> <Plug>(yankround-prev)
-nmap <Down> <Plug>(yankround-next)
+nmap <C-j> <Plug>(yankround-prev)
+nmap <C-k> <Plug>(yankround-next)
 
 "---------------------------------------
 " テキスト整形
