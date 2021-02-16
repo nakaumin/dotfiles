@@ -138,6 +138,10 @@ if [ -d /usr/local/etc/bash_completion.d/ ]; then
   source /usr/local/etc/bash_completion.d/git-completion.bash 
 fi
 
+if [ -f /usr/share/bash-completion/completions/git ]; then
+  source /usr/share/bash-completion/completions/git
+fi
+
 __git_complete cm _git_commit
 __git_complete co _git_checkout
 __git_complete lg _git_lg
