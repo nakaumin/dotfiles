@@ -399,6 +399,7 @@ nnoremap <silent> tl <C-w>l
 nnoremap <silent> th <C-w>h
 nnoremap <silent> tj <C-w>j
 nnoremap <silent> tk <C-w>k
+nnoremap <silent> tc :<C-u>tab sp<CR>
 
 "---------------------------------------
 " Ack/Ag
