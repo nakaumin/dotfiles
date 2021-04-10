@@ -628,7 +628,7 @@ call unite#custom#profile('default', 'context', {
 "noremap <Leader>b :Unite buffer:- -buffer-name=files<CR>
 nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
 "nnoremap <Leader>o :Unite outline -start-insert<CR>
-nnoremap <Leader>O :Unite outline -no-quit<CR>
+nnoremap <Leader>o :Unite outline -no-quit<CR>
 nnoremap <Leader>r :Unite register -buffer-name=register<CR>
 nnoremap <Leader>R :Unite register -buffer-name=register -no-quit<CR>
 
@@ -842,4 +842,4 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 
 " Vista
-nnoremap <silent> <space>o  :<C-u>Vista<cr>
+"nnoremap <silent> <space>o  :<C-u>Vista<cr>
