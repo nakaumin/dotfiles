@@ -28,6 +28,7 @@ brew "mas"
 brew "nativefier"
 brew "selenium-server-standalone"
 brew "geckodriver"
+brew "gh"
 
 tap "delphinus/sfmono-square"
 brew "sfmono-square"

@@ -304,3 +304,9 @@ if [ `uname` = "Darwin" ]; then
   fi
   eval `keychain --quiet --eval --agents ssh id_rsa`
 fi
+
+#------------------------------------------------------------
+#  GitHub cli
+#------------------------------------------------------------
+eval "$(gh completion -s bash)"
+
