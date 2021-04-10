@@ -611,6 +611,9 @@ nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>l :BLines<CR>
 nnoremap <silent> <Leader>m :History<CR>
 "nnoremap <silent> <Leader>m :Mark<CR>
+"
+"command! -bang -nargs=* History call fzf#vim#history({'options': '--no-sort'})
+command! -bang -nargs=* History call fzf#vim#history({'options': '--tiebreak=begin --no-sort'})
 
 "---------------------------------------
 " Unite
