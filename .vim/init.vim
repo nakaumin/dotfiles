@@ -689,14 +689,14 @@ nnoremap <C-g>a :Gwrite<CR>
 nnoremap <C-g>b :Gblame<CR>
 nnoremap <C-g>c :Gcommit -v<CR>
 nnoremap <C-g>d :Gdiff<CR>
-nnoremap <C-g>l :Glog\|copen<CR>
+"nnoremap <C-g>l :Glog\|copen<CR>
 nnoremap <C-g>r :Gread<CR>
 nnoremap <C-g>s :Gstatus<CR>
 
 "---------------------------------------
 " Agit
 "---------------------------------------
-nnoremap <C-g>v :Agit<CR>
+nnoremap <C-g>l :Agit<CR>
 
 "---------------------------------------
 " 補完時のキーマップ
