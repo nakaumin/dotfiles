@@ -296,7 +296,8 @@ set wildmode=list:longest
 set showcmd
 
 " カラースキーマ
-autocmd ColorScheme * highlight CursorLine ctermbg=237
+"autocmd ColorScheme * highlight CursorLine ctermbg=237
+autocmd ColorScheme * highlight CursorLine ctermbg=238
 autocmd ColorScheme * highlight LineNr ctermfg=240
 autocmd ColorScheme * highlight SpecialKey ctermfg=245
 colorscheme hybrid
@@ -371,6 +372,9 @@ set smartindent
 
 " スマートインデント時のタブ幅
 set shiftwidth=2
+
+" インデントの可視化
+let g:indentLine_enabled=0
 
 "'タブの可視化
 set list listchars=tab:\▸\▸
