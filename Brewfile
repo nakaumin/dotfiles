@@ -29,6 +29,7 @@ brew "nativefier"
 brew "selenium-server-standalone"
 brew "geckodriver"
 brew "gh"
+brew "fish"
 
 tap "delphinus/sfmono-square"
 brew "sfmono-square"
