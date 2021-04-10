@@ -91,6 +91,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='egrep -i --color=auto'
 fi
 
+alias G='egrep -i'
+alias X='xargs'
+
 # ls aliases
 alias l='ls -1'
 alias ll='ls -l'
