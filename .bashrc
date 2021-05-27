@@ -84,11 +84,16 @@ shopt -u histappend   # disable default history-append setting
 #  Alias
 #------------------------------------------------------------
 
-# enable color support 
+# enable color support
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
     alias grep='egrep -i --color=auto'
+fi
+
+# for Mac
+if [ `uname` = "Darwin" ]; then
+    alias ls='ls -G'
 fi
 
 alias G='egrep -i'
@@ -98,6 +103,7 @@ alias X='xargs'
 alias l='ls -1'
 alias ll='ls -l'
 alias la='ls -A'
+export LSCOLORS=cxfxcxdxbxegedabagacad
 
 # git
 alias cm='git commit'
