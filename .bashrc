@@ -253,25 +253,6 @@ fi
 PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
 
 #------------------------------------------------------------
-#  iTerm2
-#------------------------------------------------------------
-#関数定義(引数3つ)
-#ウィンドウの色を変更
-tab-color() {
-    echo -ne "\033]6;1;bg;red;brightness;$1\a"
-    echo -ne "\033]6;1;bg;green;brightness;$2\a"
-    echo -ne "\033]6;1;bg;blue;brightness;$3\a"
-}
-#変更をリセット
-tab-reset() {
-    echo -ne "\033]6;1;bg;*;default\a"
-}
-
-alias tab-prod='tab-color 204 0 0' #赤
-alias tab-staging='tab-color 255 255 0' #黄色
-alias tab-dev='tab-color 134 200 0' #緑
-
-#------------------------------------------------------------
 #  Load extra environmental settings
 #------------------------------------------------------------
 
@@ -309,10 +290,40 @@ if [ `uname` = "Darwin" ]; then
     unset SSH_AUTH_SOCK
   fi
   eval `keychain --quiet --eval --agents ssh id_rsa`
+
+  #------------------------------------------------------------
+  #  iTerm2
+  #------------------------------------------------------------
+  # tab-color [R] [G] [B]
+  tab-color() {
+      echo -ne "\033]6;1;bg;red;brightness;$1\a"
+      echo -ne "\033]6;1;bg;green;brightness;$2\a"
+      echo -ne "\033]6;1;bg;blue;brightness;$3\a"
+  }
+  #変更をリセット
+  tab-reset() {
+      echo -ne "\033]6;1;bg;*;default\a"
+  }
+
+  alias tab-prod='tab-color 204 0 0' #赤
+  alias tab-staging='tab-color 255 255 0' #黄色
+  alias tab-dev='tab-color 134 200 0' #緑
+
+  # SSHの前後でiTermのタブの色を変える
+  ssh() {
+    tab-color 255 100 0
+    if command ssh "$@"; then
+      tab-reset
+        # commands go here
+    fi
+  }
 fi
 
 #------------------------------------------------------------
 #  GitHub cli
 #------------------------------------------------------------
-eval "$(gh completion -s bash)"
+if type "gh" > /dev/null 2>&1
+then
+  eval "$(gh completion -s bash)"
+fi
 
