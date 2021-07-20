@@ -48,7 +48,7 @@ shopt -s checkwinsize
 umask 022
 
 #------------------------------------------------------------
-#  Key bindings 
+#  Key bindings
 #------------------------------------------------------------
 
 #disable C-s on bash
@@ -66,7 +66,7 @@ set -o vi
 
 HISTCONTROL=erasedups
 HISTSIZE=50000
-HISTFILESIZE=50000  
+HISTFILESIZE=50000
 HISTIGNORE=cd:history:ls:ll
 HISTTIMEFORMAT='%F %T '
 
@@ -77,7 +77,7 @@ function share_history {
   history -r  # restore from .bash_history
 }
 
-PROMPT_COMMAND='share_history'  
+PROMPT_COMMAND='share_history'
 shopt -u histappend   # disable default history-append setting
 
 #------------------------------------------------------------
@@ -125,13 +125,13 @@ alias fetch='git fetch'
 alias stash='git stash'
 
 # ghq
-alias g='cd $(ghq root)/$(ghq list | peco)'
+alias b='cd $(ghq root)/$(ghq list | peco)'
 
 # easy ansible-playbook
 alias ap='ansible-playbook deploy.yml'
 
 #------------------------------------------------------------
-#  Completion
+#  Bash completion
 #------------------------------------------------------------
 
 # enable programmable completion features (you don't need to enable
@@ -183,7 +183,7 @@ fvim() {
 set mark-directories on
 
 #------------------------------------------------------------
-#  Colors and prompt 
+#  Colors and prompt
 #------------------------------------------------------------
 
 COLOR_RESET="\[\033[00m\]"
