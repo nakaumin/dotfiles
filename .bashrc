@@ -106,6 +106,7 @@ alias la='ls -A'
 export LSCOLORS=cxfxcxdxbxegedabagacad
 
 # git
+alias g='git'
 alias cm='git commit'
 alias co='git checkout'
 alias lg='git lg'
@@ -144,30 +145,38 @@ fi
 # for MacOS?
 if [ -d /usr/local/etc/bash_completion.d/ ]; then
   source /usr/local/etc/bash_completion.d/git-prompt.sh
-  source /usr/local/etc/bash_completion.d/git-completion.bash 
+  source /usr/local/etc/bash_completion.d/git-completion.bash
 fi
 
 if [ -f /usr/share/bash-completion/completions/git ]; then
   source /usr/share/bash-completion/completions/git
 fi
 
-__git_complete cm _git_commit
-__git_complete co _git_checkout
-__git_complete lg _git_lg
-__git_complete lga _git_log
-__git_complete lgs _git_log
-__git_complete st _git_status
-__git_complete br _git_branch
-__git_complete ad _git_add
-__git_complete adp _git_add
-__git_complete rb _git_rebase
-__git_complete re _git_reset
-__git_complete rh _git_reset
-__git_complete mg _git_merge
-__git_complete push _git_push
-__git_complete pull _git_pull
-__git_complete fetch _git_fetch
-__git_complete stash _git_stash
+#------------------------------------------------------------
+#  Git completion
+#------------------------------------------------------------
+
+if type "__git_complete" > /dev/null 2>&1
+then
+  __git_complete g _git_main
+  __git_complete cm _git_commit
+  __git_complete co _git_checkout
+  __git_complete lg _git_log
+  __git_complete lga _git_log
+  __git_complete lgs _git_log
+  __git_complete st _git_status
+  __git_complete br _git_branch
+  __git_complete ad _git_add
+  __git_complete adp _git_add
+  __git_complete rb _git_rebase
+  __git_complete re _git_reset
+  __git_complete rh _git_reset
+  __git_complete mg _git_merge
+  __git_complete push _git_push
+  __git_complete pull _git_pull
+  __git_complete fetch _git_fetch
+  __git_complete stash _git_stash
+fi
 
 #------------------------------------------------------------
 #  Utility
@@ -220,7 +229,10 @@ fi
 
 # for git
 function __git_psx() {
-  __git_ps1 | perl -pe "s/\((.*)\)/\1/" 
+  if type "__git_ps1" > /dev/null 2>&1
+  then
+    __git_ps1 | perl -pe "s/\((.*)\)/\1/"
+  fi
 }
 
 PS1_BASE="$PWD_COLOR\w$COLOR_RESET$PROMPT_COLOR>$COLOR_RESET "
@@ -276,6 +288,14 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 #------------------------------------------------------------
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+#------------------------------------------------------------
+#  GitHub cli
+#------------------------------------------------------------
+if type "gh" > /dev/null 2>&1
+then
+  eval "$(gh completion -s bash)"
+fi
 
 #------------------------------------------------------------
 #  For mac
