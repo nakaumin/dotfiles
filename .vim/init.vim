@@ -82,7 +82,7 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'posva/vim-vue'
 Plug 'tomlion/vim-solidity'
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 
 " PHP
 Plug 'alvan/vim-php-manual', { 'for' : 'php' }
