@@ -605,6 +605,8 @@ let g:fzf_layout = { 'up': '~40%' }
 let g:fzf_buffers_jump = 1
 
 " サンプルキーバインド
+nnoremap <silent> <Leader>g :Rg<CR>
+nnoremap <silent> <Leader>G :Rg<CR> <C-r><C-w>
 nnoremap <silent> <Leader>s :CocList symbols<CR>
 nnoremap <silent> <Leader>t :Tags<CR>
 nnoremap <silent> <Leader>f :GFiles<CR>
