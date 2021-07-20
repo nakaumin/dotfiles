@@ -17,7 +17,8 @@
   st = status
   cm = commit --allow-empty
   br = branch
-  co = checkout --recurse-submodules
+  #co = checkout --recurse-submodules
+  co = checkout
   pull = pull --recurse-submodules
   df = diff --color
   dw = diff --color-words
