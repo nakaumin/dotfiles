@@ -139,6 +139,7 @@ Plug 'tpope/vim-surround'
 
 " Language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-vetur'
 
 " Plug 'liuchengxu/vista.vim'
 
