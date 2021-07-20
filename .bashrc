@@ -257,21 +257,18 @@ if [ `uname` = "Linux" ]; then
 #    screen -U -xR -S $USER
 #  fi
   if [ $SHLVL = '1' -a "$TERM" != 'screen' -a "$TERM" != 'dumb' ]; then # dumb = scp
-    screen -U -xR -S $USER
+    if type "screen" > /dev/null 2>&1
+    then
+      screen -U -xR -S $USER
+    fi
   fi
 fi
 
+function pwd_with_parent() {
+  pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev
+}
 # プロンプト表示毎にscreenのタイトルを現在のディレクトリ名に変更する
-PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(basename "$PWD")\033\\"'
-
-#------------------------------------------------------------
-#  Load extra environmental settings
-#------------------------------------------------------------
-
-# for local
-if [ -f ~/.bashrc.local ]; then
-. ~/.bashrc.local
-fi
+PROMPT_COMMAND=${PROMPT_COMMAND}' && echo -ne "\033k\033\0134\033k$(pwd_with_parent)\033\\"'
 
 #------------------------------------------------------------
 #  Xenv
@@ -340,10 +337,11 @@ if [ `uname` = "Darwin" ]; then
 fi
 
 #------------------------------------------------------------
-#  GitHub cli
+#  Load extra environmental settings
 #------------------------------------------------------------
-if type "gh" > /dev/null 2>&1
-then
-  eval "$(gh completion -s bash)"
+
+# for local
+if [ -f ~/.bashrc.local ]; then
+. ~/.bashrc.local
 fi
 
