@@ -139,9 +139,11 @@ Plug 'tpope/vim-surround'
 
 " Language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-vetur'
+"Plug 'neoclide/coc-vetur'
 
 " Plug 'liuchengxu/vista.vim'
+
+Plug 'editorconfig/editorconfig-vim'
 
 " post install (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', {
@@ -470,7 +472,9 @@ vnoremap / :M/
 set tagbsearch
 
 " エンターでカーソル下の単語のタグジャンプ
-nnoremap <silent> <Return> :execute 'tjump' expand('<cword>')<Return>zz
+" nnoremap <silent> <Return> :execute 'tjump' expand('<cword>')<Return>zz
+"nnoremap <silent> <Return> :GFiles  *<C-r><C-w>*<CR>
+nmap <silent> <Return> <Plug>(coc-definition)
 
 " 移動後の表示位置を画面中央に揃える
 nnoremap n nzz
@@ -529,6 +533,9 @@ nmap <C-k> <Plug>(yankround-next)
 "---------------------------------------
 " テキスト整形
 "---------------------------------------
+" Prettier
+nnoremap F :<C-u>Prettier<CR>
+
 " Alignに伴って不要なキーマップを追加するプラグインがインストールされるので
 " 導入されている場合は削除する
 if exists(':AlignMapsClear') == 2
@@ -573,9 +580,8 @@ let NERDTreeIgnore=['^\.git$',
 \ '^sf$',
 \ '\.\(xls\|png\|jpg\|gif\|map\|pdf\|bak\)$',
 \ '\~$',
-\ '^base$',
+\ '^var$',
 \ '^om$',
-\ '^map$',
 \ '^dist$',
 \ '^uploads$',
 \ '^images$',
@@ -606,18 +612,26 @@ let g:fzf_buffers_jump = 1
 
 " サンプルキーバインド
 nnoremap <silent> <Leader>g :Rg<CR>
-nnoremap <silent> <Leader>G :Rg<CR> <C-r><C-w>
+nnoremap <silent> <Leader>G :Rg <C-r><C-w><CR>
 nnoremap <silent> <Leader>s :CocList symbols<CR>
 nnoremap <silent> <Leader>t :Tags<CR>
 nnoremap <silent> <Leader>f :GFiles<CR>
 nnoremap <silent> <Leader>F :GFiles?<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>l :BLines<CR>
-nnoremap <silent> <Leader>m :History<CR>
+nnoremap <silent> <Leader>h :History<CR>
 "nnoremap <silent> <Leader>m :Mark<CR>
 "
 "command! -bang -nargs=* History call fzf#vim#history({'options': '--no-sort'})
 command! -bang -nargs=* History call fzf#vim#history({'options': '--tiebreak=begin --no-sort'})
+
+" Release <leader>h for :History
+"nmap  <leader>hp    @<Plug>(GitGutterPreviewHunk)
+"nmap  <leader>hu    @<Plug>(GitGutterUndoHunk)
+"nmap  <leader>hs    @<Plug>(GitGutterStageHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
 
 "---------------------------------------
 " Unite
@@ -689,12 +703,12 @@ nnoremap ,v :<C-u>Sview<CR>
 " Fugitive
 "---------------------------------------
 nnoremap <C-g>a :Gwrite<CR>
-nnoremap <C-g>b :Gblame<CR>
+nnoremap <C-g>b :Git blame<CR>
 nnoremap <C-g>c :Gcommit -v<CR>
-nnoremap <C-g>d :Gdiff<CR>
+nnoremap <C-g>d :Gvdiffsplit<CR>
 "nnoremap <C-g>l :Glog\|copen<CR>
 nnoremap <C-g>r :Gread<CR>
-nnoremap <C-g>s :Gstatus<CR>
+nnoremap <C-g>s :Git<CR>
 
 "---------------------------------------
 " Agit
@@ -831,6 +845,8 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
+nnoremap <silent> <space><space> :<C-u>CocList<cr>
+
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
@@ -850,3 +866,15 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Vista
 "nnoremap <silent> <space>o  :<C-u>Vista<cr>
+
+" 無名バッファの自動削除
+function! CleanNoNameEmptyBuffers()
+    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
+    if !empty(buffers)
+        exe 'bd '.join(buffers, ' ')
+    else
+        echo 'No buffer deleted'
+    endif
+endfunction
+
+nnoremap <silent> ,C :call CleanNoNameEmptyBuffers()<CR>
