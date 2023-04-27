@@ -24,10 +24,16 @@
   dw = diff --color-words
   dc = diff --cached
   l = log --oneline --stat
-  lg-nc = log --graph --pretty=format:'%h -%d %s %(%ci) <%an>' --no-color --abbrev-commit 
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
-  lga = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
-  lgs = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
+#  作成日付ベース
+  lg-nc = log --graph --pretty=format:'%h -%d %s %(%ai) <%an>' --no-color --abbrev-commit 
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lga = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lgs = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
+#  コミット日付ベース
+#  lg-nc = log --graph --pretty=format:'%h -%d %s %(%ci) <%an>' --no-color --abbrev-commit 
+#  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+#  lga = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+#  lgs = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
   fix = commit --amend -C HEAD
   pr = pull-request
   see = browse
@@ -48,3 +54,5 @@
   process = git-lfs filter-process
 [fetch]
   prune = true
+[submodule]
+  recurse = true
