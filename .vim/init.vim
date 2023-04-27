@@ -31,6 +31,7 @@ call plug#begin('~/.vim/plugged')
 " Library
 Plug 'Shougo/vimproc.vim', { 'dir': '~/.vim/plugged/vimproc.vim', 'do': 'make' }
 Plug 'clones/vim-l9'
+Plug 'kana/vim-operator-user'
 
 " Unite
 Plug 'Shougo/unite.vim'
@@ -95,6 +96,9 @@ helptags ~/.vim/plugged/vimdoc-ja/doc
 
 " その他
 
+" 連番
+Plug 'dalance/vseq.vim'
+
 " 末尾空白の可視化・一括削除
 Plug 'bronson/vim-trailing-whitespace'
 
@@ -134,8 +138,11 @@ Plug 'kana/vim-altr'
 Plug 'kana/vim-tabpagecd'
 
 Plug 'vim-scripts/matchit.zip'
-Plug 'tanabe/ToggleCase-vim'
+"Plug 'tanabe/ToggleCase-vim'
+Plug 'bhritchie/vim-toggle-case'
 Plug 'tpope/vim-surround'
+" Plug 'mopp/vim-operator-convert-case'
+
 
 " Language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -473,8 +480,8 @@ set tagbsearch
 
 " エンターでカーソル下の単語のタグジャンプ
 " nnoremap <silent> <Return> :execute 'tjump' expand('<cword>')<Return>zz
-"nnoremap <silent> <Return> :GFiles  *<C-r><C-w>*<CR>
-nmap <silent> <Return> <Plug>(coc-definition)
+nnoremap <silent> <Return> :GFiles  *<C-r><C-w>*<CR>
+"nmap <silent> <Return> <Plug>(coc-definition)
 
 " 移動後の表示位置を画面中央に揃える
 nnoremap n nzz
@@ -557,7 +564,8 @@ vnoremap <silent> \y :Align : <CR>gv:S/(\s+):/:\1/<CR>gv:S/\s+:/:/ge<CR>gv:S@/\s
 
 " ToogleCase キャメルキャプス・スネークケースなどを切り替え
 " TODO: 形式を直接指定したい
-nnoremap C :<C-u>call ToggleCase()<CR>
+" nnoremap C :<C-u>call ToggleCase()<CR>
+nnoremap C <Plug>ToggleCase
 
 "---------------------------------------
 " 連番入力
