@@ -156,9 +156,9 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # for MacOS?
-if [ -d /usr/local/etc/bash_completion.d/ ]; then
-  source /usr/local/etc/bash_completion.d/git-prompt.sh
-  source /usr/local/etc/bash_completion.d/git-completion.bash
+if [ -d /opt/homebrew/etc/bash_completion.d/ ]; then
+  source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+  source /opt/homebrew/etc/bash_completion.d/git-completion.bash
 fi
 
 if [ -f /usr/share/bash-completion/completions/git ]; then
@@ -174,6 +174,7 @@ then
   __git_complete g _git_main
   __git_complete cm _git_commit
   __git_complete co _git_checkout
+  __git_complete sw _git_switch
   __git_complete lg _git_log
   __git_complete lga _git_log
   __git_complete lgs _git_log
