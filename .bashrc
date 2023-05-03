@@ -56,10 +56,10 @@ set -o vi
 #  History
 #------------------------------------------------------------
 
-HISTCONTROL=erasedups
-HISTSIZE=50000
-HISTFILESIZE=50000
-HISTIGNORE=cd:history:ls:ll
+HISTCONTROL=ignoreboth                              # 空白、重複履歴を保存しない
+HISTSIZE=1000000
+HISTFILESIZE=10000000
+HISTIGNORE=history
 HISTTIMEFORMAT='%F %T '
 
 # share history
