@@ -76,16 +76,13 @@ shopt -u histappend   # disable default history-append setting
 #  Alias
 #------------------------------------------------------------
 
+alias vim=nvim
+
 # enable color support
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
     alias grep='egrep -i --color=auto'
-fi
-
-# for Mac
-if [ `uname` = "Darwin" ]; then
-    alias ls='ls -G'
 fi
 
 alias G='egrep -i'
@@ -97,10 +94,14 @@ alias ll='ls -l'
 alias la='ls -A'
 export LSCOLORS=cxfxcxdxbxegedabagacad
 
+# docker
+alias dc='docker compose'
+
 # git
 alias g='git'
 alias cm='git commit'
-alias co='git checkout'
+alias co='git co'
+alias sw='git switch'
 alias lg='git lg'
 alias lga='git lga'
 alias lgs='git lgs'
@@ -113,15 +114,35 @@ alias re='git reset'
 alias rh='git reset --hard'
 alias mg='git merge'
 alias push='git push'
-alias pull='git pull'
+alias pull='git pull --recurse-submodules'
 alias fetch='git fetch'
 alias stash='git stash'
 
-# ghq
-alias b='cd $(ghq root)/$(ghq list | peco)'
-
 # easy ansible-playbook
 alias ap='ansible-playbook deploy.yml'
+
+# ========================================
+# peco/fzf powered
+# ========================================
+
+# ghq
+alias b='cd $(ghq root)/$(ghq list | fzf)'
+
+# git
+alias gco='git co $(git br | fzf | perl -pe "s/\* //")'
+
+# vim
+alias v='vim $(find -type f | fzf --preview "cat {}")'
+
+# ps kill
+alias pk='ps aux|fzf|awk "{print \$2}"|xargs kill'
+
+# docker ps
+alias d='docker ps --format "{{.ID}} {{.Names}}"|sort -k2,2|fzf|awk "{print \$1}"'
+
+alias dstop='docker ps|fzf|awk "{print \$1}"|xargs docker stop'
+alias drm='docker ps|fzf|awk "{print \$1}"|xargs docker rm'
+alias dinfo='docker ps|fzf|awk "{print \$1}"|xargs docker info'
 
 #------------------------------------------------------------
 #  Bash completion
@@ -293,6 +314,7 @@ if [ `uname` = "Darwin" ]; then
   # GNU utils
   alias find=gfind
   alias xargs=gxargs
+  alias ls='ls -G'
 
   # SSH鍵管理をOSXのキーチェーンにさせない
   if [ ! -f $HOME/.keychain/$HOSTNAME-sh ] ; then
