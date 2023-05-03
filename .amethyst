@@ -21,10 +21,8 @@
   "floating": [
     "com.xnview.XnView",
     "com.apple.systempreferences",
-    "com.apple.finder",
     "com.kapeli.dashdoc",
-    "com.agilebits.onepassword7",
-    "com.googlecode.iterm2"
+    "com.agilebits.onepassword7"
   ],
 
   "focus-cw": {
@@ -73,5 +71,13 @@
   "expand-main": {
       "mod": "mod2",
       "key": "l"
+  },
+  "relaunch-amethyst": {
+      "mod": "mod2",
+      "key": "a"
+  },
+  "disable": {
+      "mod": "mod1",
+      "key": "z"
   }
 }
