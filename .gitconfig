@@ -18,7 +18,7 @@
   cm = commit --allow-empty
   br = branch
   #co = checkout --recurse-submodules
-  co = checkout
+  co = checkout --recurse-submodules
   pull = pull --recurse-submodules
   df = diff --color
   dw = diff --color-words
