@@ -1,0 +1,10 @@
+{
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue"
+  ],
+  "eslint.autoFixOnSave": true,
+  "coc.preferences.jumpCommand": "vsplit"
+}
