@@ -10,6 +10,9 @@ autocmd!
 
 filetype plugin indent on
 
+" プラグインエラー表示の無効化
+let g:coc_disable_startup_warning = 1
+
 "---------------------------------------
 " VIM-Plug
 "---------------------------------------
@@ -40,8 +43,10 @@ Plug 'github/copilot.vim'
 
 " Unite
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
 Plug 'Sixeight/unite-grep'
+
+"Vista
+Plug 'liuchengxu/vista.vim'
 
 " NERDTree
 Plug 'scrooloose/nerdtree'
@@ -88,6 +93,8 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'posva/vim-vue'
 Plug 'tomlion/vim-solidity'
+Plug 'maxmellon/vim-jsx-pretty'
+
 "Plug 'sheerun/vim-polyglot'
 
 " PHP
@@ -96,8 +103,8 @@ Plug 'soh335/vim-symfony', { 'for' : 'php' }
 Plug 'vim-scripts/PDV--phpDocumentor-for-Vim', { 'for' : 'php' }
 
 " Help
-Plug 'vim-jp/vimdoc-ja'
-helptags ~/.config/nvim/plugged/vimdoc-ja/doc
+"Plug 'vim-jp/vimdoc-ja'
+"helptags ~/.config/nvim/plugged/vimdoc-ja/doc
 
 " その他
 
@@ -151,10 +158,7 @@ Plug 'tpope/vim-surround'
 
 " Language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'neoclide/coc-vetur'
-
-" Plug 'liuchengxu/vista.vim'
-
+Plug 'neoclide/coc-vetur'
 
 Plug 'leafOfTree/vim-vue-plugin'
 Plug 'editorconfig/editorconfig-vim'
@@ -167,7 +171,7 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 call plug#end()
 
 let g:prettier#config#config_precedence = 'file-override'
-#let g:prettier#autoformat = 1
+"let g:prettier#autoformat = 1
 
 
 "===============================================================================
@@ -195,7 +199,7 @@ set viminfo=!,'10000,<300,s10,h
 "---------------------------------------
 
 " 改行コードの自動判別. 左側が優先される
-set fileformats=unix,dos,mac
+set fileformats=dos,unix,mac
 
 " Vimの内部文字コード
 set encoding=utf-8
@@ -229,7 +233,7 @@ nnoremap sc :wq<CR>
 
 " Quick quit
 nnoremap q :q<CR>
-nnoremap <C-q> :qa!<CR>
+"nnoremap <C-q> :qa!<CR>
 
 "---------------------------------------
 " マクロ
@@ -598,6 +602,8 @@ let NERDTreeIgnore=['^\.git$',
 \ '^sf$',
 \ '\.\(xls\|png\|jpg\|gif\|map\|pdf\|bak\)$',
 \ '\~$',
+\ '^backup$',
+\ '^log$',
 \ '^var$',
 \ '^om$',
 \ '^dist$',
@@ -633,8 +639,8 @@ nnoremap <silent> <Leader>g :Rg<CR>
 nnoremap <silent> <Leader>G :Rg <C-r><C-w><CR>
 nnoremap <silent> <Leader>s :CocList symbols<CR>
 nnoremap <silent> <Leader>t :Tags<CR>
-nnoremap <silent> <Leader>f :GFiles<CR>
-nnoremap <silent> <Leader>F :GFiles?<CR>
+nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <silent> <Leader>F :GFiles<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>l :BLines<CR>
 nnoremap <silent> <Leader>h :History<CR>
@@ -666,8 +672,7 @@ call unite#custom#profile('default', 'context', {
 " max-multi-lines={max-lines}
 "noremap <Leader>b :Unite buffer:- -buffer-name=files<CR>
 nnoremap <Leader>B :Unite buffer:- -buffer-name=files -no-quit<CR>
-"nnoremap <Leader>o :Unite outline -start-insert<CR>
-nnoremap <Leader>o :Unite outline -no-quit<CR>
+"
 nnoremap <Leader>r :Unite register -buffer-name=register<CR>
 nnoremap <Leader>R :Unite register -buffer-name=register -no-quit<CR>
 
@@ -703,9 +708,17 @@ unlet s:filters
 call unite#custom#source('buffer', 'converters', 'my_converter')
 
 "---------------------------------------
-" Unite-outline
+" Vista
 "---------------------------------------
-let g:unite_source_outline_indent_width=2
+let g:vista_default_executive = 'coc'  " CoC をデフォルトのエグゼキューターとして使用
+let g:vista_fzf_preview = ['right:50%']
+let g:vista_sidebar_width = 60
+
+" vim-language-serverが提供するシンボル情報を使用
+let g:vista_enable_markdown_extension = 0  " markdownの特別扱いを無効化
+
+" キーマッピング
+nnoremap <Leader>o :Vista!!<CR>  " Vistaのトグル
 
 "---------------------------------------
 " Symfony
@@ -818,8 +831,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" これは<leader>について良く考えるべき
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
