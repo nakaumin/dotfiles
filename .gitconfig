@@ -12,6 +12,8 @@
   quotepath = false
   editor = vim
   pager = less -i
+  # macで濁点つきのファイル名を正しく扱う
+	precomposeunicode = true
 [alias]
   ls = ls-files -v
   st = status
@@ -42,6 +44,7 @@
   encoding = utf-8
 [push]
   default = simple
+  autoSetupRemote = true
 [pull]
   rebase = true
 [merge]
@@ -56,3 +59,5 @@
   prune = true
 [submodule]
   recurse = true
+[init]
+	defaultBranch = main
