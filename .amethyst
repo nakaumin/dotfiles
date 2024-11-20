@@ -1,6 +1,7 @@
 {
   "layouts": [
     "tall",
+    "wide",
     "fullscreen"
   ],
 
@@ -32,7 +33,7 @@
 
   "cycle-layout": {
       "mod": "mod1",
-      "key": "space"
+      "key": "a"
   },
 
   "throw-focused-window-to-space-1": {
