@@ -61,3 +61,5 @@
   recurse = true
 [init]
 	defaultBranch = main
+[ghq]
+	protocol = ssh
