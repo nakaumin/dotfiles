@@ -5,6 +5,7 @@
     "typescriptreact",
     "vue"
   ],
+  "vetur.ignoreProjectWarning": true,
   "eslint.autoFixOnSave": true,
   "coc.preferences.jumpCommand": "vsplit"
 }
