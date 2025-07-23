@@ -1,0 +1,54 @@
+# Amethyst-like keybindings for skhd + yabai
+
+# cycle through layouts (fixed with full paths)
+alt - a : /opt/homebrew/bin/yabai -m space --layout $(/opt/homebrew/bin/yabai -m query --spaces --space | /opt/homebrew/bin/jq -r 'if .type == "bsp" then "stack" else "bsp" end')
+
+# move window to space 1-5 (Amethyst: option + 1-5)
+alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
+alt - 2 : yabai -m window --space 2; yabai -m space --focus 2
+alt - 3 : yabai -m window --space 3; yabai -m space --focus 3
+alt - 4 : yabai -m window --space 4; yabai -m space --focus 4
+alt - 5 : yabai -m window --space 5; yabai -m space --focus 5
+
+# swap with main window (Amethyst: option + enter)
+alt - return : yabai -m window --swap first
+
+# shrink main pane (Amethyst: option + shift + h)
+shift + alt - h : yabai -m window --resize left:-20:0 || yabai -m window --resize right:-20:0
+
+# expand main pane (Amethyst: option + shift + l)
+shift + alt - l : yabai -m window --resize right:20:0 || yabai -m window --resize left:20:0
+
+# restart yabai (Amethyst: option + shift + a)
+shift + alt - a : yabai --restart-service
+
+# toggle window zoom (Amethyst: option + z disable equivalent)
+alt - z : yabai -m window --toggle zoom-fullscreen
+
+# focus window in direction
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# move window in direction
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+
+# float / unfloat window and center on screen
+alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# toggle window split type
+alt - e : yabai -m window --toggle split
+
+# balance size of windows
+shift + alt - 0 : yabai -m space --balance
+
+# create desktop, move window and follow focus
+shift + cmd - n : yabai -m space --create && \
+                  index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0)) | length')" && \
+                  yabai -m window --space "${index}" && \
+                  yabai -m space --focus "${index}"
+
+# destroy desktop
+cmd + alt - w : yabai -m space --destroy
