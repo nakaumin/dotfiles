@@ -1,3 +1,5 @@
 config/karabiner/automatic_backups/
 .vim/plugged/
+config/nvim/**/*.old
 .DS_Store
+
