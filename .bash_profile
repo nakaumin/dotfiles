@@ -142,7 +142,7 @@ alias ap='ansible-playbook deploy.yml'
 # ========================================
 
 # ghq
-alias b='cd $(ghq root)/$(ghq list | fzf)'
+alias b='cd $(ghq root)/$(ghq list | fzf -e)'
 
 # git
 alias gco='git co $(git br | fzf | perl -pe "s/\* //")'
