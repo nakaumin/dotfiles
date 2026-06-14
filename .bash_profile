@@ -69,26 +69,6 @@ fi
 set -o vi
 
 #------------------------------------------------------------
-#  History
-#------------------------------------------------------------
-
-HISTCONTROL=ignoreboth                              # 空白、重複履歴を保存しない
-HISTSIZE=1000000
-HISTFILESIZE=10000000
-HISTIGNORE=history
-HISTTIMEFORMAT='%F %T '
-
-# share history
-function share_history {
-  history -a  # append to .bash_history
-  history -c  # clear local history
-  history -r  # restore from .bash_history
-}
-
-PROMPT_COMMAND='share_history'
-shopt -u histappend   # disable default history-append setting
-
-#------------------------------------------------------------
 #  Alias
 #------------------------------------------------------------
 
