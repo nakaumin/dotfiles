@@ -134,6 +134,9 @@ alias pull='git pull --recurse-submodules'
 alias fetch='git fetch'
 alias stash='git stash'
 
+# kubernetes
+alias k='kubectl'
+
 # easy ansible-playbook
 alias ap='ansible-playbook deploy.yml'
 
