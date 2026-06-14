@@ -23,7 +23,7 @@ shift + alt - l : yabai -m window --resize right:20:0 || yabai -m window --resiz
 shift + alt - a : yabai --restart-service
 
 # toggle window zoom (Amethyst: option + z disable equivalent)
-alt - z : yabai -m window --toggle zoom-fullscreen
+# alt - z : yabai -m window --toggle zoom-fullscreen
 
 # focus window in direction
 alt - h : yabai -m window --focus west
@@ -38,17 +38,8 @@ shift + alt - k : yabai -m window --swap north
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
-# toggle window split type
-alt - e : yabai -m window --toggle split
-
 # balance size of windows
 shift + alt - 0 : yabai -m space --balance
 
-# create desktop, move window and follow focus
-shift + cmd - n : yabai -m space --create && \
-                  index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0)) | length')" && \
-                  yabai -m window --space "${index}" && \
-                  yabai -m space --focus "${index}"
-
-# destroy desktop
-cmd + alt - w : yabai -m space --destroy
+# toggle yabai service on/off
+alt - y : if pgrep -x yabai >/dev/null; then yabai --stop-service; else yabai --start-service; fi
