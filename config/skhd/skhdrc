@@ -10,6 +10,9 @@ alt - 3 : yabai -m window --space 3; yabai -m space --focus 3
 alt - 4 : yabai -m window --space 4; yabai -m space --focus 4
 alt - 5 : yabai -m window --space 5; yabai -m space --focus 5
 
+# move window to next display and follow focus
+cmd + shift - return : (yabai -m window --display next && yabai -m display --focus next) || (yabai -m window --display first && yabai -m display --focus first)
+
 # swap with main window (Amethyst: option + enter)
 alt - return : yabai -m window --swap first
 
