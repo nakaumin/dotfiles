@@ -1,5 +1,5 @@
--- init.lua (モダン化版)  Neovim 0.11+ 想定
--- 方針: lazy.nvim / ネイティブLSP / treesitter / Lua製プラグインへ移行。
+-- init.lua (モダン化版・coc.nvim継続)  Neovim 0.11+ 想定
+-- 方針: lazy.nvim / treesitter / Lua製プラグインへ移行。LSPは coc.nvim のまま。
 --       キーバインドは元の使い心地をできるだけ維持。
 
 vim.loader.enable()
@@ -70,8 +70,10 @@ opt.smartcase = true
 vim.cmd("set tags&")
 opt.tags:append({ "plugins/tags", "lib/vendor/tags", "tags;" })
 
--- 診断
-vim.diagnostic.config({ severity_sort = true })
+-- coc.nvim 推奨設定
+g.coc_disable_startup_warning = 1
+opt.cmdheight = 2
+opt.shortmess:append("c")
 
 -- :Cfilter (QuickFix の絞り込み)
 vim.cmd.packadd("cfilter")
@@ -162,8 +164,6 @@ autocmd("TabLeave", { pattern = "*", command = "cclose" })
 map("n", "<Down>", ":<C-u>cn<CR>zz", silent)
 map("n", "<Up>", ":<C-u>cp<CR>zz", silent)
 map("n", ",q", ":<C-u>copen 20<CR>:set number<CR>", silent)
-map("n", "<space>j", ":<C-u>cn<CR>zz", silent)
-map("n", "<space>k", ":<C-u>cp<CR>zz", silent)
 
 autocmd("FileType", {
   pattern = "qf",
@@ -271,7 +271,18 @@ require("lazy").setup({
     end,
   },
   { "nvim-tree/nvim-web-devicons", lazy = true },
-  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, opts = {} },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      sections = {
+        lualine_x = {
+          function() return vim.g.coc_status or "" end,
+          "encoding", "fileformat", "filetype",
+        },
+      },
+    },
+  },
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
@@ -313,6 +324,7 @@ require("lazy").setup({
         local api = require("nvim-tree.api")
         api.config.mappings.default_on_attach(bufnr)
         map("n", ".", api.tree.toggle_hidden_filter, { buffer = bufnr })
+        map("n", "<C-e>", api.tree.close, { buffer = bufnr }) -- 既定の<C-e>(バッファ置換)を上書き
       end,
     },
   },
@@ -323,9 +335,14 @@ require("lazy").setup({
     opts = { winopts = { height = 0.4, width = 1.0, row = 0, col = 0 } },
   },
   {
-    "stevearc/aerial.nvim",
-    cmd = { "AerialToggle", "AerialOpen" },
-    opts = { backends = { "lsp", "treesitter" }, layout = { min_width = 60 } },
+    "liuchengxu/vista.vim",
+    cmd = "Vista",
+    init = function()
+      g.vista_default_executive = "coc"
+      g.vista_fzf_preview = { "right:50%" }
+      g.vista_sidebar_width = 60
+      g.vista_enable_markdown_extension = 0
+    end,
   },
 
   ---------------------------------------------------------------------------
@@ -359,118 +376,16 @@ require("lazy").setup({
       })
     end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    branch = "main",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-treesitter-textobjects").setup({ select = { lookahead = true } })
-      local function select(query)
-        return function()
-          require("nvim-treesitter-textobjects.select").select_textobject(query, "textobjects")
-        end
-      end
-      map({ "x", "o" }, "af", select("@function.outer"))
-      map({ "x", "o" }, "if", select("@function.inner"))
-    end,
-  },
-
   ---------------------------------------------------------------------------
-  -- LSP / 補完 / フォーマット
+  -- LSP / フォーマット
   ---------------------------------------------------------------------------
-  { "mason-org/mason.nvim", opts = {} },
+  { "neoclide/coc.nvim", branch = "release" },
   {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    dependencies = { "mason-org/mason.nvim" },
-    event = "VeryLazy",
-    opts = { ensure_installed = { "prettier" } },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
-      "saghen/blink.cmp",
-    },
-    config = function()
-      vim.lsp.config("*", {
-        capabilities = require("blink.cmp").get_lsp_capabilities(),
-      })
-
-      -- Vue: ts_ls に @vue/typescript-plugin を渡す (Volar hybrid mode)
-      local vue_plugin = {
-        name = "@vue/typescript-plugin",
-        location = vim.fn.stdpath("data")
-          .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
-        languages = { "vue" },
-        configNamespace = "typescript",
-      }
-      vim.lsp.config("ts_ls", {
-        init_options = { plugins = { vue_plugin } },
-        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-      })
-      vim.lsp.config("lua_ls", {
-        settings = { Lua = { diagnostics = { globals = { "vim" } } } },
-      })
-
-      -- 入れたサーバは自動で vim.lsp.enable される
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "ts_ls", "vue_ls", "intelephense", "jsonls", "cssls", "html", "lua_ls",
-        },
-      })
+    "prettier/vim-prettier",
+    build = "npm install --omit=dev",
+    init = function()
+      g["prettier#config#config_precedence"] = "file-override"
     end,
-  },
-  { "mason-org/mason-lspconfig.nvim", lazy = true },
-  {
-    "saghen/blink.cmp",
-    version = "1.*",
-    lazy = true,
-    opts = {
-      keymap = {
-        preset = "none",
-        ["<Tab>"] = {
-          "select_next",
-          "snippet_forward",
-          function(cmp)
-            local col = vim.fn.col(".") - 1
-            local before = col > 0 and vim.fn.getline("."):sub(col, col):match("%s") == nil
-            if before then return cmp.show() end
-          end,
-          "fallback",
-        },
-        ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-        ["<CR>"] = { "accept", "fallback" },
-        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-      },
-      completion = {
-        list = { selection = { preselect = false, auto_insert = true } },
-        documentation = { auto_show = true },
-      },
-      sources = { default = { "lsp", "path", "snippets", "buffer" } },
-    },
-  },
-  {
-    "stevearc/conform.nvim",
-    cmd = "ConformInfo",
-    opts = {
-      formatters_by_ft = {
-        javascript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescript = { "prettier" },
-        typescriptreact = { "prettier" },
-        vue = { "prettier" },
-        css = { "prettier" },
-        scss = { "prettier" },
-        html = { "prettier" },
-        json = { "prettier" },
-        jsonc = { "prettier" },
-        yaml = { "prettier" },
-        markdown = { "prettier" },
-      },
-      default_format_opts = { lsp_format = "fallback" },
-    },
   },
   {
     "github/copilot.vim",
@@ -541,16 +456,10 @@ map("n", "<Leader>b", fzf("buffers"), silent)
 map("n", "<Leader>l", fzf("blines"), silent)
 map("n", "<Leader>h", fzf("oldfiles"), silent)
 map("n", "<Leader>r", fzf("registers"), silent)
-map("n", "<Leader>s", fzf("lsp_live_workspace_symbols"), silent)
-map("n", "<space>s", fzf("lsp_live_workspace_symbols"), silent)
-map("n", "<space><space>", ":FzfLua<CR>", silent)
-map("n", "<space>a", fzf("diagnostics_document"), silent)
-map("n", "<space>c", fzf("commands"), silent)
-map("n", "<space>p", fzf("resume"), silent)
-map("n", "<space>e", ":Mason<CR>", silent)
+map("n", "<Leader>s", ":CocList symbols<CR>", silent)
 
--- aerial
-map("n", "<Leader>o", ":AerialToggle<CR>")
+-- Vista
+map("n", "<Leader>o", ":Vista!!<CR>")
 
 -- Git
 map("n", "ghp", function() require("gitsigns").preview_hunk() end)
@@ -574,63 +483,106 @@ map("n", "<C-k>", "<Plug>(yankround-next)", { remap = true })
 map("n", "C", "<Plug>ToggleCase", { remap = true })
 
 -- フォーマット
-map("n", "F", function()
-  require("conform").format({ async = true })
-end)
-vim.api.nvim_create_user_command("Format", function()
-  require("conform").format({ async = true })
-end, {})
-vim.api.nvim_create_user_command("OR", function()
-  vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
-end, {})
+map("n", "F", ":<C-u>Prettier<CR>")
 
 --===============================================================================
--- ▶ LSP キーマップ (coc.nvim の操作感を踏襲)
+-- ▶ coc.nvim
 --===============================================================================
+-- PHP: intelephense を使う (npm i -g intelephense)
 
--- 0.11 標準の gr* マップは `gr` の待ち時間の原因になるので外す
-for _, lhs in ipairs({ "grr", "gri", "gra", "grn", "grt", "grx" }) do
-  for _, mode in ipairs({ "n", "x" }) do
-    pcall(vim.keymap.del, mode, lhs)
-  end
+local function check_back_space()
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
 end
 
-map("n", "[g", function() vim.diagnostic.jump({ count = -1, float = true }) end, silent)
-map("n", "]g", function() vim.diagnostic.jump({ count = 1, float = true }) end, silent)
+-- Tab で補完
+map("i", "<TAB>", function()
+  if vim.fn.pumvisible() == 1 then
+    return "<C-n>"
+  elseif check_back_space() then
+    return "<TAB>"
+  end
+  return vim.fn["coc#refresh"]()
+end, { silent = true, expr = true })
+map("i", "<S-TAB>", function()
+  return vim.fn.pumvisible() == 1 and "<C-p>" or "<C-h>"
+end, { expr = true })
+map("i", "<c-space>", function()
+  return vim.fn["coc#refresh"]()
+end, { silent = true, expr = true })
 
-map("n", "gd", vim.lsp.buf.definition, silent)
-map("n", "gy", vim.lsp.buf.type_definition, silent)
-map("n", "gi", vim.lsp.buf.implementation, silent)
-map("n", "gr", vim.lsp.buf.references, silent)
+-- <CR> で補完確定
+map("i", "<cr>", function()
+  return vim.fn.pumvisible() == 1 and "<C-y>" or "<C-g>u<CR>"
+end, { expr = true })
 
+-- 診断
+map("n", "[g", "<Plug>(coc-diagnostic-prev)", { remap = true, silent = true })
+map("n", "]g", "<Plug>(coc-diagnostic-next)", { remap = true, silent = true })
+
+-- goto
+map("n", "gd", "<Plug>(coc-definition)", { remap = true })
+map("n", "gy", "<Plug>(coc-type-definition)", { remap = true, silent = true })
+map("n", "gi", "<Plug>(coc-implementation)", { remap = true, silent = true })
+map("n", "gr", "<Plug>(coc-references)", { remap = true, silent = true })
+
+-- K でドキュメント表示
 map("n", "K", function()
   if vim.tbl_contains({ "vim", "help" }, vim.bo.filetype) then
     vim.cmd("h " .. vim.fn.expand("<cword>"))
   else
-    vim.lsp.buf.hover()
+    vim.fn.CocAction("doHover")
   end
 end, silent)
 
-map("n", "<leader>rn", vim.lsp.buf.rename)
-map("x", "<leader>a", vim.lsp.buf.code_action)
-map("n", "<leader>ac", vim.lsp.buf.code_action)
-map("n", "<leader>qf", function()
-  vim.lsp.buf.code_action({ context = { only = { "quickfix" } }, apply = true })
-end)
-
 -- カーソル下シンボルのハイライト
-autocmd("LspAttach", {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if client and client:supports_method("textDocument/documentHighlight") then
-      local grp = vim.api.nvim_create_augroup("lsp_highlight_" .. ev.buf, { clear = true })
-      vim.api.nvim_create_autocmd("CursorHold", {
-        group = grp, buffer = ev.buf, callback = vim.lsp.buf.document_highlight,
-      })
-      vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
-        group = grp, buffer = ev.buf, callback = vim.lsp.buf.clear_references,
-      })
-    end
+autocmd("CursorHold", {
+  pattern = "*",
+  callback = function()
+    vim.fn.CocActionAsync("highlight")
   end,
 })
 
+-- リネーム / コードアクション
+map("n", "<leader>rn", "<Plug>(coc-rename)", { remap = true })
+map({ "x", "n" }, "<leader>a", "<Plug>(coc-codeaction-selected)", { remap = true })
+map("n", "<leader>ac", "<Plug>(coc-codeaction)", { remap = true })
+map("n", "<leader>qf", "<Plug>(coc-fix-current)", { remap = true })
+
+-- 関数テキストオブジェクト
+map({ "x", "o" }, "if", "<Plug>(coc-funcobj-i)", { remap = true })
+map({ "x", "o" }, "af", "<Plug>(coc-funcobj-a)", { remap = true })
+
+autocmd("FileType", {
+  pattern = { "typescript", "json" },
+  callback = function()
+    vim.opt_local.formatexpr = "CocAction('formatSelected')"
+  end,
+})
+autocmd("User", {
+  pattern = "CocJumpPlaceholder",
+  callback = function()
+    vim.fn.CocActionAsync("showSignatureHelp")
+  end,
+})
+
+-- コマンド
+vim.api.nvim_create_user_command("Format", function()
+  vim.fn.CocAction("format")
+end, {})
+vim.api.nvim_create_user_command("Fold", function(o)
+  vim.fn.CocAction("fold", unpack(o.fargs))
+end, { nargs = "?" })
+vim.api.nvim_create_user_command("OR", function()
+  vim.fn.CocAction("runCommand", "editor.action.organizeImport")
+end, {})
+
+-- CocList
+map("n", "<space><space>", ":<C-u>CocList<cr>", silent)
+map("n", "<space>a", ":<C-u>CocList diagnostics<cr>", silent)
+map("n", "<space>e", ":<C-u>CocList extensions<cr>", silent)
+map("n", "<space>c", ":<C-u>CocList commands<cr>", silent)
+map("n", "<space>s", ":<C-u>CocList -I symbols<cr>", silent)
+map("n", "<space>j", ":<C-u>CocNext<CR>", silent)
+map("n", "<space>k", ":<C-u>CocPrev<CR>", silent)
+map("n", "<space>p", ":<C-u>CocListResume<CR>", silent)
