@@ -1,148 +1,84 @@
--- init.lua (init.vim からの移植)
--- プラグインマネージャは vim-plug のまま利用
+-- init.lua (モダン化版)  Neovim 0.11+ 想定
+-- 方針: lazy.nvim / ネイティブLSP / treesitter / Lua製プラグインへ移行。
+--       キーバインドは元の使い心地をできるだけ維持。
+
+vim.loader.enable()
 
 local map = vim.keymap.set
 local silent = { silent = true }
-local remap = { remap = true, silent = true }
 local opt = vim.opt
 local g = vim.g
 
-vim.cmd("autocmd!")
-vim.cmd("filetype plugin indent on")
+-- leader は plugin 読み込み前に設定
+g.mapleader = " "
 
--- プラグインエラー表示の無効化
-g.coc_disable_startup_warning = 1
+-- netrw 無効化 (nvim-tree を使うため)
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
 
---===============================================================================
--- ▶ vim-plug
---===============================================================================
-local plug_path = vim.fn.expand("~/.config/nvim/autoload/plug.vim")
-if vim.fn.filereadable(plug_path) == 0 then
-  print("install vim-plug...")
-  vim.fn.system(
-    "curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-  )
-  vim.cmd("source " .. plug_path)
+local aug = vim.api.nvim_create_augroup("user_config", { clear = true })
+local function autocmd(event, opts)
+  opts.group = aug
+  vim.api.nvim_create_autocmd(event, opts)
 end
 
-local Plug = vim.fn["plug#"]
-vim.call("plug#begin", "~/.config/nvim/plugged")
-
--- Library
-Plug("Shougo/vimproc.vim", { dir = "~/.config/nvim/plugged/vimproc.vim", ["do"] = "make" })
-Plug("clones/vim-l9")
-Plug("kana/vim-operator-user")
-
--- Github copilot
-Plug("github/copilot.vim")
-
--- Unite
-Plug("Shougo/unite.vim")
-Plug("Sixeight/unite-grep")
-
--- Vista
-Plug("liuchengxu/vista.vim")
-
--- NERDTree
-Plug("scrooloose/nerdtree")
-Plug("xuyangy/nerdtree-ag-ack")
-
--- QuickFix
-Plug("sk1418/QFGrep")
-Plug("thinca/vim-qfreplace")
-
--- Git
-Plug("gregsexton/gitv")
-Plug("cohama/agit.vim")
-Plug("airblade/vim-gitgutter")
-Plug("tpope/vim-fugitive")
-Plug("idanarye/vim-merginal")
-
--- Colorscheme
-Plug("vim-scripts/wombat256.vim")
-Plug("nanotech/jellybeans.vim")
-Plug("w0ng/vim-hybrid")
-Plug("vim-scripts/twilight")
-
--- Syntax
-Plug("scrooloose/syntastic")
-Plug("cakebaker/scss-syntax.vim")
-Plug("hail2u/vim-css3-syntax")
-Plug("posva/vim-vue")
-Plug("tomlion/vim-solidity")
-Plug("maxmellon/vim-jsx-pretty")
-
--- PHP
-Plug("alvan/vim-php-manual", { ["for"] = "php" })
-Plug("soh335/vim-symfony", { ["for"] = "php" })
-Plug("vim-scripts/PDV--phpDocumentor-for-Vim", { ["for"] = "php" })
-
--- その他
-Plug("dalance/vseq.vim")                  -- 連番
-Plug("bronson/vim-trailing-whitespace")   -- 末尾空白
-Plug("Yggdroot/indentLine")               -- インデント可視化
-Plug("vim-scripts/renamer.vim")           -- ファイル操作
-Plug("Lokaltog/vim-powerline", { rev = "develop" })
-Plug("othree/eregex.vim")                 -- 正規表現
-Plug("mileszs/ack.vim")                   -- 全文検索
-
--- fzf
-Plug("junegunn/fzf", { dir = "~/.fzf", ["do"] = "./install --all" })
-Plug("junegunn/fzf.vim")
-Plug("vim-scripts/FuzzyFinder")
-
--- Other
-Plug("thinca/vim-ref")
-Plug("osyo-manga/vim-over")
-Plug("ujihisa/repl.vim")
-Plug("vim-scripts/sudo.vim")
-Plug("vim-scripts/Align")
-Plug("LeafCage/yankround.vim")
-
-Plug("kana/vim-gf-user")
-Plug("kana/vim-gf-diff")
-Plug("kana/vim-altr")
-Plug("kana/vim-tabpagecd")
-
-Plug("bhritchie/vim-toggle-case")
-Plug("tpope/vim-surround")
-
--- Language server
-Plug("neoclide/coc.nvim", { branch = "release" })
-Plug("neoclide/coc-vetur")
-
-Plug("leafOfTree/vim-vue-plugin")
-Plug("editorconfig/editorconfig-vim")
-Plug("prettier/vim-prettier", { ["do"] = "yarn install" })
-
-vim.call("plug#end")
-
-g["prettier#config#config_precedence"] = "file-override"
-
 --===============================================================================
--- ▶ 基本設定
+-- ▶ オプション
 --===============================================================================
 
--- コア設定
+-- コア
 opt.swapfile = false
 opt.backup = false
 opt.writebackup = false
-opt.hidden = true
-opt.autoread = true
-opt.rtp:append("/usr/local/opt/fzf")
 opt.shada = "!,'10000,<300,s10,h"
+opt.clipboard:append("unnamedplus")
+opt.fixendofline = false -- 旧 `binary noeol` の代替: 末尾改行を勝手に付けない
 
--- フォーマット・文字コード
+-- 文字コード・改行
 opt.fileformats = { "dos", "unix", "mac" }
-opt.encoding = "utf-8"
-opt.fileencoding = "utf-8"
 opt.fileencodings = { "ucs-boms", "utf-8", "iso-2022-jp", "euc-jp", "cp932", "latin1" }
 opt.ambiwidth = "double"
-opt.binary = true
-opt.eol = false
 
--- 基本キーマップ
-g.mapleader = " "
+-- 表示
+opt.termguicolors = true
+opt.background = "dark"
+opt.number = false
+opt.cursorline = true
+opt.virtualedit = "onemore"
+opt.visualbell = true
+opt.showmatch = true
+opt.showmode = false -- lualine が表示する
+opt.laststatus = 2
+opt.signcolumn = "yes"
+opt.updatetime = 300
+opt.wildmode = "list:longest"
+opt.helplang = { "ja", "en" }
+opt.list = true
+opt.listchars = { tab = "▸▸" }
+opt.inccommand = "split"
+
+-- インデント
+opt.expandtab = true
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftwidth = 2
+opt.smartindent = true
+
+-- 検索
+opt.ignorecase = true
+opt.smartcase = true
+vim.cmd("set tags&")
+opt.tags:append({ "plugins/tags", "lib/vendor/tags", "tags;" })
+
+-- 診断
+vim.diagnostic.config({ severity_sort = true })
+
+-- :Cfilter (QuickFix の絞り込み)
+vim.cmd.packadd("cfilter")
+
+--===============================================================================
+-- ▶ 基本キーマップ
+--===============================================================================
 
 map({ "n", "v" }, ";", ":")
 map({ "n", "v" }, ":", ";")
@@ -150,79 +86,39 @@ map({ "n", "v" }, ":", ";")
 map("n", "ss", ":w<CR>")
 map("n", "sc", ":wq<CR>")
 map("n", "q", ":q<CR>")
-
--- マクロ
 map("n", "Q", "q")
 
--- 特定ファイルへのショートカット
+-- 設定ファイル
 map("n", "g.", ":<C-u>edit ~/.config/nvim/init.lua<CR>", silent)
 map("n", "g,", ":<C-u>edit ~/.bashrc<CR>", silent)
 map("n", "g<Space>", ":<C-u>edit $MYVIMRC<CR>", silent)
 map("n", "gn", ":<C-u>bnext<CR>", silent)
--- gp は後述の yankround で上書きされるため bprevious は割り当てない
-
--- 設定の即時適用
 map("n", "<Leader>,", ":<C-u>source $MYVIMRC<CR>")
 
 -- ヘルプ
-opt.helplang = { "ja", "en" }
-map("n", "?", ":<C-u>vertical help  <Bs>")
+map("n", "?", ":<C-u>vertical help ")
 map("n", "??", ":<C-u>vertical help <C-r><C-w><CR>", silent)
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = "help",
   callback = function(ev)
     map("n", "<Return>", "<C-]>", { buffer = ev.buf })
   end,
 })
 
--- 全バッファリロード
 map("n", "R", ":<C-u>bufdo e!<CR>")
-
--- 表示
-vim.cmd("syntax on")
-opt.number = false
-opt.cursorline = true
-opt.virtualedit = "onemore"
-opt.smartindent = true
-opt.visualbell = true
-opt.showmatch = true
-opt.wildmode = "list:longest"
-opt.showcmd = true
-
--- カラースキーマ
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  callback = function()
-    vim.cmd("highlight CursorLine ctermbg=238")
-    vim.cmd("highlight LineNr ctermfg=240")
-    vim.cmd("highlight SpecialKey ctermfg=245")
-  end,
-})
-vim.cmd("colorscheme hybrid")
-opt.background = "dark"
 
 -- 表示切り替え
 map("n", ",h", ":set hlsearch!<CR>", silent)
 map("n", ",n", ":set number!<CR>", silent)
 map("n", ",p", ":set paste!<CR>", silent)
 map("n", ",s", function()
-  if vim.fn.exists("syntax_on") == 1 then
-    vim.cmd("syntax off")
-  else
-    vim.cmd("syntax on")
-  end
+  vim.cmd(vim.fn.exists("syntax_on") == 1 and "syntax off" or "syntax on")
 end, silent)
 map("n", ",u", ":<C-u>setlocal invcursorline<CR>", silent)
-map("n", ",i", ":<C-u>IndentLinesToggle<CR>", silent)
+map("n", ",i", ":<C-u>IBLToggle<CR>", silent)
 map("n", ",t", ":<C-u>set expandtab!<CR>", silent)
 
--- ステータス行
-opt.laststatus = 2
-g.Powerline_symbols = "fancy"
-
 -- カーソル移動
-opt.backspace = { "indent", "eol", "start" }
-
 map({ "n", "v" }, "j", "gj", silent)
 map({ "n", "v" }, "k", "gk", silent)
 map({ "n", "v" }, "gj", "j", silent)
@@ -234,18 +130,15 @@ map("n", "b", "h")
 map("n", "l", "w")
 map("n", "h", "b")
 
--- タブ・インデント
-opt.expandtab = true
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.autoindent = true
-opt.smartindent = true
-opt.shiftwidth = 2
-g.indentLine_enabled = 0
-opt.list = true
-opt.listchars = { tab = "▸▸" }
+-- 移動後の表示位置を画面中央に
+map("n", "n", "nzz")
+map("n", "N", "Nzz")
+map("n", "[[", "[[<Esc>zz")
+map("n", "]]", "]]<Esc>zz")
+map("n", "<C-o>", "<C-o>zz", silent)
+map("n", "gc", "`[v`]")
 
--- ウィンドウ（タブ）移動
+-- タブ・ウィンドウ
 map("n", "<C-n>", ":tabnew<CR>", silent)
 map("n", "ts", ":<C-u>vsp<CR>", silent)
 map("n", "tS", ":<C-u>sp<CR>", silent)
@@ -264,346 +157,57 @@ map("n", "tj", "<C-w>j", silent)
 map("n", "tk", "<C-w>k", silent)
 map("n", "tc", ":<C-u>tab sp<CR>", silent)
 
--- Ack/Ag
-g.ackprg = "ag --vimgrep"
-
 -- QuickFix
-g.ack_apply_qmappings = 0
-g.ack_apply_lmappings = 0
-
-vim.api.nvim_create_autocmd("TabLeave", { pattern = "*", command = "cclose" })
-
+autocmd("TabLeave", { pattern = "*", command = "cclose" })
 map("n", "<Down>", ":<C-u>cn<CR>zz", silent)
 map("n", "<Up>", ":<C-u>cp<CR>zz", silent)
 map("n", ",q", ":<C-u>copen 20<CR>:set number<CR>", silent)
+map("n", "<space>j", ":<C-u>cn<CR>zz", silent)
+map("n", "<space>k", ":<C-u>cp<CR>zz", silent)
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = "qf",
   callback = function(ev)
     local o = { buffer = ev.buf }
     map("n", "q", ":close<CR>", o)
     map("n", "<Return>", "<Return>", o)
     map("n", "rr", ":Qfreplace<CR>", o)
-    map("n", "ss", ":<C-u>QFGrepPat  <BS>", o)
-    map("n", "vv", ":<C-u>QFGrepPatV  <BS>", o)
+    map("n", "ss", ":<C-u>Cfilter ", o)  -- 含む行だけに絞り込み
+    map("n", "vv", ":<C-u>Cfilter! ", o) -- 含む行を除外
   end,
 })
 
--- 検索・タグジャンプ
-vim.cmd("set tags&")
-opt.tags:append({ "plugins/tags", "lib/vendor/tags", "tags;" })
-opt.ignorecase = true
-opt.smartcase = true
-
+-- eregex (/ を拡張正規表現に)
 g.eregex_default_enable = 0
 map("n", "/", ":<C-u>M/")
 map("v", "/", ":M/")
-
-opt.tagbsearch = true
-
-map("n", "<Return>", ":GFiles  *<C-r><C-w>*<CR>", silent)
-
-map("n", "n", "nzz")
-map("n", "N", "Nzz")
-map("n", "[[", "[[<Esc>zz")
-map("n", "]]", "]]<Esc>zz")
-map("n", "<C-o>", "<C-o>zz", silent)
-
--- 置換
 map("n", "s/", ":<C-u>OverCommandLine<CR>%S/")
 map("v", "s/", ":OverCommandLine<CR>S/")
 
--- ビジュアルモード・選択
-map("n", "gc", "`[v`]")
--- ga / gi の VisualCurrentIndentBlock は未定義かつ gi は coc で上書きされるため省略
-
--- ヤンク・ペースト
-opt.clipboard:append("unnamed")
-
--- yankround
-map({ "n", "x" }, "p", "<Plug>(yankround-p)", { remap = true })
-map("n", "P", "<Plug>(yankround-P)", { remap = true })
-map({ "n", "x" }, "gp", "<Plug>(yankround-gp)", { remap = true })
-map("n", "gP", "<Plug>(yankround-gP)", { remap = true })
-map("n", "<C-j>", "<Plug>(yankround-prev)", { remap = true })
-map("n", "<C-k>", "<Plug>(yankround-next)", { remap = true })
-
--- テキスト整形
-map("n", "F", ":<C-u>Prettier<CR>")
-
--- Align
-if vim.fn.exists(":AlignMapsClear") == 2 then
-  vim.cmd("AlignMapsClear")
-end
-g.Align_xstrlen = 3
-vim.fn["Align#AlignCtrl"]("v", "^#")
-vim.fn["Align#AlignCtrl"]("|W")
-
--- Yaml (複雑な正規表現が多いので Vimscript のまま)
+-- YAML (Align + eregex の :S を使う。複雑なので Vimscript のまま)
 vim.cmd([=[
 nnoremap <silent> \y <S-v>:S/(\{\s*\|,\s*)/\r      /g<CR><S-v>:S/\s*\}//<CR>j
 vnoremap <silent> \y :Align : <CR>gv:S/(\s+):/:\1/<CR>gv:S/\s+:/:/ge<CR>gv:S@/\s*:\s*@/:@ge<CR>gv:S/\s+$//ge<CR>gv:S@(https?:)\s+//@\1//@ge<CR>
 ]=])
 
--- ToggleCase
-map("n", "C", "<Plug>ToggleCase", { remap = true })
-
 -- 連番入力
-vim.cmd([=[
-command! -count -nargs=1 ContinuousNumber let snf=&nf|set nf-=octal|let cl = col('.')|for nc in range(1, <count>?<count>-line('.'):1)|exe 'normal! j' . nc . <q-args>|call cursor('.', cl)|endfor|unlet cl|unlet snf
-]=])
-map({ "n", "v" }, "co", ":ContinuousNumber <C-a><CR>", silent)
-
---===============================================================================
--- ▶ プラグイン設定
---===============================================================================
-
--- NERDTree
-g.NERDTreeIgnore = {
-  "^\\.git$",
-  "^tags$",
-  "\\btags$",
-  "^sf$",
-  "\\.\\(xls\\|png\\|jpg\\|gif\\|map\\|pdf\\|bak\\)$",
-  "\\~$",
-  "^backup$",
-  "^log$",
-  "^var$",
-  "^om$",
-  "^dist$",
-  "^uploads$",
-  "^images$",
-  "^vendor$",
-  "^node_modules$",
-  "^__pycache__$",
-  "^bundle$",
-}
-g.NERDTreeQuitOnOpen = 1
-g.NERDTreeWinSize = 40
-g.NERDTreeShowBookmarks = 1
-g.NERDTreeMapToggleHidden = "."
-g.NERDTreeCascadeSingleChildDir = 0
-g.NERDTreeCascadeOpenSingleChildDir = 0
-
-vim.api.nvim_create_autocmd("TabLeave", { pattern = "*", command = "NERDTreeClose" })
-
-map("n", "<C-s>", ":NERDTreeFind<CR>")
-map("n", "<C-e>", ":NERDTreeToggle<CR>")
-
--- fzf
-g.fzf_layout = { up = "~40%" }
-g.fzf_buffers_jump = 1
-
-map("n", "<Leader>g", ":Rg<CR>", silent)
-map("n", "<Leader>G", ":Rg <C-r><C-w><CR>", silent)
-map("n", "<Leader>s", ":CocList symbols<CR>", silent)
-map("n", "<Leader>t", ":Tags<CR>", silent)
-map("n", "<Leader>f", ":Files<CR>", silent)
-map("n", "<Leader>F", ":GFiles<CR>", silent)
-map("n", "<Leader>b", ":Buffers<CR>", silent)
-map("n", "<Leader>l", ":BLines<CR>", silent)
-map("n", "<Leader>h", ":History<CR>", silent)
-
-vim.api.nvim_create_user_command("History", function(o)
-  vim.fn["fzf#vim#history"]({ options = "--tiebreak=begin --no-sort" }, o.bang and 1 or 0)
-end, { bang = true, nargs = "*" })
-
--- GitGutter
-map("n", "ghp", "<Plug>(GitGutterPreviewHunk)", { remap = true })
-map("n", "ghs", "<Plug>(GitGutterStageHunk)", { remap = true })
-map("n", "ghu", "<Plug>(GitGutterUndoHunk)", { remap = true })
-
--- Unite
-vim.fn["unite#custom#profile"]("default", "context", {
-  vertical = 1,
-  toggle = 1,
-  winwidth = 60,
-})
-
-map("n", "<Leader>B", ":Unite buffer:- -buffer-name=files -no-quit<CR>")
-map("n", "<Leader>r", ":Unite register -buffer-name=register<CR>")
-map("n", "<Leader>R", ":Unite register -buffer-name=register -no-quit<CR>")
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "unite",
-  callback = function(ev)
-    local o = { buffer = ev.buf }
-    map("n", "th", "<C-W>h", o)
-    map("n", "tj", "<C-W>j", o)
-    map("n", "tk", "<C-W>k", o)
-    map("n", "tl", "<C-W>l", o)
-    map("n", "<Esc>", ":UniteClose<CR>", o)
-  end,
-})
-
--- Unite のカスタムフィルタ (Vimscript の関数辞書を使うためそのまま)
-vim.cmd([=[
-let s:filters = {
-\   "name" : "my_converter",
-\}
-
-function! s:filters.filter(candidates, context)
-    for candidate in a:candidates
-        let bufname = bufname(candidate.action__buffer_nr)
-        let filename = fnamemodify(bufname, ':p:t')
-        let path = fnamemodify(bufname, ':p:h')
-        let candidate.abbr = printf("%s: %s", filename, path)
-    endfor
-    return a:candidates
-endfunction
-
-call unite#define_filter(s:filters)
-unlet s:filters
-call unite#custom#source('buffer', 'converters', 'my_converter')
-]=])
-
--- Vista
-g.vista_default_executive = "coc"
-g.vista_fzf_preview = { "right:50%" }
-g.vista_sidebar_width = 60
-g.vista_enable_markdown_extension = 0
-map("n", "<Leader>o", ":Vista!!<CR>")
-
--- Symfony
-map("n", ",a", ":<C-u>Saction<CR>")
-map("n", ",v", ":<C-u>Sview<CR>")
-
---===============================================================================
--- ▶ Git関連設定
---===============================================================================
-
--- Fugitive
-map("n", "<C-g>a", ":Gwrite<CR>")
-map("n", "<C-g>b", ":Git blame<CR>")
-map("n", "<C-g>c", ":Gcommit -v<CR>")
-map("n", "<C-g>d", ":Gvdiffsplit<CR>")
-map("n", "<C-g>r", ":Gread<CR>")
-map("n", "<C-g>s", ":Git<CR>")
-
--- Agit
-map("n", "<C-g>l", ":Agit<CR>")
-
---===============================================================================
--- ▶ coc.nvim
---===============================================================================
--- PHP: intelephense を使う
--- npm -i intelephense -g
-
-opt.cmdheight = 2
-opt.updatetime = 300
-opt.shortmess:append("c")
-opt.signcolumn = "yes"
-
-local function check_back_space()
-  local col = vim.fn.col(".") - 1
-  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
-end
-
--- Tab で補完
-map("i", "<TAB>", function()
-  if vim.fn.pumvisible() == 1 then
-    return "<C-n>"
-  elseif check_back_space() then
-    return "<TAB>"
-  else
-    return vim.fn["coc#refresh"]()
+vim.api.nvim_create_user_command("ContinuousNumber", function(o)
+  local keys = o.args ~= "" and o.args or "\1" -- 既定は <C-a>
+  local col = vim.fn.col(".")
+  local count = o.range > 0 and (o.line2 - o.line1) or 1
+  local saved = vim.o.nrformats
+  vim.opt.nrformats:remove("octal")
+  vim.fn.cursor(o.line1, col)
+  for i = 1, count do
+    vim.cmd("normal! j" .. i .. keys)
+    vim.fn.cursor(vim.fn.line("."), col)
   end
-end, { silent = true, expr = true })
-map("i", "<S-TAB>", function()
-  return vim.fn.pumvisible() == 1 and "<C-p>" or "<C-h>"
-end, { expr = true })
-
-map("i", "<c-space>", function()
-  return vim.fn["coc#refresh"]()
-end, { silent = true, expr = true })
-
--- <CR> で補完確定
-map("i", "<cr>", function()
-  return vim.fn.pumvisible() == 1 and "<C-y>" or "<C-g>u<CR>"
-end, { expr = true })
-
--- 診断
-map("n", "[g", "<Plug>(coc-diagnostic-prev)", remap)
-map("n", "]g", "<Plug>(coc-diagnostic-next)", remap)
-
--- goto
-map("n", "gd", "<Plug>(coc-definition)", { remap = true })
-map("n", "gy", "<Plug>(coc-type-definition)", remap)
-map("n", "gi", "<Plug>(coc-implementation)", remap)
-map("n", "gr", "<Plug>(coc-references)", remap)
-
--- K でドキュメント表示
-local function show_documentation()
-  if vim.tbl_contains({ "vim", "help" }, vim.bo.filetype) then
-    vim.cmd("h " .. vim.fn.expand("<cword>"))
-  else
-    vim.fn.CocAction("doHover")
-  end
-end
-map("n", "K", show_documentation, silent)
-
--- カーソル下シンボルのハイライト
-vim.api.nvim_create_autocmd("CursorHold", {
-  pattern = "*",
-  callback = function()
-    vim.fn.CocActionAsync("highlight")
-  end,
-})
-
--- リネーム
-map("n", "<leader>rn", "<Plug>(coc-rename)", { remap = true })
-
-local mygroup = vim.api.nvim_create_augroup("mygroup", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-  group = mygroup,
-  pattern = { "typescript", "json" },
-  callback = function()
-    vim.opt_local.formatexpr = "CocAction('formatSelected')"
-  end,
-})
-vim.api.nvim_create_autocmd("User", {
-  group = mygroup,
-  pattern = "CocJumpPlaceholder",
-  callback = function()
-    vim.fn.CocActionAsync("showSignatureHelp")
-  end,
-})
-
--- コードアクション
-map({ "x", "n" }, "<leader>a", "<Plug>(coc-codeaction-selected)", { remap = true })
-map("n", "<leader>ac", "<Plug>(coc-codeaction)", { remap = true })
-map("n", "<leader>qf", "<Plug>(coc-fix-current)", { remap = true })
-
--- 関数テキストオブジェクト
-map({ "x", "o" }, "if", "<Plug>(coc-funcobj-i)", { remap = true })
-map({ "x", "o" }, "af", "<Plug>(coc-funcobj-a)", { remap = true })
-
--- コマンド
-vim.api.nvim_create_user_command("Format", function()
-  vim.fn.CocAction("format")
-end, { nargs = 0 })
-vim.api.nvim_create_user_command("Fold", function(o)
-  vim.fn.CocAction("fold", unpack(o.fargs))
-end, { nargs = "?" })
-vim.api.nvim_create_user_command("OR", function()
-  vim.fn.CocAction("runCommand", "editor.action.organizeImport")
-end, { nargs = 0 })
-
--- ステータスライン
-opt.statusline:prepend("%{coc#status()}%{get(b:,'coc_current_function','')}")
-
--- CocList
-map("n", "<space><space>", ":<C-u>CocList<cr>", silent)
-map("n", "<space>a", ":<C-u>CocList diagnostics<cr>", silent)
-map("n", "<space>e", ":<C-u>CocList extensions<cr>", silent)
-map("n", "<space>c", ":<C-u>CocList commands<cr>", silent)
-map("n", "<space>s", ":<C-u>CocList -I symbols<cr>", silent)
-map("n", "<space>j", ":<C-u>CocNext<CR>", silent)
-map("n", "<space>k", ":<C-u>CocPrev<CR>", silent)
-map("n", "<space>p", ":<C-u>CocListResume<CR>", silent)
+  vim.o.nrformats = saved
+end, { range = true, nargs = "?" })
+map({ "n", "v" }, "co", ":ContinuousNumber<CR>", silent)
 
 -- 無名バッファの自動削除
-local function clean_no_name_empty_buffers()
+map("n", ",C", function()
   local buffers = {}
   for nr = 1, vim.fn.bufnr("$") do
     if vim.fn.buflisted(nr) == 1
@@ -619,5 +223,414 @@ local function clean_no_name_empty_buffers()
   else
     print("No buffer deleted")
   end
+end, silent)
+
+--===============================================================================
+-- ▶ カラースキーム用ハイライト (colorscheme 読み込み前に登録)
+--===============================================================================
+autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    vim.cmd("highlight CursorLine ctermbg=238 guibg=#444444")
+    vim.cmd("highlight LineNr ctermfg=240 guifg=#585858")
+    vim.cmd("highlight SpecialKey ctermfg=245 guifg=#8a8a8a")
+  end,
+})
+
+--===============================================================================
+-- ▶ lazy.nvim
+--===============================================================================
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system({
+    "git", "clone", "--filter=blob:none", "--branch=stable",
+    "https://github.com/folke/lazy.nvim.git", lazypath,
+  })
 end
-map("n", ",C", clean_no_name_empty_buffers, silent)
+opt.rtp:prepend(lazypath)
+
+-- copilot.vim の Tab マップを無効化 (補完メニューと競合するため)
+g.copilot_no_tab_map = true
+
+local function fzf(name, opts)
+  return function()
+    require("fzf-lua")[name](opts)
+  end
+end
+
+require("lazy").setup({
+  ---------------------------------------------------------------------------
+  -- カラースキーム / UI
+  ---------------------------------------------------------------------------
+  {
+    "w0ng/vim-hybrid",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("hybrid")
+    end,
+  },
+  { "nvim-tree/nvim-web-devicons", lazy = true },
+  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, opts = {} },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    event = "VeryLazy",
+    opts = { enabled = false },
+  },
+  {
+    "nvim-mini/mini.trailspace",
+    event = "VeryLazy",
+    config = function()
+      require("mini.trailspace").setup()
+      vim.api.nvim_create_user_command("FixWhitespace", function()
+        require("mini.trailspace").trim()
+      end, {})
+    end,
+  },
+
+  ---------------------------------------------------------------------------
+  -- ファイラー / 検索 / アウトライン
+  ---------------------------------------------------------------------------
+  {
+    "nvim-tree/nvim-tree.lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = { "NvimTreeToggle", "NvimTreeFindFile", "NvimTreeClose" },
+    opts = {
+      view = { width = 40 },
+      renderer = { group_empty = false },
+      actions = { open_file = { quit_on_open = true } },
+      filters = {
+        custom = {
+          "^\\.git$", "^tags$", "\\btags$", "^sf$",
+          "\\.\\(xls\\|png\\|jpg\\|gif\\|map\\|pdf\\|bak\\)$",
+          "\\~$", "^backup$", "^log$", "^var$", "^om$", "^dist$",
+          "^uploads$", "^images$", "^vendor$", "^node_modules$",
+          "^__pycache__$", "^bundle$",
+        },
+      },
+      on_attach = function(bufnr)
+        local api = require("nvim-tree.api")
+        api.config.mappings.default_on_attach(bufnr)
+        map("n", ".", api.tree.toggle_hidden_filter, { buffer = bufnr })
+      end,
+    },
+  },
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "FzfLua",
+    opts = { winopts = { height = 0.4, width = 1.0, row = 0, col = 0 } },
+  },
+  {
+    "stevearc/aerial.nvim",
+    cmd = { "AerialToggle", "AerialOpen" },
+    opts = { backends = { "lsp", "treesitter" }, layout = { min_width = 60 } },
+  },
+
+  ---------------------------------------------------------------------------
+  -- Git
+  ---------------------------------------------------------------------------
+  {
+    "tpope/vim-fugitive",
+    cmd = { "Git", "G", "Gwrite", "Gread", "Gvdiffsplit", "Gdiffsplit" },
+  },
+  { "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" }, opts = {} },
+  { "sindrets/diffview.nvim", cmd = { "DiffviewOpen", "DiffviewFileHistory" } },
+
+  ---------------------------------------------------------------------------
+  -- Treesitter
+  ---------------------------------------------------------------------------
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter").install({
+        "lua", "vim", "vimdoc", "php", "javascript", "typescript", "tsx",
+        "vue", "html", "css", "scss", "json", "yaml", "markdown",
+        "markdown_inline", "bash", "solidity",
+      })
+      autocmd("FileType", {
+        callback = function(ev)
+          pcall(vim.treesitter.start, ev.buf)
+        end,
+      })
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-treesitter-textobjects").setup({ select = { lookahead = true } })
+      local function select(query)
+        return function()
+          require("nvim-treesitter-textobjects.select").select_textobject(query, "textobjects")
+        end
+      end
+      map({ "x", "o" }, "af", select("@function.outer"))
+      map({ "x", "o" }, "if", select("@function.inner"))
+    end,
+  },
+
+  ---------------------------------------------------------------------------
+  -- LSP / 補完 / フォーマット
+  ---------------------------------------------------------------------------
+  { "mason-org/mason.nvim", opts = {} },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    event = "VeryLazy",
+    opts = { ensure_installed = { "prettier" } },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+      "saghen/blink.cmp",
+    },
+    config = function()
+      vim.lsp.config("*", {
+        capabilities = require("blink.cmp").get_lsp_capabilities(),
+      })
+
+      -- Vue: ts_ls に @vue/typescript-plugin を渡す (Volar hybrid mode)
+      local vue_plugin = {
+        name = "@vue/typescript-plugin",
+        location = vim.fn.stdpath("data")
+          .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+        languages = { "vue" },
+        configNamespace = "typescript",
+      }
+      vim.lsp.config("ts_ls", {
+        init_options = { plugins = { vue_plugin } },
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+      })
+      vim.lsp.config("lua_ls", {
+        settings = { Lua = { diagnostics = { globals = { "vim" } } } },
+      })
+
+      -- 入れたサーバは自動で vim.lsp.enable される
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "ts_ls", "vue_ls", "intelephense", "jsonls", "cssls", "html", "lua_ls",
+        },
+      })
+    end,
+  },
+  { "mason-org/mason-lspconfig.nvim", lazy = true },
+  {
+    "saghen/blink.cmp",
+    version = "1.*",
+    lazy = true,
+    opts = {
+      keymap = {
+        preset = "none",
+        ["<Tab>"] = {
+          "select_next",
+          "snippet_forward",
+          function(cmp)
+            local col = vim.fn.col(".") - 1
+            local before = col > 0 and vim.fn.getline("."):sub(col, col):match("%s") == nil
+            if before then return cmp.show() end
+          end,
+          "fallback",
+        },
+        ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+        ["<CR>"] = { "accept", "fallback" },
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+      },
+      completion = {
+        list = { selection = { preselect = false, auto_insert = true } },
+        documentation = { auto_show = true },
+      },
+      sources = { default = { "lsp", "path", "snippets", "buffer" } },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    cmd = "ConformInfo",
+    opts = {
+      formatters_by_ft = {
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+        vue = { "prettier" },
+        css = { "prettier" },
+        scss = { "prettier" },
+        html = { "prettier" },
+        json = { "prettier" },
+        jsonc = { "prettier" },
+        yaml = { "prettier" },
+        markdown = { "prettier" },
+      },
+      default_format_opts = { lsp_format = "fallback" },
+    },
+  },
+  {
+    "github/copilot.vim",
+    event = "InsertEnter",
+    config = function()
+      map("i", "<C-l>", 'copilot#Accept("\\<CR>")', {
+        expr = true, replace_keycodes = false, silent = true,
+      })
+    end,
+  },
+
+  ---------------------------------------------------------------------------
+  -- 編集まわり (従来のプラグインを継続利用)
+  ---------------------------------------------------------------------------
+  { "tpope/vim-surround" },
+  { "bhritchie/vim-toggle-case" },
+  { "LeafCage/yankround.vim" },
+  { "vim-scripts/Align", config = function()
+      g.Align_xstrlen = 3
+      vim.fn["Align#AlignCtrl"]("v", "^#")
+      vim.fn["Align#AlignCtrl"]("|W")
+    end },
+  { "othree/eregex.vim" },
+  { "osyo-manga/vim-over" },
+  { "thinca/vim-qfreplace" },
+  { "dalance/vseq.vim" },
+}, {
+  change_detection = { notify = false },
+  rocks = { enabled = false },
+})
+
+-- Align が勝手に作るマップを消す (プラグイン読み込み後に実行)
+autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    if vim.fn.exists(":AlignMapsClear") == 2 then
+      vim.cmd("AlignMapsClear")
+    end
+  end,
+})
+
+--===============================================================================
+-- ▶ プラグインのキーマップ
+--===============================================================================
+
+-- NvimTree
+map("n", "<C-s>", ":NvimTreeFindFile<CR>")
+map("n", "<C-e>", ":NvimTreeToggle<CR>")
+autocmd("TabLeave", {
+  pattern = "*",
+  callback = function()
+    if package.loaded["nvim-tree"] then
+      require("nvim-tree.api").tree.close()
+    end
+  end,
+})
+
+-- fzf-lua
+map("n", "<Return>", function()
+  require("fzf-lua").git_files({ query = vim.fn.expand("<cword>") })
+end, silent)
+map("n", "<Leader>g", fzf("live_grep"), silent)
+map("n", "<Leader>G", fzf("grep_cword"), silent)
+map("n", "<Leader>t", fzf("tags"), silent)
+map("n", "<Leader>f", fzf("files"), silent)
+map("n", "<Leader>F", fzf("git_files"), silent)
+map("n", "<Leader>b", fzf("buffers"), silent)
+map("n", "<Leader>l", fzf("blines"), silent)
+map("n", "<Leader>h", fzf("oldfiles"), silent)
+map("n", "<Leader>r", fzf("registers"), silent)
+map("n", "<Leader>s", fzf("lsp_live_workspace_symbols"), silent)
+map("n", "<space>s", fzf("lsp_live_workspace_symbols"), silent)
+map("n", "<space><space>", ":FzfLua<CR>", silent)
+map("n", "<space>a", fzf("diagnostics_document"), silent)
+map("n", "<space>c", fzf("commands"), silent)
+map("n", "<space>p", fzf("resume"), silent)
+map("n", "<space>e", ":Mason<CR>", silent)
+
+-- aerial
+map("n", "<Leader>o", ":AerialToggle<CR>")
+
+-- Git
+map("n", "ghp", function() require("gitsigns").preview_hunk() end)
+map("n", "ghs", function() require("gitsigns").stage_hunk() end)
+map("n", "ghu", function() require("gitsigns").reset_hunk() end)
+map("n", "<C-g>a", ":Gwrite<CR>")
+map("n", "<C-g>b", ":Git blame<CR>")
+map("n", "<C-g>c", ":Git commit -v<CR>")
+map("n", "<C-g>d", ":Gvdiffsplit<CR>")
+map("n", "<C-g>r", ":Gread<CR>")
+map("n", "<C-g>s", ":Git<CR>")
+map("n", "<C-g>l", ":DiffviewFileHistory<CR>")
+
+-- yankround / toggle-case
+map({ "n", "x" }, "p", "<Plug>(yankround-p)", { remap = true })
+map("n", "P", "<Plug>(yankround-P)", { remap = true })
+map({ "n", "x" }, "gp", "<Plug>(yankround-gp)", { remap = true })
+map("n", "gP", "<Plug>(yankround-gP)", { remap = true })
+map("n", "<C-j>", "<Plug>(yankround-prev)", { remap = true })
+map("n", "<C-k>", "<Plug>(yankround-next)", { remap = true })
+map("n", "C", "<Plug>ToggleCase", { remap = true })
+
+-- フォーマット
+map("n", "F", function()
+  require("conform").format({ async = true })
+end)
+vim.api.nvim_create_user_command("Format", function()
+  require("conform").format({ async = true })
+end, {})
+vim.api.nvim_create_user_command("OR", function()
+  vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
+end, {})
+
+--===============================================================================
+-- ▶ LSP キーマップ (coc.nvim の操作感を踏襲)
+--===============================================================================
+
+-- 0.11 標準の gr* マップは `gr` の待ち時間の原因になるので外す
+for _, lhs in ipairs({ "grr", "gri", "gra", "grn", "grt", "grx" }) do
+  for _, mode in ipairs({ "n", "x" }) do
+    pcall(vim.keymap.del, mode, lhs)
+  end
+end
+
+map("n", "[g", function() vim.diagnostic.jump({ count = -1, float = true }) end, silent)
+map("n", "]g", function() vim.diagnostic.jump({ count = 1, float = true }) end, silent)
+
+map("n", "gd", vim.lsp.buf.definition, silent)
+map("n", "gy", vim.lsp.buf.type_definition, silent)
+map("n", "gi", vim.lsp.buf.implementation, silent)
+map("n", "gr", vim.lsp.buf.references, silent)
+
+map("n", "K", function()
+  if vim.tbl_contains({ "vim", "help" }, vim.bo.filetype) then
+    vim.cmd("h " .. vim.fn.expand("<cword>"))
+  else
+    vim.lsp.buf.hover()
+  end
+end, silent)
+
+map("n", "<leader>rn", vim.lsp.buf.rename)
+map("x", "<leader>a", vim.lsp.buf.code_action)
+map("n", "<leader>ac", vim.lsp.buf.code_action)
+map("n", "<leader>qf", function()
+  vim.lsp.buf.code_action({ context = { only = { "quickfix" } }, apply = true })
+end)
+
+-- カーソル下シンボルのハイライト
+autocmd("LspAttach", {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client and client:supports_method("textDocument/documentHighlight") then
+      local grp = vim.api.nvim_create_augroup("lsp_highlight_" .. ev.buf, { clear = true })
+      vim.api.nvim_create_autocmd("CursorHold", {
+        group = grp, buffer = ev.buf, callback = vim.lsp.buf.document_highlight,
+      })
+      vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
+        group = grp, buffer = ev.buf, callback = vim.lsp.buf.clear_references,
+      })
+    end
+  end,
+})
+
